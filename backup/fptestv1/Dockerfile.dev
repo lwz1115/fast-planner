@@ -1,0 +1,43 @@
+# 使用官方 ROS Noetic 镜像（Ubuntu 20.04 + Python 3.8）
+FROM osrf/ros:noetic-desktop-full
+
+# 防止交互式安装
+ENV DEBIAN_FRONTEND=noninteractive
+
+# 安装基础依赖 + FastAPI
+RUN apt-get update && apt-get install -y \
+    git \
+    cmake \
+    build-essential \
+    libarmadillo-dev \
+    curl \
+    python3-pip \
+    python3-catkin-tools \
+    && rm -rf /var/lib/apt/lists/*
+
+# 安装 Python dependencies for FastAPI service
+# Copy requirements first for better Docker layer caching
+COPY fastapi_planner/requirements.txt /tmp/fastapi_requirements.txt
+RUN pip3 install --no-cache-dir -r /tmp/fastapi_requirements.txt && \
+    pip3 install --no-cache-dir python-multipart && \
+    rm /tmp/fastapi_requirements.txt
+
+# 安装 NLopt v2.7.1（必须精确版本）
+RUN git clone -b v2.7.1 https://github.com/stevengj/nlopt.git /tmp/nlopt && \
+    cd /tmp/nlopt && mkdir build && cd build && \
+    cmake .. && make -j$(nproc) && make install && \
+    rm -rf /tmp/nlopt
+
+# 创建工作空间
+RUN mkdir -p /root/catkin_ws/src
+WORKDIR /root/catkin_ws
+
+# 环境变量
+RUN echo "source /opt/ros/noetic/setup.bash" >> /root/.bashrc && \
+    echo "test -f /root/catkin_ws/devel/setup.bash && source /root/catkin_ws/devel/setup.bash || true" >> /root/.bashrc
+
+# 暴露端口（ROS 和 FastAPI）
+EXPOSE 1919
+EXPOSE 8000
+
+CMD ["bash"]

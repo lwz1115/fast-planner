@@ -1,0 +1,112 @@
+# FastAPI-Fast-Planner Interface Configuration
+
+# ROS Configuration
+ros:
+  # ROS Master URI - can be overridden by ROS_MASTER_URI environment variable
+  master_uri: "http://localhost:11311"
+  
+  # ROS node name for this service
+  node_name: "fastapi_planner_bridge"
+  
+  # ROS topic names
+  topics:
+    # Odometry topic (nav_msgs/Odometry)
+    odometry: "/state_ukf/odom"
+    
+    # Default goal topic for Fast-Planner (geometry_msgs/PoseStamped)
+    goal: "/move_base_simple/goal"
+    
+    # Trajectory result topic (plan_manage/Bspline)
+    trajectory: "/planning/bspline"
+    
+    # Alternative goal topic (if needed)
+    planning_goal: "/planning/goal"
+    
+    # Point cloud topic for depth image processing (sensor_msgs/PointCloud2)
+    point_cloud: "/depth_cloud"
+    
+    # Algorithm-specific goal topics (optional)
+    # If not set, the default 'goal' topic will be used
+    # kinodynamic_goal: "/planning/kinodynamic/goal"
+    # topological_goal: "/planning/topological/goal"
+
+# Planning Configuration
+planning:
+  # Default maximum velocity (m/s)
+  default_max_velocity: 3.0
+  
+  # Default maximum acceleration (m/s^2)
+  default_max_acceleration: 2.0
+  
+  # Planning timeout in seconds
+  planning_timeout: 10.0
+  
+  # Trajectory sampling rate (Hz) - waypoints per second
+  trajectory_sample_rate: 10.0
+  
+  # Maximum allowed velocity (m/s)
+  max_velocity_limit: 10.0
+  
+  # Maximum allowed acceleration (m/s^2)
+  max_acceleration_limit: 10.0
+
+# Map Configuration
+map:
+  # Map size boundaries for validation (meters)
+  size_x: 40.0
+  size_y: 20.0
+  size_z: 5.0
+  
+  # Map origin (if needed for coordinate transformation)
+  origin_x: 0.0
+  origin_y: 0.0
+  origin_z: 0.0
+
+# Depth Processing Configuration
+depth:
+  # Minimum depth threshold in meters (points closer than this are filtered out)
+  min_depth: 0.1
+  
+  # Maximum depth threshold in meters (points farther than this are filtered out)
+  max_depth: 10.0
+  
+  # Voxel size for point cloud downsampling in meters
+  # Smaller values preserve more detail but increase point count
+  voxel_size: 0.05
+  
+  # Maximum number of depth images allowed in a batch request
+  max_batch_size: 10
+  
+  # Default depth image encoding format
+  # Supported values: "16UC1" (16-bit unsigned integer), "32FC1" (32-bit float)
+  default_encoding: "16UC1"
+
+# Service Configuration
+service:
+  # Host address to bind the service
+  host: "0.0.0.0"
+  
+  # Port number for the FastAPI service
+  port: 8000
+  
+  # Log level: debug, info, warning, error, critical
+  log_level: "info"
+  
+  # Enable CORS (Cross-Origin Resource Sharing)
+  enable_cors: true
+  
+  # CORS allowed origins (use ["*"] for all origins)
+  cors_origins:
+    - "*"
+  
+  # API documentation
+  docs_url: "/docs"
+  redoc_url: "/redoc"
+  
+  # Health check configuration
+  health_check:
+    # Maximum age of odometry data in seconds before considered stale
+    max_odometry_age: 1.0
+    
+    # Interval to check Fast-Planner node availability (seconds)
+    planner_check_interval: 5.0

@@ -1,0 +1,8 @@
+prefix=/root/catkin_ws/devel
+
+Name: traj_utils
+Description: Description of traj_utils
+Version: 0.0.0
+Cflags: -I/root/catkin_ws/src/Fast-Planner/fast_planner/traj_utils/include
+Libs: -L${prefix}/lib -ltraj_utils
+Requires: path_searching bspline bspline_opt poly_traj
