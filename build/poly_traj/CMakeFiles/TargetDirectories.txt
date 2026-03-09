@@ -1,0 +1,10 @@
+/root/colcon_ws/build/poly_traj/CMakeFiles/uninstall.dir
+/root/colcon_ws/build/poly_traj/CMakeFiles/poly_traj_uninstall.dir
+/root/colcon_ws/build/poly_traj/CMakeFiles/poly_traj.dir
+/root/colcon_ws/build/poly_traj/CMakeFiles/test.dir
+/root/colcon_ws/build/poly_traj/CMakeFiles/edit_cache.dir
+/root/colcon_ws/build/poly_traj/CMakeFiles/rebuild_cache.dir
+/root/colcon_ws/build/poly_traj/CMakeFiles/list_install_components.dir
+/root/colcon_ws/build/poly_traj/CMakeFiles/install.dir
+/root/colcon_ws/build/poly_traj/CMakeFiles/install/local.dir
+/root/colcon_ws/build/poly_traj/CMakeFiles/install/strip.dir

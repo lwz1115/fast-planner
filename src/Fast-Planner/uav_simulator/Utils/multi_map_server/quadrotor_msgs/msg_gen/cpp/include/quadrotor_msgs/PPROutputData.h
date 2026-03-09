@@ -14,7 +14,7 @@
 
 #include "ros/assert.h"
 
-#include "std_msgs/Header.h"
+#include <std_msgs/msg/header.hpp>
 
 namespace quadrotor_msgs
 {
@@ -64,8 +64,8 @@ struct PPROutputData_ {
     pwm.assign(0);
   }
 
-  typedef  ::std_msgs::Header_<ContainerAllocator>  _header_type;
-   ::std_msgs::Header_<ContainerAllocator>  header;
+  typedef  ::std_msgs::msg::Header_<ContainerAllocator>  _header_type;
+   ::std_msgs::msg::Header_<ContainerAllocator>  header;
 
   typedef uint16_t _quad_time_type;
   uint16_t quad_time;
@@ -114,12 +114,12 @@ struct PPROutputData_ {
 
 
   typedef boost::shared_ptr< ::quadrotor_msgs::PPROutputData_<ContainerAllocator> > Ptr;
-  typedef boost::shared_ptr< ::quadrotor_msgs::PPROutputData_<ContainerAllocator>  const> ConstPtr;
+  typedef boost::shared_ptr< ::quadrotor_msgs::PPROutputData_<ContainerAllocator>  const> SharedPtr;
 }; // struct PPROutputData
 typedef  ::quadrotor_msgs::PPROutputData_<std::allocator<void> > PPROutputData;
 
 typedef boost::shared_ptr< ::quadrotor_msgs::PPROutputData> PPROutputDataPtr;
-typedef boost::shared_ptr< ::quadrotor_msgs::PPROutputData const> PPROutputDataConstPtr;
+typedef boost::shared_ptr< ::quadrotor_msgs::PPROutputData const> PPROutputDataSharedPtr;
 
 
 template<typename ContainerAllocator>
@@ -252,7 +252,7 @@ struct Printer< ::quadrotor_msgs::PPROutputData_<ContainerAllocator> >
   {
     s << indent << "header: ";
 s << std::endl;
-    Printer< ::std_msgs::Header_<ContainerAllocator> >::stream(s, indent + "  ", v.header);
+    Printer< ::std_msgs::msg::Header_<ContainerAllocator> >::stream(s, indent + "  ", v.header);
     s << indent << "quad_time: ";
     Printer<uint16_t>::stream(s, indent + "  ", v.quad_time);
     s << indent << "des_thrust: ";

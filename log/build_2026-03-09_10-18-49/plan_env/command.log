@@ -1,0 +1,1 @@
+Invoking command in '/root/colcon_ws/build/plan_env': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /root/colcon_ws/build/plan_env -- -j8 -l8

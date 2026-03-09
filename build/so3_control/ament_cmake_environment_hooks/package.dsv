@@ -1,0 +1,4 @@
+source;share/so3_control/local_setup.bash
+source;share/so3_control/local_setup.dsv
+source;share/so3_control/local_setup.sh
+source;share/so3_control/local_setup.zsh

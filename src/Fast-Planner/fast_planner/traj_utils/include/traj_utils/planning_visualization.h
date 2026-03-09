@@ -33,9 +33,9 @@
 #include <path_searching/topo_prm.h>
 #include <plan_env/obj_predictor.h>
 #include <poly_traj/polynomial_traj.h>
-#include <ros/ros.h>
+#include <rclcpp/rclcpp.hpp>
 #include <vector>
-#include <visualization_msgs/Marker.h>
+#include <visualization_msgs/msg/marker.hpp>
 
 using std::vector;
 namespace fast_planner {
@@ -59,14 +59,14 @@ private:
 
   /* data */
   /* visib_pub is seperated from previous ones for different info */
-  ros::NodeHandle node;
-  ros::Publisher traj_pub_;      // 0
-  ros::Publisher topo_pub_;      // 1
-  ros::Publisher predict_pub_;   // 2
-  ros::Publisher visib_pub_;     // 3, visibility constraints
-  ros::Publisher frontier_pub_;  // 4, frontier searching
-  ros::Publisher yaw_pub_;       // 5, yaw trajectory
-  vector<ros::Publisher> pubs_;  //
+  rclcpp::Node node;
+  rclcpp::Publisher traj_pub_;      // 0
+  rclcpp::Publisher topo_pub_;      // 1
+  rclcpp::Publisher predict_pub_;   // 2
+  rclcpp::Publisher visib_pub_;     // 3, visibility constraints
+  rclcpp::Publisher frontier_pub_;  // 4, frontier searching
+  rclcpp::Publisher yaw_pub_;       // 5, yaw trajectory
+  vector<rclcpp::Publisher> pubs_;  //
 
   int last_topo_path1_num_;
   int last_topo_path2_num_;
@@ -77,7 +77,7 @@ private:
 public:
   PlanningVisualization(/* args */) {}
   ~PlanningVisualization() {}
-  PlanningVisualization(ros::NodeHandle& nh);
+  PlanningVisualization(rclcpp::Node& nh);
 
   // draw basic shapes
   void displaySphereList(const vector<Eigen::Vector3d>& list, double resolution,
@@ -106,7 +106,7 @@ public:
   void drawBsplinesPhase2(vector<NonUniformBspline>& bsplines, double size);
 
   // draw topological graph and paths
-  void drawTopoGraph(list<GraphNode::Ptr>& graph, double point_size, double line_width,
+  void drawTopoGraph(list<GraphNode::SharedPtr>& graph, double point_size, double line_width,
                      const Eigen::Vector4d& color1, const Eigen::Vector4d& color2,
                      const Eigen::Vector4d& color3, int id = 0);
 

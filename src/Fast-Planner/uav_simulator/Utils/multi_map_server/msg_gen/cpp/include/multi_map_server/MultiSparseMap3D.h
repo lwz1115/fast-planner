@@ -14,8 +14,8 @@
 
 #include "ros/assert.h"
 
-#include "multi_map_server/SparseMap3D.h"
-#include "geometry_msgs/Pose.h"
+#include <multi_map_server/msg/sparse_map3_d.hpp>
+#include <geometry_msgs/msg/pose.hpp>
 
 namespace multi_map_server
 {
@@ -38,17 +38,17 @@ struct MultiSparseMap3D_ {
   typedef std::vector< ::multi_map_server::SparseMap3D_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::multi_map_server::SparseMap3D_<ContainerAllocator> >::other >  _maps_type;
   std::vector< ::multi_map_server::SparseMap3D_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::multi_map_server::SparseMap3D_<ContainerAllocator> >::other >  maps;
 
-  typedef std::vector< ::geometry_msgs::Pose_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::geometry_msgs::Pose_<ContainerAllocator> >::other >  _origins_type;
-  std::vector< ::geometry_msgs::Pose_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::geometry_msgs::Pose_<ContainerAllocator> >::other >  origins;
+  typedef std::vector< ::geometry_msgs::msg::Pose_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::geometry_msgs::msg::Pose_<ContainerAllocator> >::other >  _origins_type;
+  std::vector< ::geometry_msgs::msg::Pose_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::geometry_msgs::msg::Pose_<ContainerAllocator> >::other >  origins;
 
 
   typedef boost::shared_ptr< ::multi_map_server::MultiSparseMap3D_<ContainerAllocator> > Ptr;
-  typedef boost::shared_ptr< ::multi_map_server::MultiSparseMap3D_<ContainerAllocator>  const> ConstPtr;
+  typedef boost::shared_ptr< ::multi_map_server::MultiSparseMap3D_<ContainerAllocator>  const> SharedPtr;
 }; // struct MultiSparseMap3D
 typedef  ::multi_map_server::MultiSparseMap3D_<std::allocator<void> > MultiSparseMap3D;
 
 typedef boost::shared_ptr< ::multi_map_server::MultiSparseMap3D> MultiSparseMap3DPtr;
-typedef boost::shared_ptr< ::multi_map_server::MultiSparseMap3D const> MultiSparseMap3DConstPtr;
+typedef boost::shared_ptr< ::multi_map_server::MultiSparseMap3D const> MultiSparseMap3DSharedPtr;
 
 
 template<typename ContainerAllocator>
@@ -216,7 +216,7 @@ struct Printer< ::multi_map_server::MultiSparseMap3D_<ContainerAllocator> >
       s << indent << "  origins[" << i << "]: ";
       s << std::endl;
       s << indent;
-      Printer< ::geometry_msgs::Pose_<ContainerAllocator> >::stream(s, indent + "    ", v.origins[i]);
+      Printer< ::geometry_msgs::msg::Pose_<ContainerAllocator> >::stream(s, indent + "    ", v.origins[i]);
     }
   }
 };

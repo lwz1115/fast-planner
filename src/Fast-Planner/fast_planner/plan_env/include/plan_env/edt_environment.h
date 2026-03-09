@@ -27,9 +27,9 @@
 #define _EDT_ENVIRONMENT_H_
 
 #include <Eigen/Eigen>
-#include <geometry_msgs/PoseStamped.h>
+#include <geometry_msgs/msg/pose_stamped.hpp>
 #include <iostream>
-#include <ros/ros.h>
+#include <rclcpp/rclcpp.hpp>
 #include <utility>
 
 #include <plan_env/obj_predictor.h>
@@ -59,10 +59,10 @@ public:
   ~EDTEnvironment() {
   }
 
-  SDFMap::Ptr sdf_map_;
+  SDFMap::SharedPtr sdf_map_;
 
   void init();
-  void setMap(SDFMap::Ptr map);
+  void setMap(SDFMap::SharedPtr map);
   void setObjPrediction(ObjPrediction prediction);
   void setObjScale(ObjScale scale);
   void getSurroundDistance(Eigen::Vector3d pts[2][2][2], double dists[2][2][2]);

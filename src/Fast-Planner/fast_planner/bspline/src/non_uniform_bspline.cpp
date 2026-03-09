@@ -24,7 +24,7 @@
 
 
 #include "bspline/non_uniform_bspline.h"
-#include <ros/ros.h>
+#include <rclcpp/rclcpp.hpp>
 
 namespace fast_planner {
 

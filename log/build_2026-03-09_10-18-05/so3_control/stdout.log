@@ -1,0 +1,32 @@
+[35m[1mConsolidate compiler generated dependencies of target SO3Control[0m
+[ 50%] Built target SO3Control
+[35m[1mConsolidate compiler generated dependencies of target so3_control_node[0m
+[100%] Built target so3_control_node
+-- Install configuration: ""
+-- Installing: /root/colcon_ws/install/so3_control/lib/libSO3Control.a
+-- Installing: /root/colcon_ws/install/so3_control/lib/so3_control/so3_control_node
+-- Set runtime path of "/root/colcon_ws/install/so3_control/lib/so3_control/so3_control_node" to ""
+-- Installing: /root/colcon_ws/install/so3_control/include/so3_control
+-- Installing: /root/colcon_ws/install/so3_control/include/so3_control/so3_control
+-- Installing: /root/colcon_ws/install/so3_control/include/so3_control/so3_control/SO3Control.h
+-- Installing: /root/colcon_ws/install/so3_control/share/so3_control/config
+-- Installing: /root/colcon_ws/install/so3_control/share/so3_control/config/corrections_pelican.yaml
+-- Installing: /root/colcon_ws/install/so3_control/share/so3_control/config/gains.yaml
+-- Installing: /root/colcon_ws/install/so3_control/share/so3_control/config/gains_pelican.yaml
+-- Installing: /root/colcon_ws/install/so3_control/share/so3_control/config/corrections_hummingbird.yaml
+-- Installing: /root/colcon_ws/install/so3_control/share/so3_control/config/gains_hummingbird.yaml
+-- Installing: /root/colcon_ws/install/so3_control/share/ament_index/resource_index/package_run_dependencies/so3_control
+-- Installing: /root/colcon_ws/install/so3_control/share/ament_index/resource_index/parent_prefix_path/so3_control
+-- Installing: /root/colcon_ws/install/so3_control/share/so3_control/environment/ament_prefix_path.sh
+-- Installing: /root/colcon_ws/install/so3_control/share/so3_control/environment/ament_prefix_path.dsv
+-- Installing: /root/colcon_ws/install/so3_control/share/so3_control/environment/path.sh
+-- Installing: /root/colcon_ws/install/so3_control/share/so3_control/environment/path.dsv
+-- Installing: /root/colcon_ws/install/so3_control/share/so3_control/local_setup.bash
+-- Installing: /root/colcon_ws/install/so3_control/share/so3_control/local_setup.sh
+-- Installing: /root/colcon_ws/install/so3_control/share/so3_control/local_setup.zsh
+-- Installing: /root/colcon_ws/install/so3_control/share/so3_control/local_setup.dsv
+-- Installing: /root/colcon_ws/install/so3_control/share/so3_control/package.dsv
+-- Installing: /root/colcon_ws/install/so3_control/share/ament_index/resource_index/packages/so3_control
+-- Installing: /root/colcon_ws/install/so3_control/share/so3_control/cmake/so3_controlConfig.cmake
+-- Installing: /root/colcon_ws/install/so3_control/share/so3_control/cmake/so3_controlConfig-version.cmake
+-- Installing: /root/colcon_ws/install/so3_control/share/so3_control/package.xml

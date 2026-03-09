@@ -1,0 +1,65 @@
+[  1%] [34m[1mGenerating C code for ROS interfaces[0m
+[  3%] [34m[1mGenerating C++ code for ROS interfaces[0m
+[  3%] Built target ament_cmake_python_copy_multi_map_server
+running egg_info
+creating multi_map_server.egg-info
+writing multi_map_server.egg-info/PKG-INFO
+writing dependency_links to multi_map_server.egg-info/dependency_links.txt
+writing top-level names to multi_map_server.egg-info/top_level.txt
+writing manifest file 'multi_map_server.egg-info/SOURCES.txt'
+reading manifest file 'multi_map_server.egg-info/SOURCES.txt'
+writing manifest file 'multi_map_server.egg-info/SOURCES.txt'
+[  3%] Built target ament_cmake_python_build_multi_map_server_egg
+[  5%] [32mBuilding C object CMakeFiles/multi_map_server__rosidl_generator_c.dir/rosidl_generator_c/multi_map_server/msg/detail/multi_occupancy_grid__functions.c.o[0m
+[  7%] [32mBuilding C object CMakeFiles/multi_map_server__rosidl_generator_c.dir/rosidl_generator_c/multi_map_server/msg/detail/multi_sparse_map3_d__functions.c.o[0m
+[  8%] [32mBuilding C object CMakeFiles/multi_map_server__rosidl_generator_c.dir/rosidl_generator_c/multi_map_server/msg/detail/sparse_map3_d__functions.c.o[0m
+[ 10%] [32mBuilding C object CMakeFiles/multi_map_server__rosidl_generator_c.dir/rosidl_generator_c/multi_map_server/msg/detail/vertical_occupancy_grid_list__functions.c.o[0m
+[ 10%] Built target multi_map_server__cpp
+[ 12%] [32m[1mLinking C shared library libmulti_map_server__rosidl_generator_c.so[0m
+[ 14%] [34m[1mGenerating C++ introspection for ROS interfaces[0m
+[ 15%] [34m[1mGenerating C++ type support for eProsima Fast-RTPS[0m
+[ 17%] [34m[1mGenerating C++ type support dispatch for ROS interfaces[0m
+[ 17%] Built target multi_map_server__rosidl_generator_c
+[ 19%] [34m[1mGenerating C introspection for ROS interfaces[0m
+[ 21%] [34m[1mGenerating C type support for eProsima Fast-RTPS[0m
+[ 22%] [34m[1mGenerating C type support dispatch for ROS interfaces[0m
+[ 24%] [32mBuilding CXX object CMakeFiles/multi_map_server__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/multi_map_server/msg/multi_occupancy_grid__type_support.cpp.o[0m
+[ 26%] [32mBuilding CXX object CMakeFiles/multi_map_server__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/multi_map_server/msg/sparse_map3_d__type_support.cpp.o[0m
+[ 28%] [32mBuilding CXX object CMakeFiles/multi_map_server__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/multi_map_server/msg/multi_sparse_map3_d__type_support.cpp.o[0m
+[ 29%] [32mBuilding CXX object CMakeFiles/multi_map_server__rosidl_typesupport_c.dir/rosidl_typesupport_c/multi_map_server/msg/multi_occupancy_grid__type_support.cpp.o[0m
+[ 31%] [32mBuilding CXX object CMakeFiles/multi_map_server__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/multi_map_server/msg/detail/multi_occupancy_grid__type_support.cpp.o[0m
+[ 33%] [32mBuilding CXX object CMakeFiles/multi_map_server__rosidl_typesupport_c.dir/rosidl_typesupport_c/multi_map_server/msg/multi_sparse_map3_d__type_support.cpp.o[0m
+[ 35%] [32mBuilding C object CMakeFiles/multi_map_server__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/multi_map_server/msg/detail/multi_occupancy_grid__type_support.c.o[0m
+[ 36%] [32mBuilding CXX object CMakeFiles/multi_map_server__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/multi_map_server/msg/detail/multi_occupancy_grid__type_support_c.cpp.o[0m
+[ 38%] [32mBuilding CXX object CMakeFiles/multi_map_server__rosidl_typesupport_c.dir/rosidl_typesupport_c/multi_map_server/msg/sparse_map3_d__type_support.cpp.o[0m
+[ 40%] [32mBuilding CXX object CMakeFiles/multi_map_server__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/multi_map_server/msg/detail/dds_fastrtps/multi_occupancy_grid__type_support.cpp.o[0m
+[ 42%] [32mBuilding C object CMakeFiles/multi_map_server__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/multi_map_server/msg/detail/multi_sparse_map3_d__type_support.c.o[0m
+[ 43%] [32mBuilding CXX object CMakeFiles/multi_map_server__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/multi_map_server/msg/vertical_occupancy_grid_list__type_support.cpp.o[0m
+[ 45%] [32mBuilding CXX object CMakeFiles/multi_map_server__rosidl_typesupport_c.dir/rosidl_typesupport_c/multi_map_server/msg/vertical_occupancy_grid_list__type_support.cpp.o[0m
+[ 47%] [32mBuilding C object CMakeFiles/multi_map_server__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/multi_map_server/msg/detail/sparse_map3_d__type_support.c.o[0m
+[ 49%] [32mBuilding CXX object CMakeFiles/multi_map_server__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/multi_map_server/msg/detail/multi_sparse_map3_d__type_support_c.cpp.o[0m
+[ 50%] [32m[1mLinking CXX shared library libmulti_map_server__rosidl_typesupport_c.so[0m
+[ 52%] [32mBuilding C object CMakeFiles/multi_map_server__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/multi_map_server/msg/detail/vertical_occupancy_grid_list__type_support.c.o[0m
+[ 52%] Built target multi_map_server__rosidl_typesupport_c
+[ 54%] [32mBuilding CXX object CMakeFiles/multi_map_server__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/multi_map_server/msg/detail/sparse_map3_d__type_support_c.cpp.o[0m
+[ 56%] [32m[1mLinking C shared library libmulti_map_server__rosidl_typesupport_introspection_c.so[0m
+[ 57%] [32mBuilding CXX object CMakeFiles/multi_map_server__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/multi_map_server/msg/detail/vertical_occupancy_grid_list__type_support_c.cpp.o[0m
+[ 57%] Built target multi_map_server__rosidl_typesupport_introspection_c
+[ 59%] [32m[1mLinking CXX shared library libmulti_map_server__rosidl_typesupport_cpp.so[0m
+[ 61%] [32mBuilding CXX object CMakeFiles/multi_map_server__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/multi_map_server/msg/detail/dds_fastrtps/multi_sparse_map3_d__type_support.cpp.o[0m
+[ 61%] Built target multi_map_server__rosidl_typesupport_cpp
+[ 63%] [32mBuilding CXX object CMakeFiles/multi_map_visualization.dir/src/multi_map_visualization.cc.o[0m
+[ 64%] [32mBuilding CXX object CMakeFiles/multi_map_server__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/multi_map_server/msg/detail/dds_fastrtps/sparse_map3_d__type_support.cpp.o[0m
+gmake[2]: *** [CMakeFiles/multi_map_server__rosidl_typesupport_fastrtps_c.dir/build.make:200: CMakeFiles/multi_map_server__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/multi_map_server/msg/detail/multi_sparse_map3_d__type_support_c.cpp.o] Interrupt
+gmake[2]: *** [CMakeFiles/multi_map_server__rosidl_typesupport_fastrtps_c.dir/build.make:228: CMakeFiles/multi_map_server__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/multi_map_server/msg/detail/vertical_occupancy_grid_list__type_support_c.cpp.o] Interrupt
+gmake[2]: *** [CMakeFiles/multi_map_visualization.dir/build.make:76: CMakeFiles/multi_map_visualization.dir/src/multi_map_visualization.cc.o] Interrupt
+gmake[2]: *** [CMakeFiles/multi_map_server__rosidl_typesupport_fastrtps_c.dir/build.make:214: CMakeFiles/multi_map_server__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/multi_map_server/msg/detail/sparse_map3_d__type_support_c.cpp.o] Interrupt
+gmake[1]: *** [CMakeFiles/Makefile2:593: CMakeFiles/multi_map_visualization.dir/all] Interrupt
+gmake[1]: *** [CMakeFiles/Makefile2:241: CMakeFiles/multi_map_server__rosidl_typesupport_fastrtps_c.dir/all] Interrupt
+gmake[2]: *** [CMakeFiles/multi_map_server__rosidl_typesupport_fastrtps_cpp.dir/build.make:186: CMakeFiles/multi_map_server__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/multi_map_server/msg/detail/dds_fastrtps/multi_occupancy_grid__type_support.cpp.o] Interrupt
+gmake[2]: *** [CMakeFiles/multi_map_server__rosidl_typesupport_fastrtps_cpp.dir/build.make:200: CMakeFiles/multi_map_server__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/multi_map_server/msg/detail/dds_fastrtps/multi_sparse_map3_d__type_support.cpp.o] Interrupt
+gmake[2]: *** [CMakeFiles/multi_map_server__rosidl_typesupport_fastrtps_cpp.dir/build.make:214: CMakeFiles/multi_map_server__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/multi_map_server/msg/detail/dds_fastrtps/sparse_map3_d__type_support.cpp.o] Interrupt
+gmake[1]: *** [CMakeFiles/Makefile2:293: CMakeFiles/multi_map_server__rosidl_typesupport_fastrtps_cpp.dir/all] Interrupt
+gmake[2]: *** [CMakeFiles/multi_map_server__rosidl_typesupport_introspection_cpp.dir/build.make:186: CMakeFiles/multi_map_server__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/multi_map_server/msg/detail/multi_occupancy_grid__type_support.cpp.o] Interrupt
+gmake[1]: *** [CMakeFiles/Makefile2:371: CMakeFiles/multi_map_server__rosidl_typesupport_introspection_cpp.dir/all] Interrupt
+gmake: *** [Makefile:146: all] Interrupt

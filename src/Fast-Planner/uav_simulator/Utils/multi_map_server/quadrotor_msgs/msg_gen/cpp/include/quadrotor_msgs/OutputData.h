@@ -14,11 +14,11 @@
 
 #include "ros/assert.h"
 
-#include "std_msgs/Header.h"
-#include "geometry_msgs/Quaternion.h"
-#include "geometry_msgs/Vector3.h"
-#include "geometry_msgs/Vector3.h"
-#include "geometry_msgs/Vector3.h"
+#include <std_msgs/msg/header.hpp>
+#include <geometry_msgs/msg/quaternion.hpp>
+#include <geometry_msgs/msg/vector3.hpp>
+#include <geometry_msgs/msg/vector3.hpp>
+#include <geometry_msgs/msg/vector3.hpp>
 
 namespace quadrotor_msgs
 {
@@ -58,8 +58,8 @@ struct OutputData_ {
     radio_channel.assign(0);
   }
 
-  typedef  ::std_msgs::Header_<ContainerAllocator>  _header_type;
-   ::std_msgs::Header_<ContainerAllocator>  header;
+  typedef  ::std_msgs::msg::Header_<ContainerAllocator>  _header_type;
+   ::std_msgs::msg::Header_<ContainerAllocator>  header;
 
   typedef uint16_t _loop_rate_type;
   uint16_t loop_rate;
@@ -67,14 +67,14 @@ struct OutputData_ {
   typedef double _voltage_type;
   double voltage;
 
-  typedef  ::geometry_msgs::Quaternion_<ContainerAllocator>  _orientation_type;
-   ::geometry_msgs::Quaternion_<ContainerAllocator>  orientation;
+  typedef  ::geometry_msgs::msg::Quaternion_<ContainerAllocator>  _orientation_type;
+   ::geometry_msgs::msg::Quaternion_<ContainerAllocator>  orientation;
 
-  typedef  ::geometry_msgs::Vector3_<ContainerAllocator>  _angular_velocity_type;
-   ::geometry_msgs::Vector3_<ContainerAllocator>  angular_velocity;
+  typedef  ::geometry_msgs::msg::Vector3_<ContainerAllocator>  _angular_velocity_type;
+   ::geometry_msgs::msg::Vector3_<ContainerAllocator>  angular_velocity;
 
-  typedef  ::geometry_msgs::Vector3_<ContainerAllocator>  _linear_acceleration_type;
-   ::geometry_msgs::Vector3_<ContainerAllocator>  linear_acceleration;
+  typedef  ::geometry_msgs::msg::Vector3_<ContainerAllocator>  _linear_acceleration_type;
+   ::geometry_msgs::msg::Vector3_<ContainerAllocator>  linear_acceleration;
 
   typedef double _pressure_dheight_type;
   double pressure_dheight;
@@ -82,8 +82,8 @@ struct OutputData_ {
   typedef double _pressure_height_type;
   double pressure_height;
 
-  typedef  ::geometry_msgs::Vector3_<ContainerAllocator>  _magnetic_field_type;
-   ::geometry_msgs::Vector3_<ContainerAllocator>  magnetic_field;
+  typedef  ::geometry_msgs::msg::Vector3_<ContainerAllocator>  _magnetic_field_type;
+   ::geometry_msgs::msg::Vector3_<ContainerAllocator>  magnetic_field;
 
   typedef boost::array<uint8_t, 8>  _radio_channel_type;
   boost::array<uint8_t, 8>  radio_channel;
@@ -93,12 +93,12 @@ struct OutputData_ {
 
 
   typedef boost::shared_ptr< ::quadrotor_msgs::OutputData_<ContainerAllocator> > Ptr;
-  typedef boost::shared_ptr< ::quadrotor_msgs::OutputData_<ContainerAllocator>  const> ConstPtr;
+  typedef boost::shared_ptr< ::quadrotor_msgs::OutputData_<ContainerAllocator>  const> SharedPtr;
 }; // struct OutputData
 typedef  ::quadrotor_msgs::OutputData_<std::allocator<void> > OutputData;
 
 typedef boost::shared_ptr< ::quadrotor_msgs::OutputData> OutputDataPtr;
-typedef boost::shared_ptr< ::quadrotor_msgs::OutputData const> OutputDataConstPtr;
+typedef boost::shared_ptr< ::quadrotor_msgs::OutputData const> OutputDataSharedPtr;
 
 
 template<typename ContainerAllocator>
@@ -238,27 +238,27 @@ struct Printer< ::quadrotor_msgs::OutputData_<ContainerAllocator> >
   {
     s << indent << "header: ";
 s << std::endl;
-    Printer< ::std_msgs::Header_<ContainerAllocator> >::stream(s, indent + "  ", v.header);
+    Printer< ::std_msgs::msg::Header_<ContainerAllocator> >::stream(s, indent + "  ", v.header);
     s << indent << "loop_rate: ";
     Printer<uint16_t>::stream(s, indent + "  ", v.loop_rate);
     s << indent << "voltage: ";
     Printer<double>::stream(s, indent + "  ", v.voltage);
     s << indent << "orientation: ";
 s << std::endl;
-    Printer< ::geometry_msgs::Quaternion_<ContainerAllocator> >::stream(s, indent + "  ", v.orientation);
+    Printer< ::geometry_msgs::msg::Quaternion_<ContainerAllocator> >::stream(s, indent + "  ", v.orientation);
     s << indent << "angular_velocity: ";
 s << std::endl;
-    Printer< ::geometry_msgs::Vector3_<ContainerAllocator> >::stream(s, indent + "  ", v.angular_velocity);
+    Printer< ::geometry_msgs::msg::Vector3_<ContainerAllocator> >::stream(s, indent + "  ", v.angular_velocity);
     s << indent << "linear_acceleration: ";
 s << std::endl;
-    Printer< ::geometry_msgs::Vector3_<ContainerAllocator> >::stream(s, indent + "  ", v.linear_acceleration);
+    Printer< ::geometry_msgs::msg::Vector3_<ContainerAllocator> >::stream(s, indent + "  ", v.linear_acceleration);
     s << indent << "pressure_dheight: ";
     Printer<double>::stream(s, indent + "  ", v.pressure_dheight);
     s << indent << "pressure_height: ";
     Printer<double>::stream(s, indent + "  ", v.pressure_height);
     s << indent << "magnetic_field: ";
 s << std::endl;
-    Printer< ::geometry_msgs::Vector3_<ContainerAllocator> >::stream(s, indent + "  ", v.magnetic_field);
+    Printer< ::geometry_msgs::msg::Vector3_<ContainerAllocator> >::stream(s, indent + "  ", v.magnetic_field);
     s << indent << "radio_channel[]" << std::endl;
     for (size_t i = 0; i < v.radio_channel.size(); ++i)
     {

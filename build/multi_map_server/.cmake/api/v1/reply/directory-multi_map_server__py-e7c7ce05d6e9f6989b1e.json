@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "multi_map_server__py",
+		"source" : "/root/colcon_ws/build/multi_map_server/multi_map_server__py"
+	}
+}

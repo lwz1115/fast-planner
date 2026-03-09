@@ -2,8 +2,8 @@
 #define _KINODYNAMIC_ASTAR_H
 
 // #include <path_searching/matrix_hash.h>
-#include <ros/console.h>
-#include <ros/ros.h>
+#include <rclcpp/logging.hpp>
+#include <rclcpp/rclcpp.hpp>
 #include <Eigen/Eigen>
 #include <boost/functional/hash.hpp>
 #include <iostream>
@@ -115,7 +115,7 @@ class KinodynamicAstar {
   Eigen::Vector3d start_vel_, end_vel_, start_acc_;
   Eigen::Matrix<double, 6, 6> phi_;  // state transit matrix
   // shared_ptr<SDFMap> sdf_map;
-  EDTEnvironment::Ptr edt_environment_;
+  EDTEnvironment::SharedPtr edt_environment_;
   bool is_shot_succ_ = false;
   Eigen::MatrixXd coef_shot_;
   double t_shot_;
@@ -160,7 +160,7 @@ class KinodynamicAstar {
   enum { REACH_HORIZON = 1, REACH_END = 2, NO_PATH = 3, NEAR_END = 4 };
 
   /* main API */
-  void setParam(ros::NodeHandle& nh);
+  void setParam(rclcpp::Node& nh);
   void init();
   void reset();
   int search(Eigen::Vector3d start_pt, Eigen::Vector3d start_vel,
@@ -168,7 +168,7 @@ class KinodynamicAstar {
              Eigen::Vector3d end_vel, bool init, bool dynamic = false,
              double time_start = -1.0);
 
-  void setEnvironment(const EDTEnvironment::Ptr& env);
+  void setEnvironment(const EDTEnvironment::SharedPtr& env);
 
   std::vector<Eigen::Vector3d> getKinoTraj(double delta_t);
 

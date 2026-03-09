@@ -1,4 +1,4 @@
-#-cmake_minimum_required(VERSION 2.4.6)
+#-cmake_minimum_required(VERSION 3.8)
 #-include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
 
 # Set the build type.  Options are:
@@ -27,9 +27,27 @@
 #rosbuild_add_boost_directories()
 #rosbuild_link_boost(${PROJECT_NAME} thread)
 #rosbuild_add_executable(example examples/example.cpp)
+
+ament_target_dependencies(example
+  rclcpp
+  std_msgs
+  geometry_msgs
+  nav_msgs
+  sensor_msgs
+  visualization_msgs
+)
 #target_link_libraries(example ${PROJECT_NAME})
 
 #-rosbuild_add_library(encode_msgs src/encode_msgs.cpp)
+
+ament_target_dependencies(encode_msgs
+  rclcpp
+  std_msgs
+  geometry_msgs
+  nav_msgs
+  sensor_msgs
+  visualization_msgs
+)
 #-rosbuild_add_link_flags(encode_msgs -Wl,--as-needed)
 
 #list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
@@ -37,53 +55,54 @@
 
 #include_directories(${EIGEN3_INCLUDE_DIR})
 #-rosbuild_add_library(decode_msgs src/decode_msgs.cpp)
+
+ament_target_dependencies(decode_msgs
+  rclcpp
+  std_msgs
+  geometry_msgs
+  nav_msgs
+  sensor_msgs
+  visualization_msgs
+)
 #-rosbuild_add_link_flags(decode_msgs -Wl,--as-needed)
 
 #------------------------------------------------------------------
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.8)
 project(quadrotor_msgs)
 
-find_package(catkin REQUIRED COMPONENTS
+find_package(ament_cmake REQUIRED COMPONENTS
   #armadillo
-  roscpp
+  rclcpp
   nav_msgs
   geometry_msgs
   message_generation
 )
 
 include_directories(
-    ${catkin_INCLUDE_DIRS}
+    ${ament_INCLUDE_DIRS}
     include
     )
 
+# ROS2: 已转换
 
-add_message_files(
-  FILES
-  AuxCommand.msg
-  Corrections.msg
-  Gains.msg
-  OutputData.msg
-  PositionCommand.msg
-  PPROutputData.msg
-  Serial.msg
-  SO3Command.msg
-  StatusData.msg
-  TRPYCommand.msg
+# ROS2: 已转换
+
+# 安装
+install(TARGETS
+  example
+  encode_msgs
+  decode_msgs
+  decode_msgs
+  encode_msgs
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib
+  RUNTIME DESTINATION lib/${PROJECT_NAME}
 )
 
-generate_messages(
-    DEPENDENCIES
-    geometry_msgs
-    nav_msgs
+install(DIRECTORY include/
+  DESTINATION include
 )
-
-catkin_package(
-  #INCLUDE_DIRS include
-  #LIBRARIES irobot_msgs
-  #CATKIN_DEPENDS geometry_msgs nav_msgs
-  #DEPENDS system_lib
-  CATKIN_DEPENDS message_runtime
-)
+ament_package()
 
 #add_dependencies(decode_msgs quadrotor_msgs_generate_messages_cpp)
 #add_dependencies(encode_msgs quadrotor_msgs_generate_messages_cpp)
@@ -92,4 +111,22 @@ find_package(Eigen3 REQUIRED)
 include_directories(${EIGEN3_INCLUDE_DIR})
 
 add_library(decode_msgs src/decode_msgs.cpp)
+
+ament_target_dependencies(decode_msgs
+  rclcpp
+  std_msgs
+  geometry_msgs
+  nav_msgs
+  sensor_msgs
+  visualization_msgs
+)
 add_library(encode_msgs src/encode_msgs.cpp)
+
+ament_target_dependencies(encode_msgs
+  rclcpp
+  std_msgs
+  geometry_msgs
+  nav_msgs
+  sensor_msgs
+  visualization_msgs
+)

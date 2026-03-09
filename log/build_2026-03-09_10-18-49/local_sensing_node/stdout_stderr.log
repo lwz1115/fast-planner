@@ -1,0 +1,8 @@
+[ 50%] [32mBuilding CXX object CMakeFiles/pcl_render_node.dir/src/pointcloud_render_node.cpp.o[0m
+[01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/local_sensing/src/pointcloud_render_node.cpp:[m[K In member function ‘[01m[Kvoid PointCloudRenderNode::rcvLocalPointCloudCallBack(sensor_msgs::msg::PointCloud2_<std::allocator<void> >::SharedPtr)[m[K’:
+[01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/local_sensing/src/pointcloud_render_node.cpp:199:82:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kpointcloud_map[m[K’ [[01;35m[K-Wunused-parameter[m[K]
+  199 | lPointCloudCallBack([01;35m[Kconst sensor_msgs::msg::PointCloud2::SharedPtr pointcloud_map[m[K) {
+      |                     [01;35m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~[m[K
+
+[100%] [32m[1mLinking CXX executable pcl_render_node[0m
+[100%] Built target pcl_render_node

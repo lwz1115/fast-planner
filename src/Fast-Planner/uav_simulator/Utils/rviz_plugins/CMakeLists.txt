@@ -1,21 +1,15 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.8)
 project(rviz_plugins)
 
 add_compile_options(-std=c++11)
 
-find_package(catkin REQUIRED COMPONENTS
-  roscpp
+find_package(ament_cmake REQUIRED COMPONENTS
+  rclcpp
   rviz
   multi_map_server
 )
 
-catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES irobot_msgs
-  CATKIN_DEPENDS multi_map_server
-  DEPENDS system_lib
-          message_runtime
-)
+ament_package()
 
 ###########
 ## Build ##
@@ -68,7 +62,7 @@ set(SOURCE_FILES
 ## Your package locations should be listed before other locations
 include_directories(include)
 include_directories(
-  ${catkin_INCLUDE_DIRS}
+  ${ament_INCLUDE_DIRS}
 )
 
 add_library(${PROJECT_NAME} ${SOURCE_FILES})
@@ -76,7 +70,7 @@ add_library(${PROJECT_NAME} ${SOURCE_FILES})
 add_dependencies(${PROJECT_NAME} multi_map_server_generate_messages_cpp)
 
 target_link_libraries(${PROJECT_NAME}
-    ${catkin_LIBRARIES}
+    ${ament_LIBRARIES}
     ${QT_LIBRARIES}
     )
 install(TARGETS

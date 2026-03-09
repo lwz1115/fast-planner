@@ -2,13 +2,13 @@
 #include <fstream>
 #include <vector>
 
-#include <ros/ros.h>
+#include <rclcpp/rclcpp.hpp>
 #include <message_filters/subscriber.h>
 #include <message_filters/synchronizer.h>
 #include <message_filters/sync_policies/exact_time.h>
 #include <message_filters/sync_policies/approximate_time.h>
-#include <geometry_msgs/PoseStamped.h>
-#include <geometry_msgs/TransformStamped.h>
+#include <geometry_msgs/msg/pose_stamped.hpp>
+#include <geometry_msgs/msg/transform_stamped.hpp>
 #include <image_transport/image_transport.h>
 #include <cv_bridge/cv_bridge.h>
 
@@ -29,7 +29,7 @@ using namespace cv;
 using namespace std;
 using namespace Eigen;
 
-typedef message_filters::sync_policies::ApproximateTime<sensor_msgs::Image, geometry_msgs::TransformStamped> approx_policy;
+typedef message_filters::sync_policies::ApproximateTime<sensor_msgs::msg::Image, geometry_msgs::msg::TransformStamped> approx_policy;
 
 int *depth_hostptr;
 cv::Mat depth_mat;
@@ -41,16 +41,16 @@ cv::Mat undist_map1, undist_map2;
 bool is_distorted(false);
 
 DepthRender depthrender;
-ros::Publisher pub_depth;
-ros::Publisher pub_color;
-ros::Publisher pub_posedimage;
+rclcpp::Publisher pub_depth;
+rclcpp::Publisher pub_color;
+rclcpp::Publisher pub_posedimage;
 
 Matrix4d vicon2body;
 Matrix4d cam02body;
 Matrix4d cam2world;
 Matrix4d vicon2leica;
 
-ros::Time receive_stamp;
+rclcpp::Time receive_stamp;
 
 cv::Mat undistorted_image;
 
@@ -163,11 +163,11 @@ void solve_pnp()
 }
 
 void image_pose_callback(
-    const sensor_msgs::ImageConstPtr &image_input,
-    const geometry_msgs::TransformStampedConstPtr &pose_input)
+    const sensor_msgs::msg::ImageSharedPtr &image_input,
+    const geometry_msgs::msg::TransformStampedSharedPtr &pose_input)
 {
   //time diff
-  double time_diff = fabs(image_input->header.stamp.toSec() - pose_input->header.stamp.toSec()) * 1000.0;
+  double time_diff = fabs(image_input->header.stamp.seconds() - pose_input->header.stamp.seconds()) * 1000.0;
   printf("time diff is %lf ms.\n", time_diff);
 
   //pose
@@ -189,7 +189,7 @@ void image_pose_callback(
   // Pose_receive(2,3) = request_position(2);
 
   //using ground truth
-  double image_time = image_input->header.stamp.toSec();
+  double image_time = image_input->header.stamp.seconds();
   double min_time_diff = 999.9;
   int min_time_index = 0;
   for(int i = 1; i < gt_pose_vect.size(); i++)
@@ -214,7 +214,7 @@ void image_pose_callback(
   receive_stamp = pose_input->header.stamp;
 
   //image
-  cv_bridge::CvImageConstPtr cv_img_ptr = cv_bridge::toCvShare(image_input, sensor_msgs::image_encodings::MONO8);
+  cv_bridge::CvImageSharedPtr cv_img_ptr = cv_bridge::toCvShare(image_input, sensor_msgs::msg::image_encodings::MONO8);
   cv::Mat img_8uC1 = cv_img_ptr->image;
   undistorted_image.create(height, width, CV_8UC1);
   if(is_distorted)
@@ -231,7 +231,7 @@ void render_currentpose()
 {
   solve_pnp();
 
-  double this_time = ros::Time::now().toSec();
+  double this_time = node_->now().seconds();
 
   Matrix4d cam_pose = cam2world.inverse();
 
@@ -248,12 +248,12 @@ void render_currentpose()
   		max = depth > max ? depth : max;
   		depth_mat.at<float>(i,j) = depth;
   	}
-  ROS_INFO("render cost %lf ms.", (ros::Time::now().toSec() - this_time) * 1000.0f);
+  RCLCPP_INFO(node_->get_logger(), this->get_logger(), "render cost %lf ms.", (node_->now().seconds() - this_time) * 1000.0f);
   printf("max_depth %lf.\n", max);
 
   cv_bridge::CvImage out_msg;
   out_msg.header.stamp = receive_stamp;
-  out_msg.encoding = sensor_msgs::image_encodings::TYPE_32FC1;
+  out_msg.encoding = sensor_msgs::msg::image_encodings::TYPE_32FC1;
   out_msg.image = depth_mat.clone();
   pub_depth.publish(out_msg.toImageMsg());
 
@@ -266,7 +266,7 @@ void render_currentpose()
   cv::addWeighted(bgr_image, 0.2, falseColorsMap, 0.8, 0.0, falseColorsMap);
   cv_bridge::CvImage cv_image_colored;
   cv_image_colored.header.frame_id = "depthmap";
-  cv_image_colored.encoding = sensor_msgs::image_encodings::BGR8;
+  cv_image_colored.encoding = sensor_msgs::msg::image_encodings::BGR8;
   cv_image_colored.image = falseColorsMap;
   pub_color.publish(cv_image_colored.toImageMsg());
 
@@ -276,8 +276,8 @@ void render_currentpose()
 
 int main(int argc, char **argv)
 {
-  ros::init(argc, argv, "cloud_banchmark");
-  ros::NodeHandle nh("~");
+  rclcpp::init(argc, argv, "cloud_banchmark");
+  rclcpp::Node nh("~");
 
   nh.getParam("cam_width", width);
   nh.getParam("cam_height", height);
@@ -352,15 +352,15 @@ int main(int argc, char **argv)
   depthrender.set_data(cloud_data);
   depth_hostptr = (int*) malloc(width * height * sizeof(int));
 
-  message_filters::Subscriber<sensor_msgs::Image> image_sub(nh, "/cam0/image_raw", 30);
-  message_filters::Subscriber<geometry_msgs::TransformStamped> pose_sub(nh, "/vicon/firefly_sbx/firefly_sbx", 30);
+  message_filters::Subscriber<sensor_msgs::msg::Image> image_sub(nh, "/cam0/image_raw", 30);
+  message_filters::Subscriber<geometry_msgs::msg::TransformStamped> pose_sub(nh, "/vicon/firefly_sbx/firefly_sbx", 30);
   message_filters::Synchronizer<approx_policy> sync2(approx_policy(100), image_sub, pose_sub);
   sync2.registerCallback(boost::bind(image_pose_callback, _1, _2));
 
   //publisher depth image and color image
-  pub_depth = nh.advertise<sensor_msgs::Image>("depth",1000);
-  pub_color = nh.advertise<sensor_msgs::Image>("colordepth",1000);
-  // pub_posedimage = nh.advertise<sensor_msgs::Image>("posedimage",1000);
+  pub_depth = /* TODO: 转换发布 */ nh->create_publisher<sensor_msgs::msg::Image>("depth",1000);
+  pub_color = /* TODO: 转换发布 */ nh->create_publisher<sensor_msgs::msg::Image>("colordepth",1000);
+  // pub_posedimage = /* TODO: 转换发布 */ nh->create_publisher<sensor_msgs::msg::Image>("posedimage",1000);
 
   undistorted_image.create(height, width, CV_8UC1);
 
@@ -370,9 +370,9 @@ int main(int argc, char **argv)
   setMouseCallback("depth_image", depthBackFunc, NULL);
   vicon2leica = Matrix4d::Identity();
 
-  while(ros::ok())
+  while(rclcpp::ok())
   {
-    ros::spinOnce();
+    rclcpp::spin_some(node);
     cv::waitKey(30);
   }
 }

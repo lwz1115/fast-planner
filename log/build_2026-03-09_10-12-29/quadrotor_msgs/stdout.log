@@ -1,0 +1,417 @@
+[35m[1mConsolidate compiler generated dependencies of target quadrotor_msgs__rosidl_generator_c[0m
+[  0%] Built target quadrotor_msgs__cpp
+[ 12%] Built target quadrotor_msgs__rosidl_generator_c
+[ 12%] Built target ament_cmake_python_copy_quadrotor_msgs
+[35m[1mConsolidate compiler generated dependencies of target quadrotor_msgs__rosidl_typesupport_fastrtps_cpp[0m
+[35m[1mConsolidate compiler generated dependencies of target quadrotor_msgs__rosidl_typesupport_introspection_cpp[0m
+[35m[1mConsolidate compiler generated dependencies of target quadrotor_msgs__rosidl_typesupport_cpp[0m
+[35m[1mConsolidate compiler generated dependencies of target quadrotor_msgs__rosidl_typesupport_introspection_c[0m
+[35m[1mConsolidate compiler generated dependencies of target quadrotor_msgs__rosidl_typesupport_c[0m
+[35m[1mConsolidate compiler generated dependencies of target quadrotor_msgs__rosidl_typesupport_fastrtps_c[0m
+[ 24%] Built target quadrotor_msgs__rosidl_typesupport_fastrtps_cpp
+[ 36%] Built target quadrotor_msgs__rosidl_typesupport_introspection_c
+[ 48%] Built target quadrotor_msgs__rosidl_typesupport_introspection_cpp
+[ 60%] Built target quadrotor_msgs__rosidl_typesupport_cpp
+[ 72%] Built target quadrotor_msgs__rosidl_typesupport_c
+[ 84%] Built target quadrotor_msgs__rosidl_typesupport_fastrtps_c
+[ 84%] Built target quadrotor_msgs
+[ 85%] Built target quadrotor_msgs__py
+[35m[1mConsolidate compiler generated dependencies of target quadrotor_msgs__rosidl_generator_py[0m
+[ 96%] Built target quadrotor_msgs__rosidl_generator_py
+[35m[1mConsolidate compiler generated dependencies of target quadrotor_msgs__rosidl_typesupport_fastrtps_c__pyext[0m
+[35m[1mConsolidate compiler generated dependencies of target quadrotor_msgs__rosidl_typesupport_c__pyext[0m
+[35m[1mConsolidate compiler generated dependencies of target quadrotor_msgs__rosidl_typesupport_introspection_c__pyext[0m
+[ 97%] Built target quadrotor_msgs__rosidl_typesupport_fastrtps_c__pyext
+[ 98%] Built target quadrotor_msgs__rosidl_typesupport_c__pyext
+[100%] Built target quadrotor_msgs__rosidl_typesupport_introspection_c__pyext
+running egg_info
+writing quadrotor_msgs.egg-info/PKG-INFO
+writing dependency_links to quadrotor_msgs.egg-info/dependency_links.txt
+writing top-level names to quadrotor_msgs.egg-info/top_level.txt
+reading manifest file 'quadrotor_msgs.egg-info/SOURCES.txt'
+writing manifest file 'quadrotor_msgs.egg-info/SOURCES.txt'
+[100%] Built target ament_cmake_python_build_quadrotor_msgs_egg
+-- Install configuration: ""
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/ament_index/resource_index/rosidl_interfaces/quadrotor_msgs
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/serial.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/gains.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/odometry.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/position_command__type_support.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/output_data__struct.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/odometry__struct.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/odometry__functions.c
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/polynomial_trajectory__functions.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/output_data__type_support.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/status_data__functions.c
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/ppr_output_data__type_support.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/gains__type_support.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/serial__struct.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/so3_command__type_support.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/gains__functions.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/lqr_trajectory__type_support.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/ppr_output_data__struct.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/corrections__type_support.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/output_data__functions.c
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/trpy_command__functions.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/lqr_trajectory__struct.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/aux_command__functions.c
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/so3_command__struct.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/polynomial_trajectory__type_support.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/polynomial_trajectory__functions.c
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/gains__struct.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/trpy_command__struct.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/aux_command__type_support.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/trpy_command__type_support.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/aux_command__struct.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/so3_command__functions.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/lqr_trajectory__functions.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/corrections__functions.c
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/so3_command__functions.c
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/odometry__functions.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/odometry__type_support.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/status_data__type_support.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/position_command__functions.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/polynomial_trajectory__struct.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/ppr_output_data__functions.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/serial__type_support.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/position_command__struct.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/ppr_output_data__functions.c
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/corrections__functions.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/gains__functions.c
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/position_command__functions.c
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/serial__functions.c
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/status_data__functions.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/aux_command__functions.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/output_data__functions.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/lqr_trajectory__functions.c
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/trpy_command__functions.c
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/serial__functions.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/corrections__struct.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/status_data__struct.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/output_data.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/polynomial_trajectory.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/so3_command.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/ppr_output_data.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/aux_command.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/trpy_command.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/rosidl_generator_c__visibility_control.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/status_data.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/lqr_trajectory.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/position_command.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/corrections.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/environment/library_path.sh
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/environment/library_path.dsv
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/lib/libquadrotor_msgs__rosidl_generator_c.so
+-- Set runtime path of "/root/colcon_ws/install/quadrotor_msgs/lib/libquadrotor_msgs__rosidl_generator_c.so" to ""
+-- Up-to-date: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs
+-- Up-to-date: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg
+-- Up-to-date: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/status_data__rosidl_typesupport_fastrtps_c.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/trpy_command__rosidl_typesupport_fastrtps_c.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/aux_command__rosidl_typesupport_fastrtps_c.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/so3_command__rosidl_typesupport_fastrtps_c.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/odometry__rosidl_typesupport_fastrtps_c.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/gains__rosidl_typesupport_fastrtps_c.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/polynomial_trajectory__rosidl_typesupport_fastrtps_c.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/lqr_trajectory__rosidl_typesupport_fastrtps_c.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/position_command__rosidl_typesupport_fastrtps_c.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/output_data__rosidl_typesupport_fastrtps_c.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/corrections__rosidl_typesupport_fastrtps_c.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/ppr_output_data__rosidl_typesupport_fastrtps_c.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/serial__rosidl_typesupport_fastrtps_c.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/lib/libquadrotor_msgs__rosidl_typesupport_fastrtps_c.so
+-- Set runtime path of "/root/colcon_ws/install/quadrotor_msgs/lib/libquadrotor_msgs__rosidl_typesupport_fastrtps_c.so" to ""
+-- Up-to-date: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs
+-- Up-to-date: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg
+-- Up-to-date: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/status_data__rosidl_typesupport_introspection_c.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/aux_command__type_support.c
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/so3_command__rosidl_typesupport_introspection_c.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/position_command__type_support.c
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/polynomial_trajectory__rosidl_typesupport_introspection_c.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/lqr_trajectory__type_support.c
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/output_data__rosidl_typesupport_introspection_c.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/so3_command__type_support.c
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/output_data__type_support.c
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/ppr_output_data__rosidl_typesupport_introspection_c.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/trpy_command__rosidl_typesupport_introspection_c.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/corrections__rosidl_typesupport_introspection_c.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/aux_command__rosidl_typesupport_introspection_c.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/serial__rosidl_typesupport_introspection_c.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/gains__type_support.c
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/corrections__type_support.c
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/gains__rosidl_typesupport_introspection_c.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/polynomial_trajectory__type_support.c
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/lqr_trajectory__rosidl_typesupport_introspection_c.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/trpy_command__type_support.c
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/odometry__type_support.c
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/ppr_output_data__type_support.c
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/odometry__rosidl_typesupport_introspection_c.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/position_command__rosidl_typesupport_introspection_c.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/serial__type_support.c
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/status_data__type_support.c
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/rosidl_typesupport_introspection_c__visibility_control.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/lib/libquadrotor_msgs__rosidl_typesupport_introspection_c.so
+-- Set runtime path of "/root/colcon_ws/install/quadrotor_msgs/lib/libquadrotor_msgs__rosidl_typesupport_introspection_c.so" to ""
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/lib/libquadrotor_msgs__rosidl_typesupport_c.so
+-- Set runtime path of "/root/colcon_ws/install/quadrotor_msgs/lib/libquadrotor_msgs__rosidl_typesupport_c.so" to ""
+-- Up-to-date: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs
+-- Up-to-date: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/output_data.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/so3_command.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/corrections.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/aux_command.hpp
+-- Up-to-date: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/lqr_trajectory__type_support.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/position_command__builder.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/trpy_command__traits.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/gains__builder.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/corrections__traits.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/status_data__type_support.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/lqr_trajectory__traits.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/so3_command__struct.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/serial__traits.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/corrections__struct.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/trpy_command__type_support.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/corrections__builder.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/position_command__traits.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/polynomial_trajectory__type_support.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/status_data__builder.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/output_data__struct.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/trpy_command__struct.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/aux_command__builder.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/position_command__struct.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/odometry__struct.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/ppr_output_data__type_support.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/odometry__type_support.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/status_data__struct.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/serial__type_support.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/status_data__traits.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/aux_command__traits.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/gains__traits.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/serial__builder.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/aux_command__type_support.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/so3_command__type_support.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/trpy_command__builder.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/serial__struct.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/output_data__builder.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/polynomial_trajectory__builder.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/polynomial_trajectory__struct.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/ppr_output_data__struct.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/gains__struct.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/polynomial_trajectory__traits.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/lqr_trajectory__struct.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/so3_command__traits.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/odometry__builder.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/so3_command__builder.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/output_data__traits.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/gains__type_support.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/aux_command__struct.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/lqr_trajectory__builder.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/output_data__type_support.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/ppr_output_data__traits.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/position_command__type_support.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/odometry__traits.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/corrections__type_support.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/ppr_output_data__builder.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/ppr_output_data.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/serial.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/status_data.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/position_command.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/lqr_trajectory.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/polynomial_trajectory.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/odometry.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/rosidl_generator_cpp__visibility_control.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/gains.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/trpy_command.hpp
+-- Up-to-date: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs
+-- Up-to-date: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg
+-- Up-to-date: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/corrections__rosidl_typesupport_fastrtps_cpp.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/so3_command__rosidl_typesupport_fastrtps_cpp.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/polynomial_trajectory__rosidl_typesupport_fastrtps_cpp.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/dds_fastrtps
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/serial__rosidl_typesupport_fastrtps_cpp.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/lqr_trajectory__rosidl_typesupport_fastrtps_cpp.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/gains__rosidl_typesupport_fastrtps_cpp.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/ppr_output_data__rosidl_typesupport_fastrtps_cpp.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/status_data__rosidl_typesupport_fastrtps_cpp.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/odometry__rosidl_typesupport_fastrtps_cpp.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/aux_command__rosidl_typesupport_fastrtps_cpp.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/position_command__rosidl_typesupport_fastrtps_cpp.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/trpy_command__rosidl_typesupport_fastrtps_cpp.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/output_data__rosidl_typesupport_fastrtps_cpp.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/lib/libquadrotor_msgs__rosidl_typesupport_fastrtps_cpp.so
+-- Set runtime path of "/root/colcon_ws/install/quadrotor_msgs/lib/libquadrotor_msgs__rosidl_typesupport_fastrtps_cpp.so" to ""
+-- Up-to-date: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs
+-- Up-to-date: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg
+-- Up-to-date: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/polynomial_trajectory__type_support.cpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/gains__type_support.cpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/so3_command__rosidl_typesupport_introspection_cpp.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/trpy_command__type_support.cpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/ppr_output_data__type_support.cpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/polynomial_trajectory__rosidl_typesupport_introspection_cpp.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/position_command__rosidl_typesupport_introspection_cpp.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/output_data__rosidl_typesupport_introspection_cpp.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/trpy_command__rosidl_typesupport_introspection_cpp.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/corrections__type_support.cpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/odometry__type_support.cpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/status_data__type_support.cpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/so3_command__type_support.cpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/serial__rosidl_typesupport_introspection_cpp.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/status_data__rosidl_typesupport_introspection_cpp.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/output_data__type_support.cpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/corrections__rosidl_typesupport_introspection_cpp.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/aux_command__type_support.cpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/aux_command__rosidl_typesupport_introspection_cpp.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/position_command__type_support.cpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/odometry__rosidl_typesupport_introspection_cpp.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/lqr_trajectory__rosidl_typesupport_introspection_cpp.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/serial__type_support.cpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/ppr_output_data__rosidl_typesupport_introspection_cpp.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/lqr_trajectory__type_support.cpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/include/quadrotor_msgs/quadrotor_msgs/msg/detail/gains__rosidl_typesupport_introspection_cpp.hpp
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/lib/libquadrotor_msgs__rosidl_typesupport_introspection_cpp.so
+-- Set runtime path of "/root/colcon_ws/install/quadrotor_msgs/lib/libquadrotor_msgs__rosidl_typesupport_introspection_cpp.so" to ""
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/lib/libquadrotor_msgs__rosidl_typesupport_cpp.so
+-- Set runtime path of "/root/colcon_ws/install/quadrotor_msgs/lib/libquadrotor_msgs__rosidl_typesupport_cpp.so" to ""
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/environment/pythonpath.sh
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/environment/pythonpath.dsv
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs-0.0.0-py3.10.egg-info
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs-0.0.0-py3.10.egg-info/SOURCES.txt
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs-0.0.0-py3.10.egg-info/dependency_links.txt
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs-0.0.0-py3.10.egg-info/top_level.txt
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs-0.0.0-py3.10.egg-info/PKG-INFO
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/msg
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/msg/_position_command_s.c
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/msg/_trpy_command.py
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/msg/_status_data_s.c
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/msg/_ppr_output_data.py
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/msg/_odometry.py
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/msg/_polynomial_trajectory_s.c
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/msg/_so3_command_s.c
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/msg/_so3_command.py
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/msg/_corrections_s.c
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/msg/_serial.py
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/msg/_aux_command_s.c
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/msg/_gains.py
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/msg/_corrections.py
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/msg/_lqr_trajectory.py
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/msg/_trpy_command_s.c
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/msg/_aux_command.py
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/msg/_polynomial_trajectory.py
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/msg/_lqr_trajectory_s.c
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/msg/_status_data.py
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/msg/_output_data.py
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/msg/_ppr_output_data_s.c
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/msg/_serial_s.c
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/msg/_gains_s.c
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/msg/_output_data_s.c
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/msg/_odometry_s.c
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/msg/_position_command.py
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/msg/__init__.py
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/_quadrotor_msgs_s.ep.rosidl_typesupport_introspection_c.c
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/_quadrotor_msgs_s.ep.rosidl_typesupport_c.c
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/libquadrotor_msgs__rosidl_generator_py.so
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/quadrotor_msgs_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/quadrotor_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/quadrotor_msgs_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/_quadrotor_msgs_s.ep.rosidl_typesupport_fastrtps_c.c
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/__init__.py
+Listing '/root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs'...
+Compiling '/root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/__init__.py'...
+Listing '/root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/msg'...
+Compiling '/root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/msg/__init__.py'...
+Compiling '/root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/msg/_aux_command.py'...
+Compiling '/root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/msg/_corrections.py'...
+Compiling '/root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/msg/_gains.py'...
+Compiling '/root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/msg/_lqr_trajectory.py'...
+Compiling '/root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/msg/_odometry.py'...
+Compiling '/root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/msg/_output_data.py'...
+Compiling '/root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/msg/_polynomial_trajectory.py'...
+Compiling '/root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/msg/_position_command.py'...
+Compiling '/root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/msg/_ppr_output_data.py'...
+Compiling '/root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/msg/_serial.py'...
+Compiling '/root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/msg/_so3_command.py'...
+Compiling '/root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/msg/_status_data.py'...
+Compiling '/root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/msg/_trpy_command.py'...
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/quadrotor_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so
+-- Set runtime path of "/root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/quadrotor_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so" to ""
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/quadrotor_msgs_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so
+-- Set runtime path of "/root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/quadrotor_msgs_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so" to ""
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/quadrotor_msgs_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so
+-- Set runtime path of "/root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages/quadrotor_msgs/quadrotor_msgs_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so" to ""
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/lib/libquadrotor_msgs__rosidl_generator_py.so
+-- Set runtime path of "/root/colcon_ws/install/quadrotor_msgs/lib/libquadrotor_msgs__rosidl_generator_py.so" to ""
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/msg/AuxCommand.idl
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/msg/Corrections.idl
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/msg/Gains.idl
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/msg/OutputData.idl
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/msg/PositionCommand.idl
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/msg/PPROutputData.idl
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/msg/Serial.idl
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/msg/SO3Command.idl
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/msg/StatusData.idl
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/msg/TRPYCommand.idl
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/msg/Odometry.idl
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/msg/PolynomialTrajectory.idl
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/msg/LQRTrajectory.idl
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/msg/AuxCommand.msg
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/msg/Corrections.msg
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/msg/Gains.msg
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/msg/OutputData.msg
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/msg/PositionCommand.msg
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/msg/PPROutputData.msg
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/msg/Serial.msg
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/msg/SO3Command.msg
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/msg/StatusData.msg
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/msg/TRPYCommand.msg
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/msg/Odometry.msg
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/msg/PolynomialTrajectory.msg
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/msg/LQRTrajectory.msg
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/ament_index/resource_index/package_run_dependencies/quadrotor_msgs
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/ament_index/resource_index/parent_prefix_path/quadrotor_msgs
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/environment/ament_prefix_path.sh
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/environment/ament_prefix_path.dsv
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/environment/path.sh
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/environment/path.dsv
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/local_setup.bash
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/local_setup.sh
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/local_setup.zsh
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/local_setup.dsv
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/package.dsv
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/ament_index/resource_index/packages/quadrotor_msgs
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/cmake/export_quadrotor_msgs__rosidl_generator_cExport.cmake
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/cmake/export_quadrotor_msgs__rosidl_generator_cExport-noconfig.cmake
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/cmake/export_quadrotor_msgs__rosidl_typesupport_fastrtps_cExport.cmake
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/cmake/export_quadrotor_msgs__rosidl_typesupport_fastrtps_cExport-noconfig.cmake
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/cmake/quadrotor_msgs__rosidl_typesupport_introspection_cExport.cmake
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/cmake/quadrotor_msgs__rosidl_typesupport_introspection_cExport-noconfig.cmake
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/cmake/quadrotor_msgs__rosidl_typesupport_cExport.cmake
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/cmake/quadrotor_msgs__rosidl_typesupport_cExport-noconfig.cmake
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/cmake/export_quadrotor_msgs__rosidl_generator_cppExport.cmake
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/cmake/export_quadrotor_msgs__rosidl_typesupport_fastrtps_cppExport.cmake
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/cmake/export_quadrotor_msgs__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/cmake/quadrotor_msgs__rosidl_typesupport_introspection_cppExport.cmake
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/cmake/quadrotor_msgs__rosidl_typesupport_introspection_cppExport-noconfig.cmake
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/cmake/quadrotor_msgs__rosidl_typesupport_cppExport.cmake
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/cmake/quadrotor_msgs__rosidl_typesupport_cppExport-noconfig.cmake
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/cmake/export_quadrotor_msgs__rosidl_generator_pyExport.cmake
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/cmake/export_quadrotor_msgs__rosidl_generator_pyExport-noconfig.cmake
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/cmake/rosidl_cmake-extras.cmake
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/cmake/ament_cmake_export_dependencies-extras.cmake
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/cmake/ament_cmake_export_include_directories-extras.cmake
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/cmake/ament_cmake_export_libraries-extras.cmake
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/cmake/ament_cmake_export_targets-extras.cmake
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/cmake/quadrotor_msgsConfig.cmake
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/cmake/quadrotor_msgsConfig-version.cmake
+-- Installing: /root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/package.xml

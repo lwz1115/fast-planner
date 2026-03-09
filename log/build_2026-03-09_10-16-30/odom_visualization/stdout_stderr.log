@@ -1,0 +1,8 @@
+[ 50%] [32mBuilding CXX object CMakeFiles/odom_visualization.dir/src/odom_visualization.cpp.o[0m
+[01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/Utils/odom_visualization/src/odom_visualization.cpp:15:10:[m[K [01;31m[Kfatal error: [m[Kpose_utils.h: No such file or directory
+   15 | #include [01;31m[K"pose_utils.h"[m[K
+      |          [01;31m[K^~~~~~~~~~~~~~[m[K
+compilation terminated.
+gmake[2]: *** [CMakeFiles/odom_visualization.dir/build.make:76: CMakeFiles/odom_visualization.dir/src/odom_visualization.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/odom_visualization.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

@@ -1,5 +1,5 @@
-#include "quadrotor_msgs/decode_msgs.h"
-#include <quadrotor_msgs/comm_types.h>
+#include <quadrotor_msgs/msg/decode_msgs.hpp>
+#include <quadrotor_msgs/msg/comm_types.hpp>
 #include <Eigen/Geometry>
 
 namespace quadrotor_msgs

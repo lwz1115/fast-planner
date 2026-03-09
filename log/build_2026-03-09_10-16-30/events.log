@@ -1,0 +1,47 @@
+[0.000000] (-) TimerEvent: {}
+[0.000635] (-) JobUnselected: {'identifier': 'bspline'}
+[0.001491] (-) JobUnselected: {'identifier': 'bspline_opt'}
+[0.001616] (-) JobUnselected: {'identifier': 'cmake_utils'}
+[0.001871] (-) JobUnselected: {'identifier': 'local_sensing_node'}
+[0.001977] (-) JobUnselected: {'identifier': 'map_generator'}
+[0.002039] (-) JobUnselected: {'identifier': 'multi_map_server'}
+[0.002421] (-) JobUnselected: {'identifier': 'path_searching'}
+[0.002507] (-) JobUnselected: {'identifier': 'plan_env'}
+[0.002630] (-) JobUnselected: {'identifier': 'plan_manage'}
+[0.002704] (-) JobUnselected: {'identifier': 'poly_traj'}
+[0.002749] (-) JobUnselected: {'identifier': 'pose_utils'}
+[0.002797] (-) JobUnselected: {'identifier': 'quadrotor_msgs'}
+[0.002854] (-) JobUnselected: {'identifier': 'rviz_plugins'}
+[0.002899] (-) JobUnselected: {'identifier': 'so3_control'}
+[0.003142] (-) JobUnselected: {'identifier': 'so3_disturbance_generator'}
+[0.003234] (-) JobUnselected: {'identifier': 'so3_quadrotor_simulator'}
+[0.003363] (-) JobUnselected: {'identifier': 'traj_utils'}
+[0.003409] (-) JobUnselected: {'identifier': 'uav_utils'}
+[0.003472] (-) JobUnselected: {'identifier': 'waypoint_generator'}
+[0.003530] (odom_visualization) JobQueued: {'identifier': 'odom_visualization', 'dependencies': OrderedDict([('pose_utils', '/root/colcon_ws/install/pose_utils'), ('quadrotor_msgs', '/root/colcon_ws/install/quadrotor_msgs')])}
+[0.003823] (odom_visualization) JobStarted: {'identifier': 'odom_visualization'}
+[0.023925] (odom_visualization) JobProgress: {'identifier': 'odom_visualization', 'progress': 'cmake'}
+[0.025026] (odom_visualization) JobProgress: {'identifier': 'odom_visualization', 'progress': 'build'}
+[0.026110] (odom_visualization) Command: {'cmd': ['/usr/bin/cmake', '--build', '/root/colcon_ws/build/odom_visualization', '--', '-j8', '-l8'], 'cwd': '/root/colcon_ws/build/odom_visualization', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('HOSTNAME', 'tegra-ubuntu'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/root/colcon_ws/install/quadrotor_msgs/lib:/root/colcon_ws/install/pose_utils/lib:/root/colcon_ws/install/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/root'), ('OLDPWD', '/root/colcon_ws'), ('ROS_PYTHON_VERSION', '3'), ('COLCON_PREFIX_PATH', '/root/colcon_ws/install'), ('ROS_DISTRO', 'humble'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm'), ('GAZEBO_MODEL_PATH', '/root/colcon_ws/src:'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'), ('DISPLAY', ':0'), ('LANG', 'C.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('ROS_DOMAIN_ID', '0'), ('AMENT_PREFIX_PATH', '/root/colcon_ws/install/quadrotor_msgs:/root/colcon_ws/install/pose_utils:/opt/ros/humble'), ('DEBIAN_FRONTEND', 'noninteractive'), ('COLCON_WS', '/root/colcon_ws'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('PWD', '/root/colcon_ws/build/odom_visualization'), ('LC_ALL', 'C.UTF-8'), ('GAZEBO_PLUGIN_PATH', '/root/colcon_ws/install/lib:'), ('PYTHONPATH', '/root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/root/colcon_ws/install/quadrotor_msgs:/root/colcon_ws/install/pose_utils:/opt/ros/humble')]), 'shell': False}
+[0.099412] (-) TimerEvent: {}
+[0.149389] (odom_visualization) StdoutLine: {'line': b'[ 50%] \x1b[32mBuilding CXX object CMakeFiles/odom_visualization.dir/src/odom_visualization.cpp.o\x1b[0m\n'}
+[0.199610] (-) TimerEvent: {}
+[0.300393] (-) TimerEvent: {}
+[0.401216] (-) TimerEvent: {}
+[0.502062] (-) TimerEvent: {}
+[0.602927] (-) TimerEvent: {}
+[0.704111] (-) TimerEvent: {}
+[0.804954] (-) TimerEvent: {}
+[0.905780] (-) TimerEvent: {}
+[1.006592] (-) TimerEvent: {}
+[1.087604] (odom_visualization) StderrLine: {'line': b'\x1b[01m\x1b[K/root/colcon_ws/src/Fast-Planner/uav_simulator/Utils/odom_visualization/src/odom_visualization.cpp:15:10:\x1b[m\x1b[K \x1b[01;31m\x1b[Kfatal error: \x1b[m\x1b[Kpose_utils.h: No such file or directory\n'}
+[1.088394] (odom_visualization) StderrLine: {'line': b'   15 | #include \x1b[01;31m\x1b[K"pose_utils.h"\x1b[m\x1b[K\n'}
+[1.088717] (odom_visualization) StderrLine: {'line': b'      |          \x1b[01;31m\x1b[K^~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[1.088995] (odom_visualization) StderrLine: {'line': b'compilation terminated.\n'}
+[1.097279] (odom_visualization) StderrLine: {'line': b'gmake[2]: *** [CMakeFiles/odom_visualization.dir/build.make:76: CMakeFiles/odom_visualization.dir/src/odom_visualization.cpp.o] Error 1\n'}
+[1.097858] (odom_visualization) StderrLine: {'line': b'gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/odom_visualization.dir/all] Error 2\n'}
+[1.098572] (odom_visualization) StderrLine: {'line': b'gmake: *** [Makefile:146: all] Error 2\n'}
+[1.104615] (odom_visualization) CommandEnded: {'returncode': 2}
+[1.108091] (-) TimerEvent: {}
+[1.137638] (odom_visualization) JobEnded: {'identifier': 'odom_visualization', 'rc': 2}
+[1.149263] (-) EventReactorShutdown: {}

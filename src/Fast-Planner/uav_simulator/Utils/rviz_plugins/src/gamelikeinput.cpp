@@ -31,14 +31,14 @@
 #include "rviz/render_panel.h"
 #include "rviz/viewport_mouse_event.h"
 
-#include <geometry_msgs/PoseStamped.h>
-#include <tf/transform_listener.h>
+#include <geometry_msgs/msg/pose_stamped.hpp>
+#include <tf2/transform_listener.h>
 
 #include "rviz/properties/string_property.h"
 
-#include "nav_msgs/Path.h"
-// #include "quadrotor_msgs/SwarmCommand.h"
-#include "std_msgs/Int32MultiArray.h"
+#include <nav_msgs/msg/path.hpp>
+// #include <quadrotor_msgs/msg/swarm_command.hpp>
+#include <std_msgs/msg/int32_multi_array.hpp>
 
 //! @todo rewrite this grabage code
 
@@ -46,12 +46,12 @@ void
 GameLikeInput::updateTopic()
 {
   pub_pointlist =
-    nh_.advertise<nav_msgs::Path>(topic_property_wp_->getStdString(), 1);
+    /* TODO: 转换发布 */ nh_->create_publisher<nav_msgs::msg::Path>(topic_property_wp_->getStdString(), 1);
 
-  pub_selection = nh_.advertise<std_msgs::Int32MultiArray>(
+  pub_selection = /* TODO: 转换发布 */ nh_->create_publisher<std_msgs::msg::Int32MultiArray>(
     topic_property_drone_->getStdString(), 1);
 
-  pub_swarm = nh_.advertise<quadrotor_msgs::SwarmCommand>(
+  pub_swarm = /* TODO: 转换发布 */ nh_->create_publisher<quadrotor_msgs::SwarmCommand>(
     topic_property_swarm_->getStdString(), 1);
 
   z_max = property_z_max->getFloat();
@@ -134,8 +134,8 @@ GameLikeInput::onInitialize()
 void
 GameLikeInput::sendMessage()
 {
-  std_msgs::Int32MultiArray array;
-  nav_msgs::Path            path;
+  std_msgs::msg::Int32MultiArray array;
+  nav_msgs::msg::Path            path;
 
   array.data.clear();
 
@@ -143,7 +143,7 @@ GameLikeInput::sendMessage()
 
   auto size = std::distance(selection_.begin(), selection_.end());
 
-  geometry_msgs::PoseStamped pose;
+  geometry_msgs::msg::PoseStamped pose;
   pose.pose.position.x = 0;
   pose.pose.position.y = 0;
   pose.pose.position.z = 0;
@@ -181,7 +181,7 @@ GameLikeInput::sendMessage()
   for (int i = 0; i < arrow_array.size(); ++i)
   {
     rviz::Arrow*               p_a = arrow_array[i];
-    geometry_msgs::PoseStamped ps;
+    geometry_msgs::msg::PoseStamped ps;
 
     ps.pose.position.x = p_a->getPosition().x;
     ps.pose.position.y = p_a->getPosition().y;
@@ -211,7 +211,7 @@ GameLikeInput::sendMessage()
   arrow_->getSceneNode()->setVisible(false);
 
   path.header.frame_id = "map";
-  path.header.stamp    = ros::Time::now();
+  path.header.stamp    = node_->now();
 
   std::sort(array.data.begin(), array.data.end());
 
@@ -227,15 +227,15 @@ GameLikeInput::sendMessage()
 void
 GameLikeInput::onPoseSet(double x, double y, double z, double theta)
 {
-  ROS_WARN("3D Goal Set");
+  RCLCPP_WARN(node_->get_logger(), this->get_logger(), "3D Goal Set");
   std::string    fixed_frame = context_->getFixedFrame().toStdString();
   tf::Quaternion quat;
   quat.setRPY(0.0, 0.0, theta);
   tf::Stamped<tf::Pose> p = tf::Stamped<tf::Pose>(
-    tf::Pose(quat, tf::Point(x, y, z)), ros::Time::now(), fixed_frame);
-  geometry_msgs::PoseStamped goal;
+    tf::Pose(quat, tf::Point(x, y, z)), node_->now(), fixed_frame);
+  geometry_msgs::msg::PoseStamped goal;
   tf::poseStampedTFToMsg(p, goal);
-  ROS_INFO("Setting goal: Frame:%s, Position(%.3f, %.3f, %.3f), "
+  RCLCPP_INFO(node_->get_logger(), this->get_logger(), "Setting goal: Frame:%s, Position(%.3f, %.3f, %.3f), "
            "Orientation(%.3f, %.3f, %.3f, %.3f) = Angle: %.3f\n",
            fixed_frame.c_str(), goal.pose.position.x, goal.pose.position.y,
            goal.pose.position.z, goal.pose.orientation.x,

@@ -29,8 +29,8 @@
 #include <Eigen/Eigen>
 #include <iostream>
 #include <map>
-#include <ros/console.h>
-#include <ros/ros.h>
+#include <rclcpp/logging.hpp>
+#include <rclcpp/rclcpp.hpp>
 #include <string>
 #include <unordered_map>
 // #include "grad_spline/sdf_map.h"
@@ -129,7 +129,7 @@ private:
   std::vector<NodePtr> path_nodes_;
 
   /* ---------- record data ---------- */
-  EDTEnvironment::Ptr edt_environment_;
+  EDTEnvironment::SharedPtr edt_environment_;
   bool has_path_ = false;
 
   /* ---------- parameter ---------- */
@@ -160,13 +160,13 @@ public:
   enum { REACH_END = 1, NO_PATH = 2 };
 
   /* main API */
-  void setParam(ros::NodeHandle& nh);
+  void setParam(rclcpp::Node& nh);
   void init();
   void reset();
   int search(Eigen::Vector3d start_pt, Eigen::Vector3d end_pt, bool dynamic = false,
              double time_start = -1.0);
 
-  void setEnvironment(const EDTEnvironment::Ptr& env);
+  void setEnvironment(const EDTEnvironment::SharedPtr& env);
   std::vector<Eigen::Vector3d> getPath();
   std::vector<NodePtr> getVisitedNodes();
 

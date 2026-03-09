@@ -14,10 +14,10 @@
 
 #include "ros/assert.h"
 
-#include "std_msgs/Header.h"
-#include "geometry_msgs/Vector3.h"
-#include "geometry_msgs/Quaternion.h"
-#include "quadrotor_msgs/AuxCommand.h"
+#include <std_msgs/msg/header.hpp>
+#include <geometry_msgs/msg/vector3.hpp>
+#include <geometry_msgs/msg/quaternion.hpp>
+#include <quadrotor_msgs/msg/aux_command.hpp>
 
 namespace quadrotor_msgs
 {
@@ -49,14 +49,14 @@ struct SO3Command_ {
     kOm.assign(0.0);
   }
 
-  typedef  ::std_msgs::Header_<ContainerAllocator>  _header_type;
-   ::std_msgs::Header_<ContainerAllocator>  header;
+  typedef  ::std_msgs::msg::Header_<ContainerAllocator>  _header_type;
+   ::std_msgs::msg::Header_<ContainerAllocator>  header;
 
-  typedef  ::geometry_msgs::Vector3_<ContainerAllocator>  _force_type;
-   ::geometry_msgs::Vector3_<ContainerAllocator>  force;
+  typedef  ::geometry_msgs::msg::Vector3_<ContainerAllocator>  _force_type;
+   ::geometry_msgs::msg::Vector3_<ContainerAllocator>  force;
 
-  typedef  ::geometry_msgs::Quaternion_<ContainerAllocator>  _orientation_type;
-   ::geometry_msgs::Quaternion_<ContainerAllocator>  orientation;
+  typedef  ::geometry_msgs::msg::Quaternion_<ContainerAllocator>  _orientation_type;
+   ::geometry_msgs::msg::Quaternion_<ContainerAllocator>  orientation;
 
   typedef boost::array<double, 3>  _kR_type;
   boost::array<double, 3>  kR;
@@ -69,12 +69,12 @@ struct SO3Command_ {
 
 
   typedef boost::shared_ptr< ::quadrotor_msgs::SO3Command_<ContainerAllocator> > Ptr;
-  typedef boost::shared_ptr< ::quadrotor_msgs::SO3Command_<ContainerAllocator>  const> ConstPtr;
+  typedef boost::shared_ptr< ::quadrotor_msgs::SO3Command_<ContainerAllocator>  const> SharedPtr;
 }; // struct SO3Command
 typedef  ::quadrotor_msgs::SO3Command_<std::allocator<void> > SO3Command;
 
 typedef boost::shared_ptr< ::quadrotor_msgs::SO3Command> SO3CommandPtr;
-typedef boost::shared_ptr< ::quadrotor_msgs::SO3Command const> SO3CommandConstPtr;
+typedef boost::shared_ptr< ::quadrotor_msgs::SO3Command const> SO3CommandSharedPtr;
 
 
 template<typename ContainerAllocator>
@@ -211,13 +211,13 @@ struct Printer< ::quadrotor_msgs::SO3Command_<ContainerAllocator> >
   {
     s << indent << "header: ";
 s << std::endl;
-    Printer< ::std_msgs::Header_<ContainerAllocator> >::stream(s, indent + "  ", v.header);
+    Printer< ::std_msgs::msg::Header_<ContainerAllocator> >::stream(s, indent + "  ", v.header);
     s << indent << "force: ";
 s << std::endl;
-    Printer< ::geometry_msgs::Vector3_<ContainerAllocator> >::stream(s, indent + "  ", v.force);
+    Printer< ::geometry_msgs::msg::Vector3_<ContainerAllocator> >::stream(s, indent + "  ", v.force);
     s << indent << "orientation: ";
 s << std::endl;
-    Printer< ::geometry_msgs::Quaternion_<ContainerAllocator> >::stream(s, indent + "  ", v.orientation);
+    Printer< ::geometry_msgs::msg::Quaternion_<ContainerAllocator> >::stream(s, indent + "  ", v.orientation);
     s << indent << "kR[]" << std::endl;
     for (size_t i = 0; i < v.kR.size(); ++i)
     {

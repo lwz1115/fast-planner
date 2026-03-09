@@ -202,12 +202,12 @@ int Astar::search(Eigen::Vector3d start_pt, Eigen::Vector3d end_pt, bool dynamic
   return NO_PATH;
 }
 
-void Astar::setParam(ros::NodeHandle& nh) {
-  nh.param("astar/resolution_astar", resolution_, -1.0);
-  nh.param("astar/time_resolution", time_resolution_, -1.0);
-  nh.param("astar/lambda_heu", lambda_heu_, -1.0);
-  nh.param("astar/margin", margin_, -1.0);
-  nh.param("astar/allocate_num", allocate_num_, -1);
+void Astar::setParam(rclcpp::Node& nh) {
+  resolution_ = nh->declare_parameter("astar/resolution_astar", -1.0);
+  time_resolution_ = nh->declare_parameter("astar/time_resolution", -1.0);
+  lambda_heu_ = nh->declare_parameter("astar/lambda_heu", -1.0);
+  margin_ = nh->declare_parameter("astar/margin", -1.0);
+  allocate_num_ = nh->declare_parameter("astar/allocate_num", -1);
   tie_breaker_ = 1.0 + 1.0 / 10000;
 
   cout << "margin:" << margin_ << endl;
@@ -287,7 +287,7 @@ void Astar::init() {
   iter_num_ = 0;
 }
 
-void Astar::setEnvironment(const EDTEnvironment::Ptr& env) {
+void Astar::setEnvironment(const EDTEnvironment::SharedPtr& env) {
   this->edt_environment_ = env;
 }
 

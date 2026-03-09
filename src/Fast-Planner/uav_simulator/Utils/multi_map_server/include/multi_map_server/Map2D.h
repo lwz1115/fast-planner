@@ -2,9 +2,9 @@
 #define MAP2D_H
 
 #include <iostream>
-#include <ros/ros.h>
-#include <tf/tf.h>
-#include <nav_msgs/OccupancyGrid.h>
+#include <rclcpp/rclcpp.hpp>
+#include <tf2/tf.h>
+#include <nav_msgs/msg/occupancy_grid.hpp>
 
 using namespace std;
 
@@ -12,7 +12,7 @@ class Map2D
 {
 
 private:
-  nav_msgs::OccupancyGrid map;
+  nav_msgs::msg::OccupancyGrid map;
   int  expandStep;  
   int  binning;  
   bool isBinningSet;
@@ -47,7 +47,7 @@ public:
   double GetMaxX() { return map.info.origin.position.x + map.info.width  * map.info.resolution; }
   double GetMaxY() { return map.info.origin.position.y + map.info.height * map.info.resolution; }
   bool   Updated() { return updated; }  
-  void   Reset()   { map = nav_msgs::OccupancyGrid(); }
+  void   Reset()   { map = nav_msgs::msg::OccupancyGrid(); }
 
   void SetBinning(int _binning) 
   { 
@@ -66,7 +66,7 @@ public:
       return map.data[ym*map.info.width+xm];
   }
 
-  void Replace(nav_msgs::OccupancyGrid m)
+  void Replace(nav_msgs::msg::OccupancyGrid m)
   {
     // Check data
     if (m.data.size() == 0)
@@ -104,7 +104,7 @@ public:
   }
 
   // Merge submap
-  void Update(nav_msgs::OccupancyGrid m)
+  void Update(nav_msgs::msg::OccupancyGrid m)
   {
     // Check data
     if (m.data.size() == 0)
@@ -229,10 +229,10 @@ public:
     updated = true;
   }
 
-  const nav_msgs::OccupancyGrid& GetMap()
+  const nav_msgs::msg::OccupancyGrid& GetMap()
   {
-    map.header.stamp       = ros::Time::now();
-    map.info.map_load_time = ros::Time::now();
+    map.header.stamp       = node_->now();
+    map.info.map_load_time = node_->now();
     map.header.frame_id    = string("/map");
     updated = false;
     return map;

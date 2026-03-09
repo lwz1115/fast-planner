@@ -3,9 +3,9 @@
 
 #include <stdint.h>
 #include <vector>
-#include <quadrotor_msgs/SO3Command.h>
-#include <quadrotor_msgs/TRPYCommand.h>
-#include <quadrotor_msgs/Gains.h>
+#include <quadrotor_msgs/msg/so3_command.hpp>
+#include <quadrotor_msgs/msg/trpy_command.hpp>
+#include <quadrotor_msgs/msg/gains.hpp>
 
 namespace quadrotor_msgs
 {

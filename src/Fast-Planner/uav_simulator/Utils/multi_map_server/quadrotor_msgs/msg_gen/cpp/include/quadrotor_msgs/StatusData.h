@@ -14,7 +14,7 @@
 
 #include "ros/assert.h"
 
-#include "std_msgs/Header.h"
+#include <std_msgs/msg/header.hpp>
 
 namespace quadrotor_msgs
 {
@@ -38,8 +38,8 @@ struct StatusData_ {
   {
   }
 
-  typedef  ::std_msgs::Header_<ContainerAllocator>  _header_type;
-   ::std_msgs::Header_<ContainerAllocator>  header;
+  typedef  ::std_msgs::msg::Header_<ContainerAllocator>  _header_type;
+   ::std_msgs::msg::Header_<ContainerAllocator>  header;
 
   typedef uint16_t _loop_rate_type;
   uint16_t loop_rate;
@@ -52,12 +52,12 @@ struct StatusData_ {
 
 
   typedef boost::shared_ptr< ::quadrotor_msgs::StatusData_<ContainerAllocator> > Ptr;
-  typedef boost::shared_ptr< ::quadrotor_msgs::StatusData_<ContainerAllocator>  const> ConstPtr;
+  typedef boost::shared_ptr< ::quadrotor_msgs::StatusData_<ContainerAllocator>  const> SharedPtr;
 }; // struct StatusData
 typedef  ::quadrotor_msgs::StatusData_<std::allocator<void> > StatusData;
 
 typedef boost::shared_ptr< ::quadrotor_msgs::StatusData> StatusDataPtr;
-typedef boost::shared_ptr< ::quadrotor_msgs::StatusData const> StatusDataConstPtr;
+typedef boost::shared_ptr< ::quadrotor_msgs::StatusData const> StatusDataSharedPtr;
 
 
 template<typename ContainerAllocator>
@@ -166,7 +166,7 @@ struct Printer< ::quadrotor_msgs::StatusData_<ContainerAllocator> >
   {
     s << indent << "header: ";
 s << std::endl;
-    Printer< ::std_msgs::Header_<ContainerAllocator> >::stream(s, indent + "  ", v.header);
+    Printer< ::std_msgs::msg::Header_<ContainerAllocator> >::stream(s, indent + "  ", v.header);
     s << indent << "loop_rate: ";
     Printer<uint16_t>::stream(s, indent + "  ", v.loop_rate);
     s << indent << "voltage: ";

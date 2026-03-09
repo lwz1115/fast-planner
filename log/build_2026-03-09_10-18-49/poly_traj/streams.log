@@ -1,0 +1,34 @@
+[0.056s] Invoking command in '/root/colcon_ws/build/poly_traj': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /root/colcon_ws/build/poly_traj -- -j8 -l8
+[0.182s] [100%] Built target poly_traj
+[0.320s] Invoked command in '/root/colcon_ws/build/poly_traj' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /root/colcon_ws/build/poly_traj -- -j8 -l8
+[0.323s] Invoking command in '/root/colcon_ws/build/poly_traj': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /root/colcon_ws/build/poly_traj
+[0.346s] -- Install configuration: "Release"
+[0.346s] -- Up-to-date: /root/colcon_ws/install/poly_traj/lib/libpoly_traj.a
+[0.346s] -- Up-to-date: /root/colcon_ws/install/poly_traj/include/poly_traj
+[0.346s] -- Up-to-date: /root/colcon_ws/install/poly_traj/include/poly_traj/poly_traj
+[0.346s] -- Up-to-date: /root/colcon_ws/install/poly_traj/include/poly_traj/poly_traj/polynomial_traj.h
+[0.347s] -- Up-to-date: /root/colcon_ws/install/poly_traj/lib/cmake/poly_traj/poly_trajTargets.cmake
+[0.347s] -- Up-to-date: /root/colcon_ws/install/poly_traj/lib/cmake/poly_traj/poly_trajTargets-release.cmake
+[0.347s] -- Up-to-date: /root/colcon_ws/install/poly_traj/share/poly_traj/environment/library_path.sh
+[0.347s] -- Up-to-date: /root/colcon_ws/install/poly_traj/share/poly_traj/environment/library_path.dsv
+[0.347s] -- Up-to-date: /root/colcon_ws/install/poly_traj/share/ament_index/resource_index/package_run_dependencies/poly_traj
+[0.347s] -- Up-to-date: /root/colcon_ws/install/poly_traj/share/ament_index/resource_index/parent_prefix_path/poly_traj
+[0.348s] -- Up-to-date: /root/colcon_ws/install/poly_traj/share/poly_traj/environment/ament_prefix_path.sh
+[0.348s] -- Up-to-date: /root/colcon_ws/install/poly_traj/share/poly_traj/environment/ament_prefix_path.dsv
+[0.348s] -- Up-to-date: /root/colcon_ws/install/poly_traj/share/poly_traj/environment/path.sh
+[0.348s] -- Up-to-date: /root/colcon_ws/install/poly_traj/share/poly_traj/environment/path.dsv
+[0.348s] -- Up-to-date: /root/colcon_ws/install/poly_traj/share/poly_traj/local_setup.bash
+[0.348s] -- Up-to-date: /root/colcon_ws/install/poly_traj/share/poly_traj/local_setup.sh
+[0.348s] -- Up-to-date: /root/colcon_ws/install/poly_traj/share/poly_traj/local_setup.zsh
+[0.348s] -- Up-to-date: /root/colcon_ws/install/poly_traj/share/poly_traj/local_setup.dsv
+[0.349s] -- Installing: /root/colcon_ws/install/poly_traj/share/poly_traj/package.dsv
+[0.349s] -- Up-to-date: /root/colcon_ws/install/poly_traj/share/ament_index/resource_index/packages/poly_traj
+[0.349s] -- Up-to-date: /root/colcon_ws/install/poly_traj/share/poly_traj/cmake/poly_trajTargetsExport.cmake
+[0.349s] -- Up-to-date: /root/colcon_ws/install/poly_traj/share/poly_traj/cmake/poly_trajTargetsExport-release.cmake
+[0.349s] -- Up-to-date: /root/colcon_ws/install/poly_traj/share/poly_traj/cmake/ament_cmake_export_targets-extras.cmake
+[0.349s] -- Up-to-date: /root/colcon_ws/install/poly_traj/share/poly_traj/cmake/ament_cmake_export_dependencies-extras.cmake
+[0.349s] -- Up-to-date: /root/colcon_ws/install/poly_traj/share/poly_traj/cmake/ament_cmake_export_include_directories-extras.cmake
+[0.349s] -- Up-to-date: /root/colcon_ws/install/poly_traj/share/poly_traj/cmake/poly_trajConfig.cmake
+[0.349s] -- Up-to-date: /root/colcon_ws/install/poly_traj/share/poly_traj/cmake/poly_trajConfig-version.cmake
+[0.349s] -- Up-to-date: /root/colcon_ws/install/poly_traj/share/poly_traj/package.xml
+[0.436s] Invoked command in '/root/colcon_ws/build/poly_traj' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /root/colcon_ws/build/poly_traj

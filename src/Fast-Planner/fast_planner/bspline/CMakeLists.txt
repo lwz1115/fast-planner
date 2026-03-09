@@ -1,40 +1,48 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.8)
 project(bspline)
 
 set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -Wall")
 
+# 查找依赖
+find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(visualization_msgs REQUIRED)
+find_package(pcl_conversions REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(PCL 1.7 REQUIRED)
 
-find_package(catkin REQUIRED COMPONENTS
-  roscpp
-  rospy
+# 包含目录
+include_directories(
+  include 
+  ${EIGEN3_INCLUDE_DIR} 
+  ${PCL_INCLUDE_DIRS}
+)
+
+# 库
+add_library(bspline 
+  src/non_uniform_bspline.cpp 
+)
+
+ament_target_dependencies(bspline
+  rclcpp
   std_msgs
   visualization_msgs
-  plan_env
-  cv_bridge
+  pcl_conversions
 )
 
-catkin_package(
- INCLUDE_DIRS include
- LIBRARIES bspline
- CATKIN_DEPENDS
-#  DEPENDS system_lib
+# 安装
+install(TARGETS
+  bspline
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib
+  RUNTIME DESTINATION lib/${PROJECT_NAME}
 )
 
-include_directories( 
-    SYSTEM 
-    include 
-    ${catkin_INCLUDE_DIRS}
-    ${Eigen3_INCLUDE_DIRS} 
-    ${PCL_INCLUDE_DIRS}
+install(DIRECTORY include/
+  DESTINATION include/${PROJECT_NAME}
 )
 
-set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS} -O3 -Wall")
+ament_package()  
 
-add_library( bspline 
-    src/non_uniform_bspline.cpp 
-    )
-target_link_libraries( bspline
-    ${catkin_LIBRARIES} 
-    )  

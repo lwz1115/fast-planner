@@ -5,13 +5,13 @@
 #include <pcl_conversions/pcl_conversions.h>
 #include <iostream>
 
-#include <geometry_msgs/PoseStamped.h>
-#include <geometry_msgs/Vector3.h>
+#include <geometry_msgs/msg/pose_stamped.hpp>
+#include <geometry_msgs/msg/vector3.hpp>
 #include <math.h>
-#include <nav_msgs/Odometry.h>
-#include <ros/console.h>
-#include <ros/ros.h>
-#include <sensor_msgs/PointCloud2.h>
+#include <nav_msgs/msg/odometry.hpp>
+#include <rclcpp/logging.hpp>
+#include <rclcpp/rclcpp.hpp>
+#include <sensor_msgs/msg/point_cloud2.hpp>
 #include <Eigen/Eigen>
 #include <random>
 
@@ -29,10 +29,10 @@ uniform_real_distribution<double> rand_y;
 uniform_real_distribution<double> rand_w;
 uniform_real_distribution<double> rand_h;
 
-ros::Publisher _local_map_pub;
-ros::Publisher _all_map_pub;
-ros::Publisher click_map_pub_;
-ros::Subscriber _odom_sub;
+rclcpp::Publisher _local_map_pub;
+rclcpp::Publisher _all_map_pub;
+rclcpp::Publisher click_map_pub_;
+rclcpp::Subscription _odom_sub;
 
 vector<double> _state;
 
@@ -52,10 +52,10 @@ uniform_real_distribution<double> rand_radius2_;
 uniform_real_distribution<double> rand_theta_;
 uniform_real_distribution<double> rand_z_;
 
-sensor_msgs::PointCloud2 globalMap_pcd;
+sensor_msgs::msg::PointCloud2 globalMap_pcd;
 pcl::PointCloud<pcl::PointXYZ> cloudMap;
 
-sensor_msgs::PointCloud2 localMap_pcd;
+sensor_msgs::msg::PointCloud2 localMap_pcd;
 pcl::PointCloud<pcl::PointXYZ> clicked_cloud_;
 
 void RandomMapGenerate() {
@@ -164,14 +164,14 @@ void RandomMapGenerate() {
   cloudMap.height = 1;
   cloudMap.is_dense = true;
 
-  ROS_WARN("Finished generate random map ");
+  RCLCPP_WARN(node_->get_logger(), this->get_logger(), "Finished generate random map ");
 
   kdtreeLocalMap.setInputCloud(cloudMap.makeShared());
 
   _map_ok = true;
 }
 
-void rcvOdometryCallbck(const nav_msgs::Odometry odom) {
+void rcvOdometryCallbck(const nav_msgs::msg::Odometry odom) {
   if (odom.child_frame_id == "X" || odom.child_frame_id == "O") return;
   _has_odom = true;
 
@@ -218,7 +218,7 @@ void pubSensedPoints() {
       localMap.points.push_back(pt);
     }
   } else {
-    ROS_ERROR("[Map server] No obstacles .");
+    RCLCPP_ERROR(node_->get_logger(), this->get_logger(), "[Map server] No obstacles .");
     return;
   }
 
@@ -231,7 +231,7 @@ void pubSensedPoints() {
   _local_map_pub.publish(localMap_pcd);
 }
 
-void clickCallback(const geometry_msgs::PoseStamped& msg) {
+void clickCallback(const geometry_msgs::msg::PoseStamped& msg) {
   double x = msg.pose.position.x;
   double y = msg.pose.position.y;
   double w = rand_w(eng);
@@ -269,41 +269,41 @@ void clickCallback(const geometry_msgs::PoseStamped& msg) {
 }
 
 int main(int argc, char** argv) {
-  ros::init(argc, argv, "random_map_sensing");
-  ros::NodeHandle n("~");
+  rclcpp::init(argc, argv, "random_map_sensing");
+  rclcpp::Node n("~");
 
-  _local_map_pub = n.advertise<sensor_msgs::PointCloud2>("/map_generator/local_cloud", 1);
-  _all_map_pub = n.advertise<sensor_msgs::PointCloud2>("/map_generator/global_cloud", 1);
+  _local_map_pub = /* TODO: 转换发布 */ n->create_publisher<sensor_msgs::msg::PointCloud2>("/map_generator/local_cloud", 1);
+  _all_map_pub = /* TODO: 转换发布 */ n->create_publisher<sensor_msgs::msg::PointCloud2>("/map_generator/global_cloud", 1);
 
   _odom_sub = n.subscribe("odometry", 50, rcvOdometryCallbck);
 
   click_map_pub_ =
-      n.advertise<sensor_msgs::PointCloud2>("/pcl_render_node/local_map", 1);
-  // ros::Subscriber click_sub = n.subscribe("/goal", 10, clickCallback);
+      /* TODO: 转换发布 */ n->create_publisher<sensor_msgs::msg::PointCloud2>("/pcl_render_node/local_map", 1);
+  // rclcpp::Subscription click_sub = n.subscribe("/goal", 10, clickCallback);
 
-  n.param("init_state_x", _init_x, 0.0);
-  n.param("init_state_y", _init_y, 0.0);
+  _init_x = n->declare_parameter("init_state_x", 0.0);
+  _init_y = n->declare_parameter("init_state_y", 0.0);
 
-  n.param("map/x_size", _x_size, 50.0);
-  n.param("map/y_size", _y_size, 50.0);
-  n.param("map/z_size", _z_size, 5.0);
-  n.param("map/obs_num", _obs_num, 30);
-  n.param("map/resolution", _resolution, 0.1);
-  n.param("map/circle_num", circle_num_, 30);
+  _x_size = n->declare_parameter("map/x_size", 50.0);
+  _y_size = n->declare_parameter("map/y_size", 50.0);
+  _z_size = n->declare_parameter("map/z_size", 5.0);
+  _obs_num = n->declare_parameter("map/obs_num", 30);
+  _resolution = n->declare_parameter("map/resolution", 0.1);
+  circle_num_ = n->declare_parameter("map/circle_num", 30);
 
-  n.param("ObstacleShape/lower_rad", _w_l, 0.3);
-  n.param("ObstacleShape/upper_rad", _w_h, 0.8);
-  n.param("ObstacleShape/lower_hei", _h_l, 3.0);
-  n.param("ObstacleShape/upper_hei", _h_h, 7.0);
+  _w_l = n->declare_parameter("ObstacleShape/lower_rad", 0.3);
+  _w_h = n->declare_parameter("ObstacleShape/upper_rad", 0.8);
+  _h_l = n->declare_parameter("ObstacleShape/lower_hei", 3.0);
+  _h_h = n->declare_parameter("ObstacleShape/upper_hei", 7.0);
 
-  n.param("ObstacleShape/radius_l", radius_l_, 7.0);
-  n.param("ObstacleShape/radius_h", radius_h_, 7.0);
-  n.param("ObstacleShape/z_l", z_l_, 7.0);
-  n.param("ObstacleShape/z_h", z_h_, 7.0);
-  n.param("ObstacleShape/theta", theta_, 7.0);
+  radius_l_ = n->declare_parameter("ObstacleShape/radius_l", 7.0);
+  radius_h_ = n->declare_parameter("ObstacleShape/radius_h", 7.0);
+  z_l_ = n->declare_parameter("ObstacleShape/z_l", 7.0);
+  z_h_ = n->declare_parameter("ObstacleShape/z_h", 7.0);
+  theta_ = n->declare_parameter("ObstacleShape/theta", 7.0);
 
-  n.param("sensing/radius", _sensing_range, 10.0);
-  n.param("sensing/radius", _sense_rate, 10.0);
+  _sensing_range = n->declare_parameter("sensing/radius", 10.0);
+  _sense_rate = n->declare_parameter("sensing/radius", 10.0);
 
   _x_l = -_x_size / 2.0;
   _x_h = +_x_size / 2.0;
@@ -314,15 +314,15 @@ int main(int argc, char** argv) {
   _obs_num = min(_obs_num, (int)_x_size * 10);
   _z_limit = _z_size;
 
-  ros::Duration(0.5).sleep();
+  rclcpp::sleep_for(std::chrono::duration<double>(0.5));
 
   RandomMapGenerate();
 
-  ros::Rate loop_rate(_sense_rate);
+  rclcpp::Rate loop_rate(_sense_rate);
 
-  while (ros::ok()) {
+  while (rclcpp::ok()) {
     pubSensedPoints();
-    ros::spinOnce();
+    rclcpp::spin_some(node);
     loop_rate.sleep();
   }
 }

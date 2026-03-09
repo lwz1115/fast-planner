@@ -1,0 +1,19 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from multi_map_server/msg/SparseMap3D.msg
+// generated code does not contain a copyright notice
+
+#include "multi_map_server/msg/VerticalOccupancyGridList.idl"
+#include "nav_msgs/msg/MapMetaData.idl"
+#include "std_msgs/msg/Header.idl"
+
+module multi_map_server {
+  module msg {
+    struct SparseMap3D {
+      std_msgs::msg::Header header;
+
+      nav_msgs::msg::MapMetaData info;
+
+      sequence<multi_map_server::msg::VerticalOccupancyGridList> lists;
+    };
+  };
+};

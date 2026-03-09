@@ -112,7 +112,7 @@ public:
 class TopologyPRM {
 private:
   /* data */
-  EDTEnvironment::Ptr edt_environment_;  // environment representation
+  EDTEnvironment::SharedPtr edt_environment_;  // environment representation
 
   // sampling generator
   random_device rd_;
@@ -124,7 +124,7 @@ private:
   Eigen::Matrix3d rotation_;
 
   // roadmap data structure, 0:start, 1:goal, 2-n: others
-  list<GraphNode::Ptr> graph_;
+  list<GraphNode::SharedPtr> graph_;
   vector<vector<Eigen::Vector3d>> raw_paths_;
   vector<vector<Eigen::Vector3d>> short_paths_;
   vector<vector<Eigen::Vector3d>> final_paths_;
@@ -149,7 +149,7 @@ private:
 
   /* create topological roadmap */
   /* path searching, shortening, pruning and merging */
-  list<GraphNode::Ptr> createGraph(Eigen::Vector3d start, Eigen::Vector3d end);
+  list<GraphNode::SharedPtr> createGraph(Eigen::Vector3d start, Eigen::Vector3d end);
   vector<vector<Eigen::Vector3d>> searchPaths();
   void shortcutPaths();
   vector<vector<Eigen::Vector3d>> pruneEquivalent(vector<vector<Eigen::Vector3d>>& paths);
@@ -157,8 +157,8 @@ private:
 
   /* ---------- helper ---------- */
   inline Eigen::Vector3d getSample();
-  vector<GraphNode::Ptr> findVisibGuard(Eigen::Vector3d pt);  // find pairs of visibile guard
-  bool needConnection(GraphNode::Ptr g1, GraphNode::Ptr g2,
+  vector<GraphNode::SharedPtr> findVisibGuard(Eigen::Vector3d pt);  // find pairs of visibile guard
+  bool needConnection(GraphNode::SharedPtr g1, GraphNode::SharedPtr g2,
                       Eigen::Vector3d pt);  // test redundancy with existing
                                             // connection between two guard
   bool lineVisib(const Eigen::Vector3d& p1, const Eigen::Vector3d& p2, double thresh,
@@ -166,7 +166,7 @@ private:
   bool triangleVisib(Eigen::Vector3d pt, Eigen::Vector3d p1, Eigen::Vector3d p2);
   void pruneGraph();
 
-  void depthFirstSearch(vector<GraphNode::Ptr>& vis);
+  void depthFirstSearch(vector<GraphNode::SharedPtr>& vis);
 
   vector<Eigen::Vector3d> discretizeLine(Eigen::Vector3d p1, Eigen::Vector3d p2);
   vector<vector<Eigen::Vector3d>> discretizePaths(vector<vector<Eigen::Vector3d>>& path);
@@ -187,12 +187,12 @@ public:
   TopologyPRM(/* args */);
   ~TopologyPRM();
 
-  void init(ros::NodeHandle& nh);
+  void init(rclcpp::Node& nh);
 
-  void setEnvironment(const EDTEnvironment::Ptr& env);
+  void setEnvironment(const EDTEnvironment::SharedPtr& env);
 
   void findTopoPaths(Eigen::Vector3d start, Eigen::Vector3d end, vector<Eigen::Vector3d> start_pts,
-                     vector<Eigen::Vector3d> end_pts, list<GraphNode::Ptr>& graph,
+                     vector<Eigen::Vector3d> end_pts, list<GraphNode::SharedPtr>& graph,
                      vector<vector<Eigen::Vector3d>>& raw_paths,
                      vector<vector<Eigen::Vector3d>>& filtered_paths,
                      vector<vector<Eigen::Vector3d>>& select_paths);

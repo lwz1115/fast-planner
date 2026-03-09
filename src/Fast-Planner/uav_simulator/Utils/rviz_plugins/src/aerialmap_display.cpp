@@ -35,9 +35,9 @@
 #include <OGRE/OgreSceneNode.h>
 #include <OGRE/OgreTextureManager.h>
 
-#include <ros/ros.h>
+#include <rclcpp/rclcpp.hpp>
 
-#include <tf/transform_listener.h>
+#include <tf2/transform_listener.h>
 
 #include "rviz/display_context.h"
 #include "rviz/frame_manager.h"
@@ -69,8 +69,8 @@ AerialMapDisplay::AerialMapDisplay()
 {
   topic_property_ = new RosTopicProperty(
     "Topic", "", QString::fromStdString(
-                   ros::message_traits::datatype<nav_msgs::OccupancyGrid>()),
-    "nav_msgs::OccupancyGrid topic to subscribe to.", this,
+                   ros::message_traits::datatype<nav_msgs::msg::OccupancyGrid>()),
+    "nav_msgs::msg::OccupancyGrid topic to subscribe to.", this,
     SLOT(updateTopic()));
 
   alpha_property_ = new FloatProperty(
@@ -258,7 +258,7 @@ AerialMapDisplay::clear()
   loaded_ = false;
 }
 /*
-bool validateFloats(const nav_msgs::OccupancyGrid& msg)
+bool validateFloats(const nav_msgs::msg::OccupancyGrid& msg)
 {
   bool valid = true;
   valid = valid && validateFloats( msg.info.resolution );
@@ -308,7 +308,7 @@ AerialMapDisplay::update(float wall_dt, float ros_dt)
 
   setStatus(StatusProperty::Ok, "Message", "AerialMap received");
 
-  ROS_DEBUG("Received a %d X %d map @ %.3f m/pix\n", current_map_->info.width,
+  RCLCPP_DEBUG(node_->get_logger(), this->get_logger(), "Received a %d X %d map @ %.3f m/pix\n", current_map_->info.width,
             current_map_->info.height, current_map_->info.resolution);
 
   float resolution = current_map_->info.resolution;
@@ -418,11 +418,11 @@ AerialMapDisplay::update(float wall_dt, float ros_dt)
                 QString::fromStdString(ss.str()));
     }
 
-    ROS_WARN("Failed to create full-size map texture, likely because your "
+    RCLCPP_WARN(node_->get_logger(), this->get_logger(), "Failed to create full-size map texture, likely because your "
              "graphics card does not support textures of size > 2048.  "
              "Downsampling to [%d x %d]...",
              (int)fwidth, (int)fheight);
-    // ROS_INFO("Stream size [%d], width [%f], height [%f], w * h [%f]",
+    // RCLCPP_INFO(node_->get_logger(), this->get_logger(), "Stream size [%d], width [%f], height [%f], w * h [%f]",
     // pixel_stream->size(), width, height, width * height);
     image.loadRawData(pixel_stream, width, height, Ogre::PF_R8G8B8);
     image.resize(fwidth, fheight, Ogre::Image::FILTER_NEAREST);
@@ -514,7 +514,7 @@ AerialMapDisplay::update(float wall_dt, float ros_dt)
 
 void
 AerialMapDisplay::incomingAerialMap(
-  const nav_msgs::OccupancyGrid::ConstPtr& msg)
+  const nav_msgs::msg::OccupancyGrid::SharedPtr& msg)
 {
 
   updated_map_ = msg;
@@ -533,9 +533,9 @@ AerialMapDisplay::transformAerialMap()
   Ogre::Vector3    position;
   Ogre::Quaternion orientation;
   if (!context_->getFrameManager()->transform(
-        frame_, ros::Time(), current_map_->info.origin, position, orientation))
+        frame_, rclcpp::Time(), current_map_->info.origin, position, orientation))
   {
-    ROS_DEBUG("Error transforming map '%s' from frame '%s' to frame '%s'",
+    RCLCPP_DEBUG(node_->get_logger(), this->get_logger(), "Error transforming map '%s' from frame '%s' to frame '%s'",
               qPrintable(getName()), frame_.c_str(), qPrintable(fixed_frame_));
 
     setStatus(StatusProperty::Error, "Transform",

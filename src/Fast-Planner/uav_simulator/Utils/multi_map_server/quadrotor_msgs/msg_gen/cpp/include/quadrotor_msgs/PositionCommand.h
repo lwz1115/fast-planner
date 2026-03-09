@@ -14,10 +14,10 @@
 
 #include "ros/assert.h"
 
-#include "std_msgs/Header.h"
-#include "geometry_msgs/Point.h"
-#include "geometry_msgs/Vector3.h"
-#include "geometry_msgs/Vector3.h"
+#include <std_msgs/msg/header.hpp>
+#include <geometry_msgs/msg/point.hpp>
+#include <geometry_msgs/msg/vector3.hpp>
+#include <geometry_msgs/msg/vector3.hpp>
 
 namespace quadrotor_msgs
 {
@@ -53,17 +53,17 @@ struct PositionCommand_ {
     kv.assign(0.0);
   }
 
-  typedef  ::std_msgs::Header_<ContainerAllocator>  _header_type;
-   ::std_msgs::Header_<ContainerAllocator>  header;
+  typedef  ::std_msgs::msg::Header_<ContainerAllocator>  _header_type;
+   ::std_msgs::msg::Header_<ContainerAllocator>  header;
 
-  typedef  ::geometry_msgs::Point_<ContainerAllocator>  _position_type;
-   ::geometry_msgs::Point_<ContainerAllocator>  position;
+  typedef  ::geometry_msgs::msg::Point_<ContainerAllocator>  _position_type;
+   ::geometry_msgs::msg::Point_<ContainerAllocator>  position;
 
-  typedef  ::geometry_msgs::Vector3_<ContainerAllocator>  _velocity_type;
-   ::geometry_msgs::Vector3_<ContainerAllocator>  velocity;
+  typedef  ::geometry_msgs::msg::Vector3_<ContainerAllocator>  _velocity_type;
+   ::geometry_msgs::msg::Vector3_<ContainerAllocator>  velocity;
 
-  typedef  ::geometry_msgs::Vector3_<ContainerAllocator>  _acceleration_type;
-   ::geometry_msgs::Vector3_<ContainerAllocator>  acceleration;
+  typedef  ::geometry_msgs::msg::Vector3_<ContainerAllocator>  _acceleration_type;
+   ::geometry_msgs::msg::Vector3_<ContainerAllocator>  acceleration;
 
   typedef double _yaw_type;
   double yaw;
@@ -79,12 +79,12 @@ struct PositionCommand_ {
 
 
   typedef boost::shared_ptr< ::quadrotor_msgs::PositionCommand_<ContainerAllocator> > Ptr;
-  typedef boost::shared_ptr< ::quadrotor_msgs::PositionCommand_<ContainerAllocator>  const> ConstPtr;
+  typedef boost::shared_ptr< ::quadrotor_msgs::PositionCommand_<ContainerAllocator>  const> SharedPtr;
 }; // struct PositionCommand
 typedef  ::quadrotor_msgs::PositionCommand_<std::allocator<void> > PositionCommand;
 
 typedef boost::shared_ptr< ::quadrotor_msgs::PositionCommand> PositionCommandPtr;
-typedef boost::shared_ptr< ::quadrotor_msgs::PositionCommand const> PositionCommandConstPtr;
+typedef boost::shared_ptr< ::quadrotor_msgs::PositionCommand const> PositionCommandSharedPtr;
 
 
 template<typename ContainerAllocator>
@@ -215,16 +215,16 @@ struct Printer< ::quadrotor_msgs::PositionCommand_<ContainerAllocator> >
   {
     s << indent << "header: ";
 s << std::endl;
-    Printer< ::std_msgs::Header_<ContainerAllocator> >::stream(s, indent + "  ", v.header);
+    Printer< ::std_msgs::msg::Header_<ContainerAllocator> >::stream(s, indent + "  ", v.header);
     s << indent << "position: ";
 s << std::endl;
-    Printer< ::geometry_msgs::Point_<ContainerAllocator> >::stream(s, indent + "  ", v.position);
+    Printer< ::geometry_msgs::msg::Point_<ContainerAllocator> >::stream(s, indent + "  ", v.position);
     s << indent << "velocity: ";
 s << std::endl;
-    Printer< ::geometry_msgs::Vector3_<ContainerAllocator> >::stream(s, indent + "  ", v.velocity);
+    Printer< ::geometry_msgs::msg::Vector3_<ContainerAllocator> >::stream(s, indent + "  ", v.velocity);
     s << indent << "acceleration: ";
 s << std::endl;
-    Printer< ::geometry_msgs::Vector3_<ContainerAllocator> >::stream(s, indent + "  ", v.acceleration);
+    Printer< ::geometry_msgs::msg::Vector3_<ContainerAllocator> >::stream(s, indent + "  ", v.acceleration);
     s << indent << "yaw: ";
     Printer<double>::stream(s, indent + "  ", v.yaw);
     s << indent << "yaw_dot: ";

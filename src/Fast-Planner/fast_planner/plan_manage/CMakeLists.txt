@@ -1,70 +1,82 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.8)
 project(plan_manage)
 
 set(CMAKE_BUILD_TYPE "Release")
-set(CMAKE_CXX_FLAGS "-std=c++11")
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_FLAGS_RELEASE "-O3 -Wall -g")
 
+# 查找依赖
+find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
+find_package(nav_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(visualization_msgs REQUIRED)
+find_package(builtin_interfaces REQUIRED)
+find_package(rosidl_default_generators REQUIRED)
+find_package(pcl_conversions REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(PCL 1.7 REQUIRED)
 
-find_package(catkin REQUIRED COMPONENTS
-  roscpp
-  std_msgs
-  geometry_msgs
-  quadrotor_msgs
-  plan_env
-  path_searching
-  bspline
-  bspline_opt
-  traj_utils
-  message_generation
-  cv_bridge
+# 生成消息
+rosidl_generate_interfaces(${PROJECT_NAME}
+  "msg/Bspline.msg"
+  DEPENDENCIES std_msgs geometry_msgs builtin_interfaces
 )
 
-# Generate messages in the 'msg' folder
-add_message_files(
-  FILES
-  Bspline.msg
-  )
-  
-# Generate added messages and services with any dependencies listed here
-generate_messages(
-  DEPENDENCIES
-  std_msgs
-  geometry_msgs
-)
-
-# catkin_package(CATKIN_DEPENDS message_runtime)
-catkin_package(
- INCLUDE_DIRS include
- LIBRARIES plan_manage
- CATKIN_DEPENDS plan_env path_searching bspline bspline_opt traj_utils message_runtime
-#  DEPENDS system_lib
-)
-
+# 包含目录
 include_directories(
   include
-  SYSTEM
-  ${catkin_INCLUDE_DIRS} ${PROJECT_SOURCE_DIR}/include
   ${EIGEN3_INCLUDE_DIR}
   ${PCL_INCLUDE_DIRS}
 )
 
-
+# 可执行文件
 add_executable(fast_planner_node
   src/fast_planner_node.cpp 
   src/kino_replan_fsm.cpp
   src/topo_replan_fsm.cpp
   src/planner_manager.cpp
-  )
-target_link_libraries(fast_planner_node 
-  ${catkin_LIBRARIES}
-  )
+)
 
-add_executable(traj_server src/traj_server.cpp)
-target_link_libraries(traj_server ${catkin_LIBRARIES})
-add_dependencies(traj_server ${${PROJECT_NAME}_EXPORTED_TARGETS})
+ament_target_dependencies(fast_planner_node
+  rclcpp
+  std_msgs
+  geometry_msgs
+  nav_msgs
+  sensor_msgs
+  visualization_msgs
+  pcl_conversions
+)
+
+add_executable(traj_server 
+  src/traj_server.cpp
+)
+
+ament_target_dependencies(traj_server
+  rclcpp
+  std_msgs
+  geometry_msgs
+  nav_msgs
+  sensor_msgs
+  visualization_msgs
+  pcl_conversions
+)
+
+# 安装
+install(TARGETS
+  fast_planner_node
+  traj_server
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+install(DIRECTORY include/
+  DESTINATION include/${PROJECT_NAME}
+)
+
+ament_export_dependencies(rosidl_default_runtime)
+
+ament_package()
 
 

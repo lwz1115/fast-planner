@@ -58,12 +58,12 @@ struct AuxCommand_ {
 
 
   typedef boost::shared_ptr< ::quadrotor_msgs::AuxCommand_<ContainerAllocator> > Ptr;
-  typedef boost::shared_ptr< ::quadrotor_msgs::AuxCommand_<ContainerAllocator>  const> ConstPtr;
+  typedef boost::shared_ptr< ::quadrotor_msgs::AuxCommand_<ContainerAllocator>  const> SharedPtr;
 }; // struct AuxCommand
 typedef  ::quadrotor_msgs::AuxCommand_<std::allocator<void> > AuxCommand;
 
 typedef boost::shared_ptr< ::quadrotor_msgs::AuxCommand> AuxCommandPtr;
-typedef boost::shared_ptr< ::quadrotor_msgs::AuxCommand const> AuxCommandConstPtr;
+typedef boost::shared_ptr< ::quadrotor_msgs::AuxCommand const> AuxCommandSharedPtr;
 
 
 template<typename ContainerAllocator>

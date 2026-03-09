@@ -1,0 +1,194 @@
+[0.043s] Invoking command in '/root/colcon_ws/build/poly_traj': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj -DCMAKE_INSTALL_PREFIX=/root/colcon_ws/install/poly_traj
+[0.174s] -- The C compiler identification is GNU 11.4.0
+[0.282s] -- The CXX compiler identification is GNU 11.4.0
+[0.294s] -- Detecting C compiler ABI info
+[0.441s] -- Detecting C compiler ABI info - done
+[0.455s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.455s] -- Detecting C compile features
+[0.455s] -- Detecting C compile features - done
+[0.460s] -- Detecting CXX compiler ABI info
+[0.643s] -- Detecting CXX compiler ABI info - done
+[0.655s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.655s] -- Detecting CXX compile features
+[0.658s] -- Detecting CXX compile features - done
+[0.667s] -- Found ament_cmake: 1.3.13 (/opt/ros/humble/share/ament_cmake/cmake)
+[1.012s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.255s] -- Found rclcpp: 16.0.18 (/opt/ros/humble/share/rclcpp/cmake)
+[1.337s] -- Found rosidl_generator_c: 3.1.8 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[1.347s] -- Found rosidl_adapter: 3.1.8 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[1.363s] -- Found rosidl_generator_cpp: 3.1.8 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[1.387s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.414s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.490s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[1.494s] -- Found rmw_fastrtps_cpp: 6.2.10 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[1.664s] -- Found OpenSSL: /usr/lib/aarch64-linux-gnu/libcrypto.so (found version "3.0.2")  
+[1.710s] -- Found FastRTPS: /opt/ros/humble/include  
+[1.805s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[1.822s] -- Looking for pthread.h
+[1.957s] -- Looking for pthread.h - found
+[1.957s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[2.103s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[2.106s] -- Found Threads: TRUE  
+[2.356s] -- Configuring done
+[2.375s] -- Generating done
+[2.385s] -- Build files have been written to: /root/colcon_ws/build/poly_traj
+[2.417s] Invoked command in '/root/colcon_ws/build/poly_traj' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj -DCMAKE_INSTALL_PREFIX=/root/colcon_ws/install/poly_traj
+[2.418s] Invoking command in '/root/colcon_ws/build/poly_traj': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /root/colcon_ws/build/poly_traj -- -j8 -l8
+[2.534s] [ 50%] [32mBuilding CXX object CMakeFiles/poly_traj.dir/src/polynomial_traj.cpp.o[0m
+[4.439s] In file included from [01m[K/usr/include/eigen3/Eigen/Core:214[m[K,
+[4.454s]                  from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+[4.454s]                  from [01m[K/usr/include/eigen3/Eigen/Eigen:1[m[K,
+[4.454s]                  from [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/include/poly_traj/polynomial_traj.h:29[m[K,
+[4.455s]                  from [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/src/polynomial_traj.cpp:27[m[K:
+[4.455s] [01m[K/usr/include/eigen3/Eigen/src/Core/arch/NEON/PacketMath.h:[m[K In function ‘[01m[KPacket Eigen::internal::pload(const typename Eigen::internal::unpacket_traits<T>::type*) [with Packet = Eigen::internal::eigen_packet_wrapper<int, 2>; typename Eigen::internal::unpacket_traits<T>::type = signed char][m[K’:
+[4.455s] [01m[K/usr/include/eigen3/Eigen/src/Core/arch/NEON/PacketMath.h:1671:9:[m[K [01;35m[Kwarning: [m[K‘[01m[Kvoid* memcpy(void*, const void*, size_t)[m[K’ copying an object of non-trivial type ‘[01m[KEigen::internal::Packet4c[m[K’ {aka ‘[01m[Kstruct Eigen::internal::eigen_packet_wrapper<int, 2>[m[K’} from an array of ‘[01m[Kconst int8_t[m[K’ {aka ‘[01m[Kconst signed char[m[K’} [[01;35m[K-Wclass-memaccess[m[K]
+[4.455s]  1671 |   [01;35m[Kmemcpy(&res, from, sizeof(Packet4c))[m[K;
+[4.455s]       |   [01;35m[K~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[4.456s] In file included from [01m[K/usr/include/eigen3/Eigen/Core:172[m[K,
+[4.456s]                  from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+[4.457s]                  from [01m[K/usr/include/eigen3/Eigen/Eigen:1[m[K,
+[4.457s]                  from [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/include/poly_traj/polynomial_traj.h:29[m[K,
+[4.457s]                  from [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/src/polynomial_traj.cpp:27[m[K:
+[4.457s] [01m[K/usr/include/eigen3/Eigen/src/Core/GenericPacketMath.h:159:8:[m[K [01;36m[Knote: [m[K‘[01m[KEigen::internal::Packet4c[m[K’ {aka ‘[01m[Kstruct Eigen::internal::eigen_packet_wrapper<int, 2>[m[K’} declared here
+[4.457s]   159 | struct [01;36m[Keigen_packet_wrapper[m[K
+[4.457s]       |        [01;36m[K^~~~~~~~~~~~~~~~~~~~[m[K
+[4.458s] In file included from [01m[K/usr/include/eigen3/Eigen/Core:214[m[K,
+[4.458s]                  from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+[4.458s]                  from [01m[K/usr/include/eigen3/Eigen/Eigen:1[m[K,
+[4.458s]                  from [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/include/poly_traj/polynomial_traj.h:29[m[K,
+[4.458s]                  from [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/src/polynomial_traj.cpp:27[m[K:
+[4.458s] [01m[K/usr/include/eigen3/Eigen/src/Core/arch/NEON/PacketMath.h:[m[K In function ‘[01m[KPacket Eigen::internal::ploadu(const typename Eigen::internal::unpacket_traits<T>::type*) [with Packet = Eigen::internal::eigen_packet_wrapper<int, 2>; typename Eigen::internal::unpacket_traits<T>::type = signed char][m[K’:
+[4.459s] [01m[K/usr/include/eigen3/Eigen/src/Core/arch/NEON/PacketMath.h:1716:9:[m[K [01;35m[Kwarning: [m[K‘[01m[Kvoid* memcpy(void*, const void*, size_t)[m[K’ copying an object of non-trivial type ‘[01m[KEigen::internal::Packet4c[m[K’ {aka ‘[01m[Kstruct Eigen::internal::eigen_packet_wrapper<int, 2>[m[K’} from an array of ‘[01m[Kconst int8_t[m[K’ {aka ‘[01m[Kconst signed char[m[K’} [[01;35m[K-Wclass-memaccess[m[K]
+[4.459s]  1716 |   [01;35m[Kmemcpy(&res, from, sizeof(Packet4c))[m[K;
+[4.459s]       |   [01;35m[K~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[4.459s] In file included from [01m[K/usr/include/eigen3/Eigen/Core:172[m[K,
+[4.459s]                  from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+[4.459s]                  from [01m[K/usr/include/eigen3/Eigen/Eigen:1[m[K,
+[4.459s]                  from [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/include/poly_traj/polynomial_traj.h:29[m[K,
+[4.459s]                  from [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/src/polynomial_traj.cpp:27[m[K:
+[4.459s] [01m[K/usr/include/eigen3/Eigen/src/Core/GenericPacketMath.h:159:8:[m[K [01;36m[Knote: [m[K‘[01m[KEigen::internal::Packet4c[m[K’ {aka ‘[01m[Kstruct Eigen::internal::eigen_packet_wrapper<int, 2>[m[K’} declared here
+[4.459s]   159 | struct [01;36m[Keigen_packet_wrapper[m[K
+[4.459s]       |        [01;36m[K^~~~~~~~~~~~~~~~~~~~[m[K
+[5.846s] In file included from [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/src/polynomial_traj.cpp:27[m[K:
+[5.846s] [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/include/poly_traj/polynomial_traj.h:[m[K In member function ‘[01m[Kvoid PolynomialTraj::init()[m[K’:
+[5.847s] [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/include/poly_traj/polynomial_traj.h:66:23:[m[K [01;35m[Kwarning: [m[Kcomparison of integer expressions of different signedness: ‘[01m[Kint[m[K’ and ‘[01m[Kstd::vector<double>::size_type[m[K’ {aka ‘[01m[Klong unsigned int[m[K’} [[01;35m[K-Wsign-compare[m[K]
+[5.847s]    66 |     for (int i = 0; [01;35m[Ki < times.size()[m[K; ++i) {
+[5.847s]       |                     [01;35m[K~~^~~~~~~~~~~~~~[m[K
+[5.918s] [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/include/poly_traj/polynomial_traj.h:[m[K In member function ‘[01m[Kdouble PolynomialTraj::getLength()[m[K’:
+[5.918s] [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/include/poly_traj/polynomial_traj.h:168:23:[m[K [01;35m[Kwarning: [m[Kcomparison of integer expressions of different signedness: ‘[01m[Kint[m[K’ and ‘[01m[Kstd::vector<Eigen::Matrix<double, 3, 1> >::size_type[m[K’ {aka ‘[01m[Klong unsigned int[m[K’} [[01;35m[K-Wsign-compare[m[K]
+[5.918s]   168 |     for (int i = 1; [01;35m[Ki < traj_vec3d.size()[m[K; ++i) {
+[5.918s]       |                     [01;35m[K~~^~~~~~~~~~~~~~~~~~~[m[K
+[5.946s] [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/include/poly_traj/polynomial_traj.h:[m[K In member function ‘[01m[Kdouble PolynomialTraj::getMeanVel()[m[K’:
+[5.946s] [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/include/poly_traj/polynomial_traj.h:177:12:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kmean_vel[m[K’ [[01;35m[K-Wunused-variable[m[K]
+[5.947s]   177 |     double [01;35m[Kmean_vel[m[K = length / time_sum;
+[5.947s]       |            [01;35m[K^~~~~~~~[m[K
+[5.947s] [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/include/poly_traj/polynomial_traj.h:178:3:[m[K [01;35m[Kwarning: [m[Kno return statement in function returning non-void [[01;35m[K-Wreturn-type[m[K]
+[5.947s]   178 |   [01;35m[K}[m[K
+[5.947s]       |   [01;35m[K^[m[K
+[5.947s] [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/include/poly_traj/polynomial_traj.h:[m[K In member function ‘[01m[Kdouble PolynomialTraj::getAccCost()[m[K’:
+[5.947s] [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/include/poly_traj/polynomial_traj.h:184:23:[m[K [01;35m[Kwarning: [m[Kcomparison of integer expressions of different signedness: ‘[01m[Kint[m[K’ and ‘[01m[Kstd::vector<double>::size_type[m[K’ {aka ‘[01m[Klong unsigned int[m[K’} [[01;35m[K-Wsign-compare[m[K]
+[5.947s]   184 |     for (int s = 0; [01;35m[Ks < times.size()[m[K; ++s) {
+[5.947s]       |                     [01;35m[K~~^~~~~~~~~~~~~~[m[K
+[5.948s] [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/include/poly_traj/polynomial_traj.h:[m[K In member function ‘[01m[Kdouble PolynomialTraj::getJerk()[m[K’:
+[5.949s] [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/include/poly_traj/polynomial_traj.h:197:23:[m[K [01;35m[Kwarning: [m[Kcomparison of integer expressions of different signedness: ‘[01m[Kint[m[K’ and ‘[01m[Kstd::vector<double>::size_type[m[K’ {aka ‘[01m[Klong unsigned int[m[K’} [[01;35m[K-Wsign-compare[m[K]
+[5.949s]   197 |     for (int s = 0; [01;35m[Ks < times.size()[m[K; ++s) {
+[5.949s]       |                     [01;35m[K~~^~~~~~~~~~~~~~[m[K
+[6.034s] [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/include/poly_traj/polynomial_traj.h:212:94:[m[K [01;31m[Kerror: [m[Kno match for ‘[01m[Koperator=[m[K’ (operand types are ‘[01m[KEigen::internal::enable_if<true, Eigen::IndexedView<Eigen::Matrix<double, -1, -1>, double, double> >::type[m[K’ {aka ‘[01m[KEigen::IndexedView<Eigen::Matrix<double, -1, -1>, double, double>[m[K’} and ‘[01m[Kdouble[m[K’)
+[6.035s]   212 |  (i - 1) * (i - 2) * j * (j - 1) * (j - 2) * pow(ts, i + j - 5) / (i + j - 5[01;31m[K)[m[K;
+[6.035s]       |                                                                             [01;31m[K^[m[K
+[6.035s] 
+[6.035s] In file included from [01m[K/usr/include/eigen3/Eigen/Core:273[m[K,
+[6.036s]                  from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+[6.036s]                  from [01m[K/usr/include/eigen3/Eigen/Eigen:1[m[K,
+[6.036s]                  from [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/include/poly_traj/polynomial_traj.h:29[m[K,
+[6.036s]                  from [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/src/polynomial_traj.cpp:27[m[K:
+[6.036s] [01m[K/usr/include/eigen3/Eigen/src/Core/MatrixBase.h:154:14:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class OtherDerived> Derived& Eigen::MatrixBase<Derived>::operator=(const Eigen::ReturnByValue<OtherDerived>&) [with OtherDerived = OtherDerived; Derived = Eigen::IndexedView<Eigen::Matrix<double, -1, -1>, double, double>][m[K’
+[6.036s]   154 |     Derived& [01;36m[Koperator[m[K=(const ReturnByValue<OtherDerived>& other);
+[6.037s]       |              [01;36m[K^~~~~~~~[m[K
+[6.037s] [01m[K/usr/include/eigen3/Eigen/src/Core/MatrixBase.h:154:14:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[6.037s] In file included from [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/src/polynomial_traj.cpp:27[m[K:
+[6.037s] [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/include/poly_traj/polynomial_traj.h:212:94:[m[K [01;36m[Knote: [m[K  mismatched types ‘[01m[Kconst Eigen::ReturnByValue<Derived>[m[K’ and ‘[01m[Kdouble[m[K’
+[6.037s]   212 |  (i - 1) * (i - 2) * j * (j - 1) * (j - 2) * pow(ts, i + j - 5) / (i + j - 5[01;36m[K)[m[K;
+[6.038s]       |                                                                             [01;36m[K^[m[K
+[6.038s] 
+[6.038s] In file included from [01m[K/usr/include/eigen3/Eigen/Core:273[m[K,
+[6.038s]                  from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+[6.038s]                  from [01m[K/usr/include/eigen3/Eigen/Eigen:1[m[K,
+[6.038s]                  from [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/include/poly_traj/polynomial_traj.h:29[m[K,
+[6.038s]                  from [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/src/polynomial_traj.cpp:27[m[K:
+[6.038s] [01m[K/usr/include/eigen3/Eigen/src/Core/MatrixBase.h:150:14:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class OtherDerived> Derived& Eigen::MatrixBase<Derived>::operator=(const Eigen::EigenBase<OtherDerived>&) [with OtherDerived = OtherDerived; Derived = Eigen::IndexedView<Eigen::Matrix<double, -1, -1>, double, double>][m[K’
+[6.038s]   150 |     Derived& [01;36m[Koperator[m[K=(const EigenBase<OtherDerived>& other);
+[6.038s]       |              [01;36m[K^~~~~~~~[m[K
+[6.039s] [01m[K/usr/include/eigen3/Eigen/src/Core/MatrixBase.h:150:14:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[6.039s] In file included from [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/src/polynomial_traj.cpp:27[m[K:
+[6.039s] [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/include/poly_traj/polynomial_traj.h:212:94:[m[K [01;36m[Knote: [m[K  mismatched types ‘[01m[Kconst Eigen::EigenBase<Derived>[m[K’ and ‘[01m[Kdouble[m[K’
+[6.039s]   212 |  (i - 1) * (i - 2) * j * (j - 1) * (j - 2) * pow(ts, i + j - 5) / (i + j - 5[01;36m[K)[m[K;
+[6.039s]       |                                                                             [01;36m[K^[m[K
+[6.039s] 
+[6.039s] In file included from [01m[K/usr/include/eigen3/Eigen/Core:273[m[K,
+[6.039s]                  from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+[6.039s]                  from [01m[K/usr/include/eigen3/Eigen/Eigen:1[m[K,
+[6.039s]                  from [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/include/poly_traj/polynomial_traj.h:29[m[K,
+[6.039s]                  from [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/src/polynomial_traj.cpp:27[m[K:
+[6.040s] [01m[K/usr/include/eigen3/Eigen/src/Core/MatrixBase.h:146:14:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class OtherDerived> Derived& Eigen::MatrixBase<Derived>::operator=(const Eigen::DenseBase<OtherDerived>&) [with OtherDerived = OtherDerived; Derived = Eigen::IndexedView<Eigen::Matrix<double, -1, -1>, double, double>][m[K’
+[6.040s]   146 |     Derived& [01;36m[Koperator[m[K=(const DenseBase<OtherDerived>& other);
+[6.040s]       |              [01;36m[K^~~~~~~~[m[K
+[6.040s] [01m[K/usr/include/eigen3/Eigen/src/Core/MatrixBase.h:146:14:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[6.040s] In file included from [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/src/polynomial_traj.cpp:27[m[K:
+[6.040s] [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/include/poly_traj/polynomial_traj.h:212:94:[m[K [01;36m[Knote: [m[K  mismatched types ‘[01m[Kconst Eigen::DenseBase<Derived>[m[K’ and ‘[01m[Kdouble[m[K’
+[6.040s]   212 |  (i - 1) * (i - 2) * j * (j - 1) * (j - 2) * pow(ts, i + j - 5) / (i + j - 5[01;36m[K)[m[K;
+[6.040s]       |                                                                             [01;36m[K^[m[K
+[6.040s] 
+[6.040s] In file included from [01m[K/usr/include/eigen3/Eigen/Core:19[m[K,
+[6.040s]                  from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+[6.041s]                  from [01m[K/usr/include/eigen3/Eigen/Eigen:1[m[K,
+[6.041s]                  from [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/include/poly_traj/polynomial_traj.h:29[m[K,
+[6.041s]                  from [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/src/polynomial_traj.cpp:27[m[K:
+[6.041s] [01m[K/usr/include/eigen3/Eigen/src/Core/util/Macros.h:1205:52:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[KEigen::IndexedView<XprType, RowIndices, ColIndices>& Eigen::IndexedView<XprType, RowIndices, ColIndices>::operator=(const Eigen::IndexedView<XprType, RowIndices, ColIndices>&) [with XprType = Eigen::Matrix<double, -1, -1>; RowIndices = double; ColIndices = double][m[K’
+[6.041s]  1205 |     EIGEN_DEVICE_FUNC EIGEN_STRONG_INLINE Derived& [01;36m[Koperator[m[K=(const Derived& other) \
+[6.041s]       |                                                    [01;36m[K^~~~~~~~[m[K
+[6.041s] [01m[K/usr/include/eigen3/Eigen/src/Core/util/Macros.h:1232:5:[m[K [01;36m[Knote: [m[Kin expansion of macro ‘[01m[KEIGEN_INHERIT_ASSIGNMENT_EQUAL_OPERATOR[m[K’
+[6.041s]  1232 |     [01;36m[KEIGEN_INHERIT_ASSIGNMENT_EQUAL_OPERATOR[m[K(Derived) \
+[6.041s]       |     [01;36m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[6.041s] [01m[K/usr/include/eigen3/Eigen/src/Core/IndexedView.h:114:3:[m[K [01;36m[Knote: [m[Kin expansion of macro ‘[01m[KEIGEN_INHERIT_ASSIGNMENT_OPERATORS[m[K’
+[6.043s]   114 |   [01;36m[KEIGEN_INHERIT_ASSIGNMENT_OPERATORS[m[K(IndexedView)
+[6.043s]       |   [01;36m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[6.043s] [01m[K/usr/include/eigen3/Eigen/src/Core/util/Macros.h:1205:77:[m[K [01;36m[Knote: [m[K  no known conversion for argument 1 from ‘[01m[Kdouble[m[K’ to ‘[01m[Kconst Eigen::IndexedView<Eigen::Matrix<double, -1, -1>, double, double>&[m[K’
+[6.043s]  1205 | GEN_DEVICE_FUNC EIGEN_STRONG_INLINE Derived& operator=([01;36m[Kconst Derived& other[m[K) \
+[6.043s]       |                                                        [01;36m[K~~~~~~~~~~~~~~~^~~~~[m[K
+[6.043s] 
+[6.044s] [01m[K/usr/include/eigen3/Eigen/src/Core/util/Macros.h:1232:5:[m[K [01;36m[Knote: [m[Kin expansion of macro ‘[01m[KEIGEN_INHERIT_ASSIGNMENT_EQUAL_OPERATOR[m[K’
+[6.044s]  1232 |     [01;36m[KEIGEN_INHERIT_ASSIGNMENT_EQUAL_OPERATOR[m[K(Derived) \
+[6.044s]       |     [01;36m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[6.044s] [01m[K/usr/include/eigen3/Eigen/src/Core/IndexedView.h:114:3:[m[K [01;36m[Knote: [m[Kin expansion of macro ‘[01m[KEIGEN_INHERIT_ASSIGNMENT_OPERATORS[m[K’
+[6.044s]   114 |   [01;36m[KEIGEN_INHERIT_ASSIGNMENT_OPERATORS[m[K(IndexedView)
+[6.044s]       |   [01;36m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[6.044s] In file included from [01m[K/usr/include/eigen3/Eigen/Core:282[m[K,
+[6.044s]                  from [01m[K/usr/include/eigen3/Eigen/Dense:1[m[K,
+[6.044s]                  from [01m[K/usr/include/eigen3/Eigen/Eigen:1[m[K,
+[6.044s]                  from [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/include/poly_traj/polynomial_traj.h:29[m[K,
+[6.044s]                  from [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/src/polynomial_traj.cpp:27[m[K:
+[6.045s] [01m[K/usr/include/eigen3/Eigen/src/Core/Assign.h:55:30:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[KDerived& Eigen::MatrixBase<Derived>::operator=(const Eigen::MatrixBase<Derived>&) [with Derived = Eigen::IndexedView<Eigen::Matrix<double, -1, -1>, double, double>][m[K’
+[6.045s]    55 | EIGEN_STRONG_INLINE Derived& [01;36m[KMatrixBase<Derived>[m[K::operator=(const MatrixBase& other)
+[6.045s]       |                              [01;36m[K^~~~~~~~~~~~~~~~~~~[m[K
+[6.045s] [01m[K/usr/include/eigen3/Eigen/src/Core/Assign.h:55:79:[m[K [01;36m[Knote: [m[K  no known conversion for argument 1 from ‘[01m[Kdouble[m[K’ to ‘[01m[Kconst Eigen::MatrixBase<Eigen::IndexedView<Eigen::Matrix<double, -1, -1>, double, double> >&[m[K’
+[6.045s]    55 | STRONG_INLINE Derived& MatrixBase<Derived>::operator=([01;36m[Kconst MatrixBase& other[m[K)
+[6.045s]       |                                                       [01;36m[K~~~~~~~~~~~~~~~~~~^~~~~[m[K
+[6.045s] 
+[6.123s] In file included from [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/src/polynomial_traj.cpp:27[m[K:
+[6.123s] [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/include/poly_traj/polynomial_traj.h:[m[K In member function ‘[01m[Kvoid PolynomialTraj::getMeanAndMaxVel(double&, double&)[m[K’:
+[6.123s] [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/include/poly_traj/polynomial_traj.h:226:23:[m[K [01;35m[Kwarning: [m[Kcomparison of integer expressions of different signedness: ‘[01m[Kint[m[K’ and ‘[01m[Kstd::vector<double>::size_type[m[K’ {aka ‘[01m[Klong unsigned int[m[K’} [[01;35m[K-Wsign-compare[m[K]
+[6.123s]   226 |     for (int s = 0; [01;35m[Ks < times.size()[m[K; ++s) {
+[6.123s]       |                     [01;35m[K~~^~~~~~~~~~~~~~[m[K
+[6.129s] [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/include/poly_traj/polynomial_traj.h:[m[K In member function ‘[01m[Kvoid PolynomialTraj::getMeanAndMaxAcc(double&, double&)[m[K’:
+[6.129s] [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/include/poly_traj/polynomial_traj.h:260:23:[m[K [01;35m[Kwarning: [m[Kcomparison of integer expressions of different signedness: ‘[01m[Kint[m[K’ and ‘[01m[Kstd::vector<double>::size_type[m[K’ {aka ‘[01m[Klong unsigned int[m[K’} [[01;35m[K-Wsign-compare[m[K]
+[6.129s]   260 |     for (int s = 0; [01;35m[Ks < times.size()[m[K; ++s) {
+[6.129s]       |                     [01;35m[K~~^~~~~~~~~~~~~~[m[K
+[7.341s] [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/src/polynomial_traj.cpp:[m[K In function ‘[01m[KPolynomialTraj fastLine4deg(Eigen::Vector3d, Eigen::Vector3d, double, double, double)[m[K’:
+[7.341s] [01m[K/root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj/src/polynomial_traj.cpp:201:10:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Klen[m[K’ [[01;35m[K-Wunused-variable[m[K]
+[7.341s]   201 |   double [01;35m[Klen[m[K = disp.norm();
+[7.341s]       |          [01;35m[K^~~[m[K
+[25.101s] gmake[2]: *** [CMakeFiles/poly_traj.dir/build.make:76: CMakeFiles/poly_traj.dir/src/polynomial_traj.cpp.o] Error 1
+[25.101s] gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/poly_traj.dir/all] Error 2
+[25.102s] gmake: *** [Makefile:146: all] Error 2
+[25.112s] Invoked command in '/root/colcon_ws/build/poly_traj' returned '2': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /root/colcon_ws/build/poly_traj -- -j8 -l8

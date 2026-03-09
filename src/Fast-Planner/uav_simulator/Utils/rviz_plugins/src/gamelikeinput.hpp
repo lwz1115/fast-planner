@@ -12,7 +12,7 @@
 
 #include "rviz/default_plugin/tools/interaction_tool.h"
 
-#include <ros/ros.h>
+#include <rclcpp/rclcpp.hpp>
 
 #endif
 
@@ -54,10 +54,10 @@ private:
 
   bool moving_;
 
-  ros::NodeHandle nh_;
-  ros::Publisher  pub_pointlist;
-  ros::Publisher  pub_selection;
-  ros::Publisher  pub_swarm;
+  rclcpp::Node nh_;
+  rclcpp::Publisher  pub_pointlist;
+  rclcpp::Publisher  pub_selection;
+  rclcpp::Publisher  pub_swarm;
 
   double z_max;
   double z_min;

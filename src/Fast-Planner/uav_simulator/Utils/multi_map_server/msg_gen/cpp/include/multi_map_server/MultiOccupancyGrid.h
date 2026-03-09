@@ -14,8 +14,8 @@
 
 #include "ros/assert.h"
 
-#include "nav_msgs/OccupancyGrid.h"
-#include "geometry_msgs/Pose.h"
+#include <nav_msgs/msg/occupancy_grid.hpp>
+#include <geometry_msgs/msg/pose.hpp>
 
 namespace multi_map_server
 {
@@ -35,20 +35,20 @@ struct MultiOccupancyGrid_ {
   {
   }
 
-  typedef std::vector< ::nav_msgs::OccupancyGrid_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::nav_msgs::OccupancyGrid_<ContainerAllocator> >::other >  _maps_type;
-  std::vector< ::nav_msgs::OccupancyGrid_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::nav_msgs::OccupancyGrid_<ContainerAllocator> >::other >  maps;
+  typedef std::vector< ::nav_msgs::msg::OccupancyGrid_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::nav_msgs::msg::OccupancyGrid_<ContainerAllocator> >::other >  _maps_type;
+  std::vector< ::nav_msgs::msg::OccupancyGrid_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::nav_msgs::msg::OccupancyGrid_<ContainerAllocator> >::other >  maps;
 
-  typedef std::vector< ::geometry_msgs::Pose_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::geometry_msgs::Pose_<ContainerAllocator> >::other >  _origins_type;
-  std::vector< ::geometry_msgs::Pose_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::geometry_msgs::Pose_<ContainerAllocator> >::other >  origins;
+  typedef std::vector< ::geometry_msgs::msg::Pose_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::geometry_msgs::msg::Pose_<ContainerAllocator> >::other >  _origins_type;
+  std::vector< ::geometry_msgs::msg::Pose_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::geometry_msgs::msg::Pose_<ContainerAllocator> >::other >  origins;
 
 
   typedef boost::shared_ptr< ::multi_map_server::MultiOccupancyGrid_<ContainerAllocator> > Ptr;
-  typedef boost::shared_ptr< ::multi_map_server::MultiOccupancyGrid_<ContainerAllocator>  const> ConstPtr;
+  typedef boost::shared_ptr< ::multi_map_server::MultiOccupancyGrid_<ContainerAllocator>  const> SharedPtr;
 }; // struct MultiOccupancyGrid
 typedef  ::multi_map_server::MultiOccupancyGrid_<std::allocator<void> > MultiOccupancyGrid;
 
 typedef boost::shared_ptr< ::multi_map_server::MultiOccupancyGrid> MultiOccupancyGridPtr;
-typedef boost::shared_ptr< ::multi_map_server::MultiOccupancyGrid const> MultiOccupancyGridConstPtr;
+typedef boost::shared_ptr< ::multi_map_server::MultiOccupancyGrid const> MultiOccupancyGridSharedPtr;
 
 
 template<typename ContainerAllocator>
@@ -206,7 +206,7 @@ struct Printer< ::multi_map_server::MultiOccupancyGrid_<ContainerAllocator> >
       s << indent << "  maps[" << i << "]: ";
       s << std::endl;
       s << indent;
-      Printer< ::nav_msgs::OccupancyGrid_<ContainerAllocator> >::stream(s, indent + "    ", v.maps[i]);
+      Printer< ::nav_msgs::msg::OccupancyGrid_<ContainerAllocator> >::stream(s, indent + "    ", v.maps[i]);
     }
     s << indent << "origins[]" << std::endl;
     for (size_t i = 0; i < v.origins.size(); ++i)
@@ -214,7 +214,7 @@ struct Printer< ::multi_map_server::MultiOccupancyGrid_<ContainerAllocator> >
       s << indent << "  origins[" << i << "]: ";
       s << std::endl;
       s << indent;
-      Printer< ::geometry_msgs::Pose_<ContainerAllocator> >::stream(s, indent + "    ", v.origins[i]);
+      Printer< ::geometry_msgs::msg::Pose_<ContainerAllocator> >::stream(s, indent + "    ", v.origins[i]);
     }
   }
 };

@@ -28,7 +28,7 @@
 
 #include <Eigen/Eigen>
 #include <vector>
-#include <ros/ros.h>
+#include <rclcpp/rclcpp.hpp>
 
 #include <bspline/non_uniform_bspline.h>
 #include <poly_traj/polynomial_traj.h>
@@ -45,7 +45,7 @@ public:
   vector<NonUniformBspline> local_traj_;
 
   double global_duration_;
-  ros::Time global_start_time_;
+  rclcpp::Time global_start_time_;
   double local_start_time_, local_end_time_;
   double time_increase_;
   double last_time_inc_;
@@ -56,7 +56,7 @@ public:
 
   bool localTrajReachTarget() { return fabs(local_end_time_ - global_duration_) < 0.1; }
 
-  void setGlobalTraj(const PolynomialTraj& traj, const ros::Time& time) {
+  void setGlobalTraj(const PolynomialTraj& traj, const rclcpp::Time& time) {
     global_traj_ = traj;
     global_traj_.init();
     global_duration_ = global_traj_.getTimeSum();
@@ -204,7 +204,7 @@ struct LocalTrajData {
 
   int traj_id_;
   double duration_;
-  ros::Time start_time_;
+  rclcpp::Time start_time_;
   Eigen::Vector3d start_pos_;
   NonUniformBspline position_traj_, velocity_traj_, acceleration_traj_, yaw_traj_, yawdot_traj_,
       yawdotdot_traj_;
@@ -225,7 +225,7 @@ public:
   vector<Eigen::Vector3d> kino_path_;
 
   // topological paths
-  list<GraphNode::Ptr> topo_graph_;
+  list<GraphNode::SharedPtr> topo_graph_;
   vector<vector<Eigen::Vector3d>> topo_paths_;
   vector<vector<Eigen::Vector3d>> topo_filtered_paths_;
   vector<vector<Eigen::Vector3d>> topo_select_paths_;
@@ -253,7 +253,7 @@ public:
     topo_select_paths_.clear();
   }
 
-  void addTopoPaths(list<GraphNode::Ptr>& graph, vector<vector<Eigen::Vector3d>>& paths,
+  void addTopoPaths(list<GraphNode::SharedPtr>& graph, vector<vector<Eigen::Vector3d>>& paths,
                     vector<vector<Eigen::Vector3d>>& filtered_paths,
                     vector<vector<Eigen::Vector3d>>& selected_paths) {
     topo_graph_ = graph;

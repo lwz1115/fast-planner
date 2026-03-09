@@ -1,0 +1,5 @@
+gmake[2]: *** [CMakeFiles/odom_visualization.dir/build.make:76: CMakeFiles/odom_visualization.dir/src/odom_visualization.cpp.o] Interrupt
+gmake[1]: *** wait: No child processes.  Stop.
+gmake[1]: *** Waiting for unfinished jobs....
+gmake[1]: *** wait: No child processes.  Stop.
+gmake: *** [Makefile:146: all] Error 2

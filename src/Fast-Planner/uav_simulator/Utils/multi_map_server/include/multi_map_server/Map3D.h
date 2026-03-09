@@ -2,10 +2,10 @@
 #define MAP3D_H
 
 #include <iostream>
-#include <ros/ros.h>
-#include <tf/tf.h>
+#include <rclcpp/rclcpp.hpp>
+#include <tf2/tf.h>
 #include <armadillo>
-#include <multi_map_server/SparseMap3D.h>
+#include <multi_map_server/msg/sparse_map3_d.hpp>
 
 using namespace std;
 
@@ -360,9 +360,9 @@ public:
   void PackMsg(multi_map_server::SparseMap3D &msg)
   {
     // Basic map info
-    msg.header.stamp            = ros::Time::now();
+    msg.header.stamp            = node_->now();
     msg.header.frame_id         = string("/map");
-    msg.info.map_load_time      = ros::Time::now();
+    msg.info.map_load_time      = node_->now();
     msg.info.resolution         = resolution;
     msg.info.origin.position.x  = originX;
     msg.info.origin.position.y  = originY;
@@ -569,9 +569,9 @@ private:
     if (decayInterval < 0)
       return;
     // Check whether to decay
-    static ros::Time prevDecayT = ros::Time::now();
-    ros::Time t = ros::Time::now();
-    double dt = (t - prevDecayT).toSec();
+    static rclcpp::Time prevDecayT = node_->now();
+    rclcpp::Time t = node_->now();
+    double dt = (t - prevDecayT).seconds();
     if (dt > decayInterval)
     {
       double r = pow(LOG_ODD_DECAY_RATE, dt);

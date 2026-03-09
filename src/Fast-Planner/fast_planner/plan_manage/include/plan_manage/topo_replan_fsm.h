@@ -29,19 +29,19 @@
 #include <Eigen/Eigen>
 #include <algorithm>
 #include <iostream>
-#include <nav_msgs/Path.h>
-#include <ros/ros.h>
-#include <std_msgs/Empty.h>
+#include <nav_msgs/msg/path.hpp>
+#include <rclcpp/rclcpp.hpp>
+#include <std_msgs/msg/empty.hpp>
 #include <vector>
-#include <visualization_msgs/Marker.h>
+#include <visualization_msgs/msg/marker.hpp>
 
 #include <bspline_opt/bspline_optimizer.h>
 #include <path_searching/kinodynamic_astar.h>
 #include <plan_env/edt_environment.h>
 #include <plan_env/obj_predictor.h>
 #include <plan_env/sdf_map.h>
-#include <plan_manage/Bspline.h>
-#include <plan_manage/planner_manager.h>
+#include <plan_manage/msg/bspline.hpp>
+#include <plan_manage/msg/planner_manager.hpp>
 #include <traj_utils/planning_visualization.h>
 
 using std::vector;
@@ -55,8 +55,8 @@ private:
   enum TARGET_TYPE { MANUAL_TARGET = 1, PRESET_TARGET = 2, REFENCE_PATH = 3 };
 
   /* planning utils */
-  FastPlannerManager::Ptr planner_manager_;
-  PlanningVisualization::Ptr visualization_;
+  FastPlannerManager::SharedPtr planner_manager_;
+  PlanningVisualization::SharedPtr visualization_;
 
   /* parameters */
   int target_type_;  // 1 mannual select, 2 hard code
@@ -77,10 +77,10 @@ private:
   int current_wp_;
 
   /* ROS utils */
-  ros::NodeHandle node_;
-  ros::Timer exec_timer_, safety_timer_, vis_timer_, frontier_timer_;
-  ros::Subscriber waypoint_sub_, odom_sub_;
-  ros::Publisher replan_pub_, new_pub_, bspline_pub_;
+  rclcpp::Node node_;
+  rclcpp::Timer exec_timer_, safety_timer_, vis_timer_, frontier_timer_;
+  rclcpp::Subscription waypoint_sub_, odom_sub_;
+  rclcpp::Publisher replan_pub_, new_pub_, bspline_pub_;
 
   /* helper functions */
   bool callSearchAndOptimization();    // front-end and back-end method
@@ -90,16 +90,16 @@ private:
   void printFSMExecState();
 
   /* ROS functions */
-  void execFSMCallback(const ros::TimerEvent& e);
-  void checkCollisionCallback(const ros::TimerEvent& e);
-  void waypointCallback(const nav_msgs::PathConstPtr& msg);
-  void odometryCallback(const nav_msgs::OdometryConstPtr& msg);
+  void execFSMCallback(const rclcpp::TimerEvent& e);
+  void checkCollisionCallback(const rclcpp::TimerEvent& e);
+  void waypointCallback(const nav_msgs::msg::PathSharedPtr& msg);
+  void odometryCallback(const nav_msgs::msg::OdometrySharedPtr& msg);
 
 public:
   TopoReplanFSM(/* args */) {}
   ~TopoReplanFSM() {}
 
-  void init(ros::NodeHandle& nh);
+  void init(rclcpp::Node& nh);
 
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 };

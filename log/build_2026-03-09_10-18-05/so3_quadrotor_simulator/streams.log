@@ -1,0 +1,12 @@
+[0.050s] Invoking command in '/root/colcon_ws/build/so3_quadrotor_simulator': AMENT_PREFIX_PATH=/root/colcon_ws/install/uav_utils:/root/colcon_ws/install/quadrotor_msgs:/root/colcon_ws/install/cmake_utils:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/root/colcon_ws/install/uav_utils:/root/colcon_ws/install/quadrotor_msgs:/root/colcon_ws/install/cmake_utils:/opt/ros/humble LD_LIBRARY_PATH=/root/colcon_ws/install/quadrotor_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /root/colcon_ws/build/so3_quadrotor_simulator -- -j8 -l8
+[0.487s] [35m[1mConsolidate compiler generated dependencies of target quadrotor_dynamics[0m
+[0.488s] [ 50%] Built target quadrotor_dynamics
+[0.488s] [ 75%] [32mBuilding CXX object CMakeFiles/quadrotor_simulator_so3.dir/src/quadrotor_simulator_so3.cpp.o[0m
+[1.480s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/so3_quadrotor_simulator/src/quadrotor_simulator_so3.cpp:8:10:[m[K [01;31m[Kfatal error: [m[Kuav_utils/geometry_utils.h: No such file or directory
+[1.480s]     8 | #include [01;31m[K<uav_utils/geometry_utils.h>[m[K
+[1.480s]       |          [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[1.481s] compilation terminated.
+[1.488s] gmake[2]: *** [CMakeFiles/quadrotor_simulator_so3.dir/build.make:76: CMakeFiles/quadrotor_simulator_so3.dir/src/quadrotor_simulator_so3.cpp.o] Error 1
+[1.490s] gmake[1]: *** [CMakeFiles/Makefile2:165: CMakeFiles/quadrotor_simulator_so3.dir/all] Error 2
+[1.491s] gmake: *** [Makefile:146: all] Error 2
+[1.506s] Invoked command in '/root/colcon_ws/build/so3_quadrotor_simulator' returned '2': AMENT_PREFIX_PATH=/root/colcon_ws/install/uav_utils:/root/colcon_ws/install/quadrotor_msgs:/root/colcon_ws/install/cmake_utils:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/root/colcon_ws/install/uav_utils:/root/colcon_ws/install/quadrotor_msgs:/root/colcon_ws/install/cmake_utils:/opt/ros/humble LD_LIBRARY_PATH=/root/colcon_ws/install/quadrotor_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /root/colcon_ws/build/so3_quadrotor_simulator -- -j8 -l8

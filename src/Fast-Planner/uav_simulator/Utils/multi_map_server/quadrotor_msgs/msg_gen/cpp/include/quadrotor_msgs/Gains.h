@@ -51,12 +51,12 @@ struct Gains_ {
 
 
   typedef boost::shared_ptr< ::quadrotor_msgs::Gains_<ContainerAllocator> > Ptr;
-  typedef boost::shared_ptr< ::quadrotor_msgs::Gains_<ContainerAllocator>  const> ConstPtr;
+  typedef boost::shared_ptr< ::quadrotor_msgs::Gains_<ContainerAllocator>  const> SharedPtr;
 }; // struct Gains
 typedef  ::quadrotor_msgs::Gains_<std::allocator<void> > Gains;
 
 typedef boost::shared_ptr< ::quadrotor_msgs::Gains> GainsPtr;
-typedef boost::shared_ptr< ::quadrotor_msgs::Gains const> GainsConstPtr;
+typedef boost::shared_ptr< ::quadrotor_msgs::Gains const> GainsSharedPtr;
 
 
 template<typename ContainerAllocator>

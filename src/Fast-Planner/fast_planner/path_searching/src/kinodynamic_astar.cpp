@@ -99,7 +99,7 @@ int KinodynamicAstar::search(Eigen::Vector3d start_pt, Eigen::Vector3d start_v, 
         estimateHeuristic(cur_node->state, end_state, time_to_goal);
         computeShotTraj(cur_node->state, end_state, time_to_goal);
         if (init_search)
-          ROS_ERROR("Shot in first search loop!");
+          RCLCPP_ERROR(node_->get_logger(), this->get_logger(), "Shot in first search loop!");
       }
     }
     if (reach_horizon)
@@ -321,24 +321,24 @@ int KinodynamicAstar::search(Eigen::Vector3d start_pt, Eigen::Vector3d start_v, 
   return NO_PATH;
 }
 
-void KinodynamicAstar::setParam(ros::NodeHandle& nh)
+void KinodynamicAstar::setParam(rclcpp::Node& nh)
 {
-  nh.param("search/max_tau", max_tau_, -1.0);
-  nh.param("search/init_max_tau", init_max_tau_, -1.0);
-  nh.param("search/max_vel", max_vel_, -1.0);
-  nh.param("search/max_acc", max_acc_, -1.0);
-  nh.param("search/w_time", w_time_, -1.0);
-  nh.param("search/horizon", horizon_, -1.0);
-  nh.param("search/resolution_astar", resolution_, -1.0);
-  nh.param("search/time_resolution", time_resolution_, -1.0);
-  nh.param("search/lambda_heu", lambda_heu_, -1.0);
-  nh.param("search/allocate_num", allocate_num_, -1);
-  nh.param("search/check_num", check_num_, -1);
-  nh.param("search/optimistic", optimistic_, true);
+  max_tau_ = nh->declare_parameter("search/max_tau", -1.0);
+  init_max_tau_ = nh->declare_parameter("search/init_max_tau", -1.0);
+  max_vel_ = nh->declare_parameter("search/max_vel", -1.0);
+  max_acc_ = nh->declare_parameter("search/max_acc", -1.0);
+  w_time_ = nh->declare_parameter("search/w_time", -1.0);
+  horizon_ = nh->declare_parameter("search/horizon", -1.0);
+  resolution_ = nh->declare_parameter("search/resolution_astar", -1.0);
+  time_resolution_ = nh->declare_parameter("search/time_resolution", -1.0);
+  lambda_heu_ = nh->declare_parameter("search/lambda_heu", -1.0);
+  allocate_num_ = nh->declare_parameter("search/allocate_num", -1);
+  check_num_ = nh->declare_parameter("search/check_num", -1);
+  optimistic_ = nh->declare_parameter("search/optimistic", true);
   tie_breaker_ = 1.0 + 1.0 / 10000;
 
   double vel_margin;
-  nh.param("search/vel_margin", vel_margin, 0.0);
+  vel_margin = nh->declare_parameter("search/vel_margin", 0.0);
   max_vel_ += vel_margin;
 }
 
@@ -562,7 +562,7 @@ void KinodynamicAstar::init()
   iter_num_ = 0;
 }
 
-void KinodynamicAstar::setEnvironment(const EDTEnvironment::Ptr& env)
+void KinodynamicAstar::setEnvironment(const EDTEnvironment::SharedPtr& env)
 {
   this->edt_environment_ = env;
 }

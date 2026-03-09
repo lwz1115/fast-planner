@@ -1,0 +1,304 @@
+[0.000000] (-) TimerEvent: {}
+[0.001066] (-) JobUnselected: {'identifier': 'bspline'}
+[0.001345] (-) JobUnselected: {'identifier': 'bspline_opt'}
+[0.001557] (-) JobUnselected: {'identifier': 'cmake_utils'}
+[0.001660] (-) JobUnselected: {'identifier': 'local_sensing_node'}
+[0.001824] (-) JobUnselected: {'identifier': 'map_generator'}
+[0.001911] (-) JobUnselected: {'identifier': 'multi_map_server'}
+[0.001959] (-) JobUnselected: {'identifier': 'path_searching'}
+[0.002021] (-) JobUnselected: {'identifier': 'plan_env'}
+[0.002088] (-) JobUnselected: {'identifier': 'plan_manage'}
+[0.002136] (-) JobUnselected: {'identifier': 'poly_traj'}
+[0.002198] (-) JobUnselected: {'identifier': 'pose_utils'}
+[0.002546] (-) JobUnselected: {'identifier': 'quadrotor_msgs'}
+[0.002627] (-) JobUnselected: {'identifier': 'rviz_plugins'}
+[0.002749] (-) JobUnselected: {'identifier': 'so3_control'}
+[0.002822] (-) JobUnselected: {'identifier': 'so3_disturbance_generator'}
+[0.002866] (-) JobUnselected: {'identifier': 'so3_quadrotor_simulator'}
+[0.002913] (-) JobUnselected: {'identifier': 'traj_utils'}
+[0.002969] (-) JobUnselected: {'identifier': 'uav_utils'}
+[0.003013] (-) JobUnselected: {'identifier': 'waypoint_generator'}
+[0.003066] (odom_visualization) JobQueued: {'identifier': 'odom_visualization', 'dependencies': OrderedDict([('pose_utils', '/root/colcon_ws/install/pose_utils'), ('quadrotor_msgs', '/root/colcon_ws/install/quadrotor_msgs')])}
+[0.003138] (odom_visualization) JobStarted: {'identifier': 'odom_visualization'}
+[0.023386] (odom_visualization) JobProgress: {'identifier': 'odom_visualization', 'progress': 'cmake'}
+[0.024504] (odom_visualization) JobProgress: {'identifier': 'odom_visualization', 'progress': 'build'}
+[0.025602] (odom_visualization) Command: {'cmd': ['/usr/bin/cmake', '--build', '/root/colcon_ws/build/odom_visualization', '--', '-j8', '-l8'], 'cwd': '/root/colcon_ws/build/odom_visualization', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('HOSTNAME', 'tegra-ubuntu'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/root/colcon_ws/install/quadrotor_msgs/lib:/root/colcon_ws/install/pose_utils/lib:/root/colcon_ws/install/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/root'), ('OLDPWD', '/root/colcon_ws'), ('ROS_PYTHON_VERSION', '3'), ('COLCON_PREFIX_PATH', '/root/colcon_ws/install'), ('ROS_DISTRO', 'humble'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm'), ('GAZEBO_MODEL_PATH', '/root/colcon_ws/src:'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'), ('DISPLAY', ':0'), ('LANG', 'C.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('ROS_DOMAIN_ID', '0'), ('AMENT_PREFIX_PATH', '/root/colcon_ws/install/quadrotor_msgs:/root/colcon_ws/install/pose_utils:/opt/ros/humble'), ('DEBIAN_FRONTEND', 'noninteractive'), ('COLCON_WS', '/root/colcon_ws'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('PWD', '/root/colcon_ws/build/odom_visualization'), ('LC_ALL', 'C.UTF-8'), ('GAZEBO_PLUGIN_PATH', '/root/colcon_ws/install/lib:'), ('PYTHONPATH', '/root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/root/colcon_ws/install/quadrotor_msgs:/root/colcon_ws/install/pose_utils:/opt/ros/humble')]), 'shell': False}
+[0.099335] (-) TimerEvent: {}
+[0.133302] (odom_visualization) StdoutLine: {'line': b'[ 50%] \x1b[32mBuilding CXX object CMakeFiles/odom_visualization.dir/src/odom_visualization.cpp.o\x1b[0m\n'}
+[0.199538] (-) TimerEvent: {}
+[0.301321] (-) TimerEvent: {}
+[0.402255] (-) TimerEvent: {}
+[0.503624] (-) TimerEvent: {}
+[0.604311] (-) TimerEvent: {}
+[0.705132] (-) TimerEvent: {}
+[0.805969] (-) TimerEvent: {}
+[0.906783] (-) TimerEvent: {}
+[1.007650] (-) TimerEvent: {}
+[1.108357] (-) TimerEvent: {}
+[1.209271] (-) TimerEvent: {}
+[1.310146] (-) TimerEvent: {}
+[1.410869] (-) TimerEvent: {}
+[1.511549] (-) TimerEvent: {}
+[1.612173] (-) TimerEvent: {}
+[1.712819] (-) TimerEvent: {}
+[1.813468] (-) TimerEvent: {}
+[1.914123] (-) TimerEvent: {}
+[2.014758] (-) TimerEvent: {}
+[2.115440] (-) TimerEvent: {}
+[2.216113] (-) TimerEvent: {}
+[2.316798] (-) TimerEvent: {}
+[2.417489] (-) TimerEvent: {}
+[2.518172] (-) TimerEvent: {}
+[2.618948] (-) TimerEvent: {}
+[2.719628] (-) TimerEvent: {}
+[2.820276] (-) TimerEvent: {}
+[2.920923] (-) TimerEvent: {}
+[3.021676] (-) TimerEvent: {}
+[3.122375] (-) TimerEvent: {}
+[3.223089] (-) TimerEvent: {}
+[3.323860] (-) TimerEvent: {}
+[3.424524] (-) TimerEvent: {}
+[3.525165] (-) TimerEvent: {}
+[3.625815] (-) TimerEvent: {}
+[3.726500] (-) TimerEvent: {}
+[3.827317] (-) TimerEvent: {}
+[3.928034] (-) TimerEvent: {}
+[4.028707] (-) TimerEvent: {}
+[4.129380] (-) TimerEvent: {}
+[4.230283] (-) TimerEvent: {}
+[4.331022] (-) TimerEvent: {}
+[4.431749] (-) TimerEvent: {}
+[4.532428] (-) TimerEvent: {}
+[4.633085] (-) TimerEvent: {}
+[4.733740] (-) TimerEvent: {}
+[4.834580] (-) TimerEvent: {}
+[4.935319] (-) TimerEvent: {}
+[5.036008] (-) TimerEvent: {}
+[5.136668] (-) TimerEvent: {}
+[5.237338] (-) TimerEvent: {}
+[5.337999] (-) TimerEvent: {}
+[5.438669] (-) TimerEvent: {}
+[5.539352] (-) TimerEvent: {}
+[5.640035] (-) TimerEvent: {}
+[5.740746] (-) TimerEvent: {}
+[5.841665] (-) TimerEvent: {}
+[5.942473] (-) TimerEvent: {}
+[6.043228] (-) TimerEvent: {}
+[6.143933] (-) TimerEvent: {}
+[6.244685] (-) TimerEvent: {}
+[6.345621] (-) TimerEvent: {}
+[6.446326] (-) TimerEvent: {}
+[6.547043] (-) TimerEvent: {}
+[6.647803] (-) TimerEvent: {}
+[6.748565] (-) TimerEvent: {}
+[6.849357] (-) TimerEvent: {}
+[6.950139] (-) TimerEvent: {}
+[7.050920] (-) TimerEvent: {}
+[7.151626] (-) TimerEvent: {}
+[7.252558] (-) TimerEvent: {}
+[7.353232] (-) TimerEvent: {}
+[7.453989] (-) TimerEvent: {}
+[7.554670] (-) TimerEvent: {}
+[7.655345] (-) TimerEvent: {}
+[7.755994] (-) TimerEvent: {}
+[7.856790] (-) TimerEvent: {}
+[7.957473] (-) TimerEvent: {}
+[8.058188] (-) TimerEvent: {}
+[8.158905] (-) TimerEvent: {}
+[8.259745] (-) TimerEvent: {}
+[8.360404] (-) TimerEvent: {}
+[8.461109] (-) TimerEvent: {}
+[8.561908] (-) TimerEvent: {}
+[8.662718] (-) TimerEvent: {}
+[8.763572] (-) TimerEvent: {}
+[8.864345] (-) TimerEvent: {}
+[8.965044] (-) TimerEvent: {}
+[9.065759] (-) TimerEvent: {}
+[9.166457] (-) TimerEvent: {}
+[9.267219] (-) TimerEvent: {}
+[9.368207] (-) TimerEvent: {}
+[9.468981] (-) TimerEvent: {}
+[9.569639] (-) TimerEvent: {}
+[9.670370] (-) TimerEvent: {}
+[9.771018] (-) TimerEvent: {}
+[9.871750] (-) TimerEvent: {}
+[9.972524] (-) TimerEvent: {}
+[10.073289] (-) TimerEvent: {}
+[10.173951] (-) TimerEvent: {}
+[10.274652] (-) TimerEvent: {}
+[10.375377] (-) TimerEvent: {}
+[10.476123] (-) TimerEvent: {}
+[10.576807] (-) TimerEvent: {}
+[10.677464] (-) TimerEvent: {}
+[10.778124] (-) TimerEvent: {}
+[10.878826] (-) TimerEvent: {}
+[10.979633] (-) TimerEvent: {}
+[11.080886] (-) TimerEvent: {}
+[11.181747] (-) TimerEvent: {}
+[11.282524] (-) TimerEvent: {}
+[11.383515] (-) TimerEvent: {}
+[11.484176] (-) TimerEvent: {}
+[11.584838] (-) TimerEvent: {}
+[11.685506] (-) TimerEvent: {}
+[11.786164] (-) TimerEvent: {}
+[11.886833] (-) TimerEvent: {}
+[11.987495] (-) TimerEvent: {}
+[12.088423] (-) TimerEvent: {}
+[12.189080] (-) TimerEvent: {}
+[12.289729] (-) TimerEvent: {}
+[12.390407] (-) TimerEvent: {}
+[12.491154] (-) TimerEvent: {}
+[12.591837] (-) TimerEvent: {}
+[12.692569] (-) TimerEvent: {}
+[12.793276] (-) TimerEvent: {}
+[12.894107] (-) TimerEvent: {}
+[12.994794] (-) TimerEvent: {}
+[13.095468] (-) TimerEvent: {}
+[13.196120] (-) TimerEvent: {}
+[13.296761] (-) TimerEvent: {}
+[13.397703] (-) TimerEvent: {}
+[13.498377] (-) TimerEvent: {}
+[13.599158] (-) TimerEvent: {}
+[13.699842] (-) TimerEvent: {}
+[13.800530] (-) TimerEvent: {}
+[13.901211] (-) TimerEvent: {}
+[14.001906] (-) TimerEvent: {}
+[14.102556] (-) TimerEvent: {}
+[14.203265] (-) TimerEvent: {}
+[14.303919] (-) TimerEvent: {}
+[14.404576] (-) TimerEvent: {}
+[14.505219] (-) TimerEvent: {}
+[14.605867] (-) TimerEvent: {}
+[14.706506] (-) TimerEvent: {}
+[14.807159] (-) TimerEvent: {}
+[14.907830] (-) TimerEvent: {}
+[15.008487] (-) TimerEvent: {}
+[15.109131] (-) TimerEvent: {}
+[15.209784] (-) TimerEvent: {}
+[15.310431] (-) TimerEvent: {}
+[15.411076] (-) TimerEvent: {}
+[15.511760] (-) TimerEvent: {}
+[15.612481] (-) TimerEvent: {}
+[15.713149] (-) TimerEvent: {}
+[15.813913] (-) TimerEvent: {}
+[15.914633] (-) TimerEvent: {}
+[16.015340] (-) TimerEvent: {}
+[16.116142] (-) TimerEvent: {}
+[16.216928] (-) TimerEvent: {}
+[16.317719] (-) TimerEvent: {}
+[16.418463] (-) TimerEvent: {}
+[16.519265] (-) TimerEvent: {}
+[16.619944] (-) TimerEvent: {}
+[16.720578] (-) TimerEvent: {}
+[16.821193] (-) TimerEvent: {}
+[16.921826] (-) TimerEvent: {}
+[17.022457] (-) TimerEvent: {}
+[17.123084] (-) TimerEvent: {}
+[17.223709] (-) TimerEvent: {}
+[17.324354] (-) TimerEvent: {}
+[17.424974] (-) TimerEvent: {}
+[17.525605] (-) TimerEvent: {}
+[17.626241] (-) TimerEvent: {}
+[17.726872] (-) TimerEvent: {}
+[17.827621] (-) TimerEvent: {}
+[17.928243] (-) TimerEvent: {}
+[18.028865] (-) TimerEvent: {}
+[18.129520] (-) TimerEvent: {}
+[18.230149] (-) TimerEvent: {}
+[18.330772] (-) TimerEvent: {}
+[18.431421] (-) TimerEvent: {}
+[18.532099] (-) TimerEvent: {}
+[18.632842] (-) TimerEvent: {}
+[18.733503] (-) TimerEvent: {}
+[18.834162] (-) TimerEvent: {}
+[18.934825] (-) TimerEvent: {}
+[19.035504] (-) TimerEvent: {}
+[19.136284] (-) TimerEvent: {}
+[19.236912] (-) TimerEvent: {}
+[19.337522] (-) TimerEvent: {}
+[19.438135] (-) TimerEvent: {}
+[19.538749] (-) TimerEvent: {}
+[19.639384] (-) TimerEvent: {}
+[19.740002] (-) TimerEvent: {}
+[19.840600] (-) TimerEvent: {}
+[19.941194] (-) TimerEvent: {}
+[20.041821] (-) TimerEvent: {}
+[20.142477] (-) TimerEvent: {}
+[20.243108] (-) TimerEvent: {}
+[20.343759] (-) TimerEvent: {}
+[20.444415] (-) TimerEvent: {}
+[20.545050] (-) TimerEvent: {}
+[20.645739] (-) TimerEvent: {}
+[20.746429] (-) TimerEvent: {}
+[20.847101] (-) TimerEvent: {}
+[20.947776] (-) TimerEvent: {}
+[21.048403] (-) TimerEvent: {}
+[21.149040] (-) TimerEvent: {}
+[21.249653] (-) TimerEvent: {}
+[21.350271] (-) TimerEvent: {}
+[21.450889] (-) TimerEvent: {}
+[21.551541] (-) TimerEvent: {}
+[21.652178] (-) TimerEvent: {}
+[21.752800] (-) TimerEvent: {}
+[21.853418] (-) TimerEvent: {}
+[21.954059] (-) TimerEvent: {}
+[22.054672] (-) TimerEvent: {}
+[22.155314] (-) TimerEvent: {}
+[22.255931] (-) TimerEvent: {}
+[22.356563] (-) TimerEvent: {}
+[22.457214] (-) TimerEvent: {}
+[22.557898] (-) TimerEvent: {}
+[22.658529] (-) TimerEvent: {}
+[22.759203] (-) TimerEvent: {}
+[22.859845] (-) TimerEvent: {}
+[22.960507] (-) TimerEvent: {}
+[23.061150] (-) TimerEvent: {}
+[23.161814] (-) TimerEvent: {}
+[23.262470] (-) TimerEvent: {}
+[23.363121] (-) TimerEvent: {}
+[23.463800] (-) TimerEvent: {}
+[23.564473] (-) TimerEvent: {}
+[23.665227] (-) TimerEvent: {}
+[23.765949] (-) TimerEvent: {}
+[23.866634] (-) TimerEvent: {}
+[23.967351] (-) TimerEvent: {}
+[24.051235] (odom_visualization) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX executable odom_visualization\x1b[0m\n'}
+[24.067725] (-) TimerEvent: {}
+[24.168906] (-) TimerEvent: {}
+[24.269568] (-) TimerEvent: {}
+[24.370397] (-) TimerEvent: {}
+[24.471107] (-) TimerEvent: {}
+[24.571807] (-) TimerEvent: {}
+[24.672492] (-) TimerEvent: {}
+[24.773132] (-) TimerEvent: {}
+[24.873797] (-) TimerEvent: {}
+[24.974450] (-) TimerEvent: {}
+[25.075118] (-) TimerEvent: {}
+[25.175835] (-) TimerEvent: {}
+[25.270871] (odom_visualization) StdoutLine: {'line': b'[100%] Built target odom_visualization\n'}
+[25.275974] (-) TimerEvent: {}
+[25.299596] (odom_visualization) CommandEnded: {'returncode': 0}
+[25.301650] (odom_visualization) JobProgress: {'identifier': 'odom_visualization', 'progress': 'install'}
+[25.323607] (odom_visualization) Command: {'cmd': ['/usr/bin/cmake', '--install', '/root/colcon_ws/build/odom_visualization'], 'cwd': '/root/colcon_ws/build/odom_visualization', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('HOSTNAME', 'tegra-ubuntu'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/root/colcon_ws/install/quadrotor_msgs/lib:/root/colcon_ws/install/pose_utils/lib:/root/colcon_ws/install/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/root'), ('OLDPWD', '/root/colcon_ws'), ('ROS_PYTHON_VERSION', '3'), ('COLCON_PREFIX_PATH', '/root/colcon_ws/install'), ('ROS_DISTRO', 'humble'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm'), ('GAZEBO_MODEL_PATH', '/root/colcon_ws/src:'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'), ('DISPLAY', ':0'), ('LANG', 'C.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('ROS_DOMAIN_ID', '0'), ('AMENT_PREFIX_PATH', '/root/colcon_ws/install/quadrotor_msgs:/root/colcon_ws/install/pose_utils:/opt/ros/humble'), ('DEBIAN_FRONTEND', 'noninteractive'), ('COLCON_WS', '/root/colcon_ws'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('PWD', '/root/colcon_ws/build/odom_visualization'), ('LC_ALL', 'C.UTF-8'), ('GAZEBO_PLUGIN_PATH', '/root/colcon_ws/install/lib:'), ('PYTHONPATH', '/root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/root/colcon_ws/install/quadrotor_msgs:/root/colcon_ws/install/pose_utils:/opt/ros/humble')]), 'shell': False}
+[25.343146] (odom_visualization) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[25.343960] (odom_visualization) StdoutLine: {'line': b'-- Installing: /root/colcon_ws/install/odom_visualization/lib/odom_visualization/odom_visualization\n'}
+[25.353434] (odom_visualization) StdoutLine: {'line': b'-- Set runtime path of "/root/colcon_ws/install/odom_visualization/lib/odom_visualization/odom_visualization" to ""\n'}
+[25.353918] (odom_visualization) StdoutLine: {'line': b'-- Installing: /root/colcon_ws/install/odom_visualization/share/ament_index/resource_index/package_run_dependencies/odom_visualization\n'}
+[25.354435] (odom_visualization) StdoutLine: {'line': b'-- Installing: /root/colcon_ws/install/odom_visualization/share/ament_index/resource_index/parent_prefix_path/odom_visualization\n'}
+[25.355119] (odom_visualization) StdoutLine: {'line': b'-- Installing: /root/colcon_ws/install/odom_visualization/share/odom_visualization/environment/ament_prefix_path.sh\n'}
+[25.355860] (odom_visualization) StdoutLine: {'line': b'-- Installing: /root/colcon_ws/install/odom_visualization/share/odom_visualization/environment/ament_prefix_path.dsv\n'}
+[25.356288] (odom_visualization) StdoutLine: {'line': b'-- Installing: /root/colcon_ws/install/odom_visualization/share/odom_visualization/environment/path.sh\n'}
+[25.356665] (odom_visualization) StdoutLine: {'line': b'-- Installing: /root/colcon_ws/install/odom_visualization/share/odom_visualization/environment/path.dsv\n'}
+[25.357116] (odom_visualization) StdoutLine: {'line': b'-- Installing: /root/colcon_ws/install/odom_visualization/share/odom_visualization/local_setup.bash\n'}
+[25.357569] (odom_visualization) StdoutLine: {'line': b'-- Installing: /root/colcon_ws/install/odom_visualization/share/odom_visualization/local_setup.sh\n'}
+[25.357871] (odom_visualization) StdoutLine: {'line': b'-- Installing: /root/colcon_ws/install/odom_visualization/share/odom_visualization/local_setup.zsh\n'}
+[25.358150] (odom_visualization) StdoutLine: {'line': b'-- Installing: /root/colcon_ws/install/odom_visualization/share/odom_visualization/local_setup.dsv\n'}
+[25.358613] (odom_visualization) StdoutLine: {'line': b'-- Installing: /root/colcon_ws/install/odom_visualization/share/odom_visualization/package.dsv\n'}
+[25.359013] (odom_visualization) StdoutLine: {'line': b'-- Installing: /root/colcon_ws/install/odom_visualization/share/ament_index/resource_index/packages/odom_visualization\n'}
+[25.359375] (odom_visualization) StdoutLine: {'line': b'-- Installing: /root/colcon_ws/install/odom_visualization/share/odom_visualization/cmake/odom_visualizationConfig.cmake\n'}
+[25.359669] (odom_visualization) StdoutLine: {'line': b'-- Installing: /root/colcon_ws/install/odom_visualization/share/odom_visualization/cmake/odom_visualizationConfig-version.cmake\n'}
+[25.359942] (odom_visualization) StdoutLine: {'line': b'-- Installing: /root/colcon_ws/install/odom_visualization/share/odom_visualization/package.xml\n'}
+[25.362556] (odom_visualization) CommandEnded: {'returncode': 0}
+[25.376410] (-) TimerEvent: {}
+[25.418783] (odom_visualization) JobEnded: {'identifier': 'odom_visualization', 'rc': 0}
+[25.421728] (-) EventReactorShutdown: {}

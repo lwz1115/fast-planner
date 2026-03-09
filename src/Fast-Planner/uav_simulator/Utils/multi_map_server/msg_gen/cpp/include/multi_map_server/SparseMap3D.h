@@ -14,9 +14,9 @@
 
 #include "ros/assert.h"
 
-#include "std_msgs/Header.h"
-#include "nav_msgs/MapMetaData.h"
-#include "multi_map_server/VerticalOccupancyGridList.h"
+#include <std_msgs/msg/header.hpp>
+#include <nav_msgs/msg/map_meta_data.hpp>
+#include <multi_map_server/msg/vertical_occupancy_grid_list.hpp>
 
 namespace multi_map_server
 {
@@ -38,23 +38,23 @@ struct SparseMap3D_ {
   {
   }
 
-  typedef  ::std_msgs::Header_<ContainerAllocator>  _header_type;
-   ::std_msgs::Header_<ContainerAllocator>  header;
+  typedef  ::std_msgs::msg::Header_<ContainerAllocator>  _header_type;
+   ::std_msgs::msg::Header_<ContainerAllocator>  header;
 
-  typedef  ::nav_msgs::MapMetaData_<ContainerAllocator>  _info_type;
-   ::nav_msgs::MapMetaData_<ContainerAllocator>  info;
+  typedef  ::nav_msgs::msg::MapMetaData_<ContainerAllocator>  _info_type;
+   ::nav_msgs::msg::MapMetaData_<ContainerAllocator>  info;
 
   typedef std::vector< ::multi_map_server::VerticalOccupancyGridList_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::multi_map_server::VerticalOccupancyGridList_<ContainerAllocator> >::other >  _lists_type;
   std::vector< ::multi_map_server::VerticalOccupancyGridList_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::multi_map_server::VerticalOccupancyGridList_<ContainerAllocator> >::other >  lists;
 
 
   typedef boost::shared_ptr< ::multi_map_server::SparseMap3D_<ContainerAllocator> > Ptr;
-  typedef boost::shared_ptr< ::multi_map_server::SparseMap3D_<ContainerAllocator>  const> ConstPtr;
+  typedef boost::shared_ptr< ::multi_map_server::SparseMap3D_<ContainerAllocator>  const> SharedPtr;
 }; // struct SparseMap3D
 typedef  ::multi_map_server::SparseMap3D_<std::allocator<void> > SparseMap3D;
 
 typedef boost::shared_ptr< ::multi_map_server::SparseMap3D> SparseMap3DPtr;
-typedef boost::shared_ptr< ::multi_map_server::SparseMap3D const> SparseMap3DConstPtr;
+typedef boost::shared_ptr< ::multi_map_server::SparseMap3D const> SparseMap3DSharedPtr;
 
 
 template<typename ContainerAllocator>
@@ -208,10 +208,10 @@ struct Printer< ::multi_map_server::SparseMap3D_<ContainerAllocator> >
   {
     s << indent << "header: ";
 s << std::endl;
-    Printer< ::std_msgs::Header_<ContainerAllocator> >::stream(s, indent + "  ", v.header);
+    Printer< ::std_msgs::msg::Header_<ContainerAllocator> >::stream(s, indent + "  ", v.header);
     s << indent << "info: ";
 s << std::endl;
-    Printer< ::nav_msgs::MapMetaData_<ContainerAllocator> >::stream(s, indent + "  ", v.info);
+    Printer< ::nav_msgs::msg::MapMetaData_<ContainerAllocator> >::stream(s, indent + "  ", v.info);
     s << indent << "lists[]" << std::endl;
     for (size_t i = 0; i < v.lists.size(); ++i)
     {

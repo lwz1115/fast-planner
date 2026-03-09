@@ -1,0 +1,33 @@
+-- The C compiler identification is GNU 11.4.0
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found ament_cmake: 1.3.13 (/opt/ros/humble/share/ament_cmake/cmake)
+-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /root/colcon_ws/build/cmake_utils
+-- Install configuration: ""
+-- Installing: /root/colcon_ws/install/cmake_utils/share/ament_index/resource_index/package_run_dependencies/cmake_utils
+-- Installing: /root/colcon_ws/install/cmake_utils/share/ament_index/resource_index/parent_prefix_path/cmake_utils
+-- Installing: /root/colcon_ws/install/cmake_utils/share/cmake_utils/environment/ament_prefix_path.sh
+-- Installing: /root/colcon_ws/install/cmake_utils/share/cmake_utils/environment/ament_prefix_path.dsv
+-- Installing: /root/colcon_ws/install/cmake_utils/share/cmake_utils/environment/path.sh
+-- Installing: /root/colcon_ws/install/cmake_utils/share/cmake_utils/environment/path.dsv
+-- Installing: /root/colcon_ws/install/cmake_utils/share/cmake_utils/local_setup.bash
+-- Installing: /root/colcon_ws/install/cmake_utils/share/cmake_utils/local_setup.sh
+-- Installing: /root/colcon_ws/install/cmake_utils/share/cmake_utils/local_setup.zsh
+-- Installing: /root/colcon_ws/install/cmake_utils/share/cmake_utils/local_setup.dsv
+-- Installing: /root/colcon_ws/install/cmake_utils/share/cmake_utils/package.dsv
+-- Installing: /root/colcon_ws/install/cmake_utils/share/ament_index/resource_index/packages/cmake_utils
+-- Installing: /root/colcon_ws/install/cmake_utils/share/cmake_utils/cmake/cmake_utilsConfig.cmake
+-- Installing: /root/colcon_ws/install/cmake_utils/share/cmake_utils/cmake/cmake_utilsConfig-version.cmake
+-- Installing: /root/colcon_ws/install/cmake_utils/share/cmake_utils/package.xml

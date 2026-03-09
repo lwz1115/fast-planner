@@ -1,0 +1,23 @@
+[35m[1mConsolidate compiler generated dependencies of target so3_disturbance_generator[0m
+[100%] Built target so3_disturbance_generator
+-- Install configuration: ""
+-- Installing: /root/colcon_ws/install/so3_disturbance_generator/lib/so3_disturbance_generator/so3_disturbance_generator
+-- Set runtime path of "/root/colcon_ws/install/so3_disturbance_generator/lib/so3_disturbance_generator/so3_disturbance_generator" to ""
+-- Installing: /root/colcon_ws/install/so3_disturbance_generator/include
+-- Installing: /root/colcon_ws/install/so3_disturbance_generator/include/so3_disturbance_generator
+-- Installing: /root/colcon_ws/install/so3_disturbance_generator/include/so3_disturbance_generator/DisturbanceUIConfig.h
+-- Installing: /root/colcon_ws/install/so3_disturbance_generator/share/ament_index/resource_index/package_run_dependencies/so3_disturbance_generator
+-- Installing: /root/colcon_ws/install/so3_disturbance_generator/share/ament_index/resource_index/parent_prefix_path/so3_disturbance_generator
+-- Installing: /root/colcon_ws/install/so3_disturbance_generator/share/so3_disturbance_generator/environment/ament_prefix_path.sh
+-- Installing: /root/colcon_ws/install/so3_disturbance_generator/share/so3_disturbance_generator/environment/ament_prefix_path.dsv
+-- Installing: /root/colcon_ws/install/so3_disturbance_generator/share/so3_disturbance_generator/environment/path.sh
+-- Installing: /root/colcon_ws/install/so3_disturbance_generator/share/so3_disturbance_generator/environment/path.dsv
+-- Installing: /root/colcon_ws/install/so3_disturbance_generator/share/so3_disturbance_generator/local_setup.bash
+-- Installing: /root/colcon_ws/install/so3_disturbance_generator/share/so3_disturbance_generator/local_setup.sh
+-- Installing: /root/colcon_ws/install/so3_disturbance_generator/share/so3_disturbance_generator/local_setup.zsh
+-- Installing: /root/colcon_ws/install/so3_disturbance_generator/share/so3_disturbance_generator/local_setup.dsv
+-- Installing: /root/colcon_ws/install/so3_disturbance_generator/share/so3_disturbance_generator/package.dsv
+-- Installing: /root/colcon_ws/install/so3_disturbance_generator/share/ament_index/resource_index/packages/so3_disturbance_generator
+-- Installing: /root/colcon_ws/install/so3_disturbance_generator/share/so3_disturbance_generator/cmake/so3_disturbance_generatorConfig.cmake
+-- Installing: /root/colcon_ws/install/so3_disturbance_generator/share/so3_disturbance_generator/cmake/so3_disturbance_generatorConfig-version.cmake
+-- Installing: /root/colcon_ws/install/so3_disturbance_generator/share/so3_disturbance_generator/package.xml

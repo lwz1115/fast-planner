@@ -4,7 +4,7 @@
 #include <boost/bind.hpp>
 #include <iostream>
 
-#include <ros/ros.h>
+#include <rclcpp/rclcpp.hpp>
 namespace odeint = boost::numeric::odeint;
 
 namespace QuadrotorSimulator
@@ -163,7 +163,7 @@ Quadrotor::operator()(const Quadrotor::InternalState& x,
                       3.14159265 * (arm_length_) * (arm_length_) * // S
                       cur_state.v.norm() * cur_state.v.norm();
 
-  //  ROS_INFO("resistance: %lf, Thrust: %lf%% ", resistance,
+  //  RCLCPP_INFO(node_->get_logger(), this->get_logger(), "resistance: %lf, Thrust: %lf%% ", resistance,
   //           motor_rpm_sq.sum() / (4 * max_rpm_ * max_rpm_) * 100.0);
 
   vnorm = cur_state.v;

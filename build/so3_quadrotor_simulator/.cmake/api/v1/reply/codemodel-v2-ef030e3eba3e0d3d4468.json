@@ -1,0 +1,88 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-f0fc588fe44a12bda0f7.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "so3_quadrotor_simulator",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "quadrotor_dynamics::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-quadrotor_dynamics-15fc9b40674ca76ff76c.json",
+					"name" : "quadrotor_dynamics",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "quadrotor_simulator_so3::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-quadrotor_simulator_so3-7882a9ab252a507c9242.json",
+					"name" : "quadrotor_simulator_so3",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "so3_quadrotor_simulator_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-so3_quadrotor_simulator_uninstall-54da2970adbffdda456a.json",
+					"name" : "so3_quadrotor_simulator_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-bb819d624abf5c939a3d.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/root/colcon_ws/build/so3_quadrotor_simulator",
+		"source" : "/root/colcon_ws/src/Fast-Planner/uav_simulator/so3_quadrotor_simulator"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

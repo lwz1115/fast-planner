@@ -1,0 +1,9 @@
+[0.057s] Invoking command in '/root/colcon_ws/build/local_sensing_node': AMENT_PREFIX_PATH=/root/colcon_ws/install/quadrotor_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/root/colcon_ws/install/quadrotor_msgs:/opt/ros/humble LD_LIBRARY_PATH=/root/colcon_ws/install/quadrotor_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /root/colcon_ws/build/local_sensing_node -- -j8 -l8
+[0.280s] [ 50%] [32mBuilding CXX object CMakeFiles/pcl_render_node.dir/src/pointcloud_render_node.cpp.o[0m
+[13.308s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/local_sensing/src/pointcloud_render_node.cpp:[m[K In member function ‘[01m[Kvoid PointCloudRenderNode::rcvLocalPointCloudCallBack(sensor_msgs::msg::PointCloud2_<std::allocator<void> >::SharedPtr)[m[K’:
+[13.308s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/local_sensing/src/pointcloud_render_node.cpp:199:82:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kpointcloud_map[m[K’ [[01;35m[K-Wunused-parameter[m[K]
+[13.308s]   199 | lPointCloudCallBack([01;35m[Kconst sensor_msgs::msg::PointCloud2::SharedPtr pointcloud_map[m[K) {
+[13.309s]       |                     [01;35m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~[m[K
+[13.309s] 
+[40.265s] [100%] [32m[1mLinking CXX executable pcl_render_node[0m
+[41.737s] [100%] Built target pcl_render_node

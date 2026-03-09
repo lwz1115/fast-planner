@@ -1,26 +1,54 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.8)
 project(pose_utils)
 
-find_package(catkin REQUIRED COMPONENTS
-  #armadillo
-  roscpp
-)
+set(CMAKE_CXX_STANDARD 14)
 
-catkin_package(
-  INCLUDE_DIRS include
-  LIBRARIES pose_utils
-#  CATKIN_DEPENDS geometry_msgs nav_msgs
-#  DEPENDS system_lib
-)
-
+# 查找依赖
+find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
 find_package(Armadillo REQUIRED)
 
+# 包含目录
 include_directories(
-    ${catkin_INCLUDE_DIRS}
-    ${ARMADILLO_INCLUDE_DIRS}
-    include
-    )
+  include
+  ${ARMADILLO_INCLUDE_DIRS}
+)
 
+# 库
 add_library(pose_utils 
-   ${ARMADILLO_LIBRARIES}
-   src/pose_utils.cpp)
+  src/pose_utils.cpp
+)
+
+ament_target_dependencies(pose_utils
+  rclcpp
+)
+
+target_link_libraries(pose_utils
+  ${ARMADILLO_LIBRARIES}
+)
+
+# 安装
+install(TARGETS
+  pose_utils
+  EXPORT pose_utilsTargets
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib
+  RUNTIME DESTINATION lib/${PROJECT_NAME}
+)
+
+install(DIRECTORY include/
+  DESTINATION include
+)
+
+install(EXPORT pose_utilsTargets
+  FILE pose_utilsTargets.cmake
+  NAMESPACE pose_utils::
+  DESTINATION lib/cmake/${PROJECT_NAME}
+)
+
+ament_export_targets(pose_utilsTargets HAS_LIBRARY_TARGET)
+ament_export_dependencies(rclcpp Armadillo)
+ament_export_include_directories(include)
+
+ament_package()
+

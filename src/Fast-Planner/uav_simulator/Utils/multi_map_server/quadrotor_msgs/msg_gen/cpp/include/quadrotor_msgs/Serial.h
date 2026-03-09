@@ -14,7 +14,7 @@
 
 #include "ros/assert.h"
 
-#include "std_msgs/Header.h"
+#include <std_msgs/msg/header.hpp>
 
 namespace quadrotor_msgs
 {
@@ -38,8 +38,8 @@ struct Serial_ {
   {
   }
 
-  typedef  ::std_msgs::Header_<ContainerAllocator>  _header_type;
-   ::std_msgs::Header_<ContainerAllocator>  header;
+  typedef  ::std_msgs::msg::Header_<ContainerAllocator>  _header_type;
+   ::std_msgs::msg::Header_<ContainerAllocator>  header;
 
   typedef uint8_t _channel_type;
   uint8_t channel;
@@ -58,12 +58,12 @@ struct Serial_ {
   enum { PPR_GAINS = 103 };
 
   typedef boost::shared_ptr< ::quadrotor_msgs::Serial_<ContainerAllocator> > Ptr;
-  typedef boost::shared_ptr< ::quadrotor_msgs::Serial_<ContainerAllocator>  const> ConstPtr;
+  typedef boost::shared_ptr< ::quadrotor_msgs::Serial_<ContainerAllocator>  const> SharedPtr;
 }; // struct Serial
 typedef  ::quadrotor_msgs::Serial_<std::allocator<void> > Serial;
 
 typedef boost::shared_ptr< ::quadrotor_msgs::Serial> SerialPtr;
-typedef boost::shared_ptr< ::quadrotor_msgs::Serial const> SerialConstPtr;
+typedef boost::shared_ptr< ::quadrotor_msgs::Serial const> SerialSharedPtr;
 
 
 template<typename ContainerAllocator>
@@ -181,7 +181,7 @@ struct Printer< ::quadrotor_msgs::Serial_<ContainerAllocator> >
   {
     s << indent << "header: ";
 s << std::endl;
-    Printer< ::std_msgs::Header_<ContainerAllocator> >::stream(s, indent + "  ", v.header);
+    Printer< ::std_msgs::msg::Header_<ContainerAllocator> >::stream(s, indent + "  ", v.header);
     s << indent << "channel: ";
     Printer<uint8_t>::stream(s, indent + "  ", v.channel);
     s << indent << "type: ";

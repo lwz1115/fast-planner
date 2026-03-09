@@ -1,0 +1,8 @@
+msg/MultiOccupancyGrid.idl
+msg/MultiOccupancyGrid.msg
+msg/MultiSparseMap3D.idl
+msg/MultiSparseMap3D.msg
+msg/SparseMap3D.idl
+msg/SparseMap3D.msg
+msg/VerticalOccupancyGridList.idl
+msg/VerticalOccupancyGridList.msg

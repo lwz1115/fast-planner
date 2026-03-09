@@ -1,0 +1,24 @@
+[0.024s] Invoking command in '/root/colcon_ws/build/uav_utils': AMENT_PREFIX_PATH=/root/colcon_ws/install/cmake_utils:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/root/colcon_ws/install/cmake_utils:/opt/ros/humble /usr/bin/cmake --build /root/colcon_ws/build/uav_utils -- -j8 -l8
+[0.217s] Invoked command in '/root/colcon_ws/build/uav_utils' returned '0': AMENT_PREFIX_PATH=/root/colcon_ws/install/cmake_utils:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/root/colcon_ws/install/cmake_utils:/opt/ros/humble /usr/bin/cmake --build /root/colcon_ws/build/uav_utils -- -j8 -l8
+[0.219s] Invoking command in '/root/colcon_ws/build/uav_utils': AMENT_PREFIX_PATH=/root/colcon_ws/install/cmake_utils:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/root/colcon_ws/install/cmake_utils:/opt/ros/humble /usr/bin/cmake --install /root/colcon_ws/build/uav_utils
+[0.241s] -- Install configuration: ""
+[0.241s] -- Up-to-date: /root/colcon_ws/install/uav_utils/include/uav_utils
+[0.242s] -- Up-to-date: /root/colcon_ws/install/uav_utils/include/uav_utils/geometry_utils.h
+[0.242s] -- Up-to-date: /root/colcon_ws/install/uav_utils/include/uav_utils/utils.h
+[0.242s] -- Up-to-date: /root/colcon_ws/install/uav_utils/include/uav_utils/converters.h
+[0.242s] -- Up-to-date: /root/colcon_ws/install/uav_utils/share/ament_index/resource_index/package_run_dependencies/uav_utils
+[0.242s] -- Up-to-date: /root/colcon_ws/install/uav_utils/share/ament_index/resource_index/parent_prefix_path/uav_utils
+[0.242s] -- Up-to-date: /root/colcon_ws/install/uav_utils/share/uav_utils/environment/ament_prefix_path.sh
+[0.244s] -- Up-to-date: /root/colcon_ws/install/uav_utils/share/uav_utils/environment/ament_prefix_path.dsv
+[0.244s] -- Up-to-date: /root/colcon_ws/install/uav_utils/share/uav_utils/environment/path.sh
+[0.244s] -- Up-to-date: /root/colcon_ws/install/uav_utils/share/uav_utils/environment/path.dsv
+[0.245s] -- Up-to-date: /root/colcon_ws/install/uav_utils/share/uav_utils/local_setup.bash
+[0.245s] -- Up-to-date: /root/colcon_ws/install/uav_utils/share/uav_utils/local_setup.sh
+[0.245s] -- Up-to-date: /root/colcon_ws/install/uav_utils/share/uav_utils/local_setup.zsh
+[0.245s] -- Up-to-date: /root/colcon_ws/install/uav_utils/share/uav_utils/local_setup.dsv
+[0.245s] -- Installing: /root/colcon_ws/install/uav_utils/share/uav_utils/package.dsv
+[0.245s] -- Up-to-date: /root/colcon_ws/install/uav_utils/share/ament_index/resource_index/packages/uav_utils
+[0.245s] -- Up-to-date: /root/colcon_ws/install/uav_utils/share/uav_utils/cmake/uav_utilsConfig.cmake
+[0.245s] -- Up-to-date: /root/colcon_ws/install/uav_utils/share/uav_utils/cmake/uav_utilsConfig-version.cmake
+[0.245s] -- Up-to-date: /root/colcon_ws/install/uav_utils/share/uav_utils/package.xml
+[0.256s] Invoked command in '/root/colcon_ws/build/uav_utils' returned '0': AMENT_PREFIX_PATH=/root/colcon_ws/install/cmake_utils:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/root/colcon_ws/install/cmake_utils:/opt/ros/humble /usr/bin/cmake --install /root/colcon_ws/build/uav_utils

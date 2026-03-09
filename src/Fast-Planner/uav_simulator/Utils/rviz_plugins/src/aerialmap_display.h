@@ -34,10 +34,10 @@
 #include <OGRE/OgreMaterial.h>
 #include <OGRE/OgreVector3.h>
 
-#include <nav_msgs/MapMetaData.h>
-#include <ros/time.h>
+#include <nav_msgs/msg/map_meta_data.hpp>
+#include <rclcpp/time.hpp>
 
-#include <nav_msgs/OccupancyGrid.h>
+#include <nav_msgs/msg/occupancy_grid.hpp>
 
 #include "rviz/display.h"
 
@@ -93,7 +93,7 @@ protected:
   virtual void subscribe();
   virtual void unsubscribe();
 
-  void incomingAerialMap(const nav_msgs::OccupancyGrid::ConstPtr& msg);
+  void incomingAerialMap(const nav_msgs::msg::OccupancyGrid::SharedPtr& msg);
 
   void clear();
 
@@ -112,7 +112,7 @@ protected:
   Ogre::Quaternion orientation_;
   std::string frame_;
 
-  ros::Subscriber map_sub_;
+  rclcpp::Subscription map_sub_;
 
   RosTopicProperty* topic_property_;
   FloatProperty* resolution_property_;
@@ -123,8 +123,8 @@ protected:
   FloatProperty* alpha_property_;
   Property* draw_under_property_;
 
-  nav_msgs::OccupancyGrid::ConstPtr updated_map_;
-  nav_msgs::OccupancyGrid::ConstPtr current_map_;
+  nav_msgs::msg::OccupancyGrid::SharedPtr updated_map_;
+  nav_msgs::msg::OccupancyGrid::SharedPtr current_map_;
   boost::mutex mutex_;
   bool new_map_;
 };

@@ -1,0 +1,10 @@
+[0.026s] Invoking command in '/root/colcon_ws/build/odom_visualization': AMENT_PREFIX_PATH=/root/colcon_ws/install/quadrotor_msgs:/root/colcon_ws/install/pose_utils:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/root/colcon_ws/install/quadrotor_msgs:/root/colcon_ws/install/pose_utils:/opt/ros/humble LD_LIBRARY_PATH=/root/colcon_ws/install/quadrotor_msgs/lib:/root/colcon_ws/install/pose_utils/lib:${LD_LIBRARY_PATH} PYTHONPATH=/root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /root/colcon_ws/build/odom_visualization -- -j8 -l8
+[0.146s] [ 50%] [32mBuilding CXX object CMakeFiles/odom_visualization.dir/src/odom_visualization.cpp.o[0m
+[1.084s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/Utils/odom_visualization/src/odom_visualization.cpp:15:10:[m[K [01;31m[Kfatal error: [m[Kpose_utils.h: No such file or directory
+[1.085s]    15 | #include [01;31m[K"pose_utils.h"[m[K
+[1.085s]       |          [01;31m[K^~~~~~~~~~~~~~[m[K
+[1.085s] compilation terminated.
+[1.094s] gmake[2]: *** [CMakeFiles/odom_visualization.dir/build.make:76: CMakeFiles/odom_visualization.dir/src/odom_visualization.cpp.o] Error 1
+[1.094s] gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/odom_visualization.dir/all] Error 2
+[1.095s] gmake: *** [Makefile:146: all] Error 2
+[1.101s] Invoked command in '/root/colcon_ws/build/odom_visualization' returned '2': AMENT_PREFIX_PATH=/root/colcon_ws/install/quadrotor_msgs:/root/colcon_ws/install/pose_utils:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/root/colcon_ws/install/quadrotor_msgs:/root/colcon_ws/install/pose_utils:/opt/ros/humble LD_LIBRARY_PATH=/root/colcon_ws/install/quadrotor_msgs/lib:/root/colcon_ws/install/pose_utils/lib:${LD_LIBRARY_PATH} PYTHONPATH=/root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /root/colcon_ws/build/odom_visualization -- -j8 -l8

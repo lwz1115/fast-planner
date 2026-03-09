@@ -1,0 +1,29 @@
+[ 50%] Built target SO3Control
+[100%] Built target so3_control_node
+-- Install configuration: ""
+-- Up-to-date: /root/colcon_ws/install/so3_control/lib/libSO3Control.a
+-- Up-to-date: /root/colcon_ws/install/so3_control/lib/so3_control/so3_control_node
+-- Up-to-date: /root/colcon_ws/install/so3_control/include/so3_control
+-- Up-to-date: /root/colcon_ws/install/so3_control/include/so3_control/so3_control
+-- Up-to-date: /root/colcon_ws/install/so3_control/include/so3_control/so3_control/SO3Control.h
+-- Up-to-date: /root/colcon_ws/install/so3_control/share/so3_control/config
+-- Up-to-date: /root/colcon_ws/install/so3_control/share/so3_control/config/corrections_pelican.yaml
+-- Up-to-date: /root/colcon_ws/install/so3_control/share/so3_control/config/gains.yaml
+-- Up-to-date: /root/colcon_ws/install/so3_control/share/so3_control/config/gains_pelican.yaml
+-- Up-to-date: /root/colcon_ws/install/so3_control/share/so3_control/config/corrections_hummingbird.yaml
+-- Up-to-date: /root/colcon_ws/install/so3_control/share/so3_control/config/gains_hummingbird.yaml
+-- Up-to-date: /root/colcon_ws/install/so3_control/share/ament_index/resource_index/package_run_dependencies/so3_control
+-- Up-to-date: /root/colcon_ws/install/so3_control/share/ament_index/resource_index/parent_prefix_path/so3_control
+-- Up-to-date: /root/colcon_ws/install/so3_control/share/so3_control/environment/ament_prefix_path.sh
+-- Up-to-date: /root/colcon_ws/install/so3_control/share/so3_control/environment/ament_prefix_path.dsv
+-- Up-to-date: /root/colcon_ws/install/so3_control/share/so3_control/environment/path.sh
+-- Up-to-date: /root/colcon_ws/install/so3_control/share/so3_control/environment/path.dsv
+-- Up-to-date: /root/colcon_ws/install/so3_control/share/so3_control/local_setup.bash
+-- Up-to-date: /root/colcon_ws/install/so3_control/share/so3_control/local_setup.sh
+-- Up-to-date: /root/colcon_ws/install/so3_control/share/so3_control/local_setup.zsh
+-- Up-to-date: /root/colcon_ws/install/so3_control/share/so3_control/local_setup.dsv
+-- Up-to-date: /root/colcon_ws/install/so3_control/share/so3_control/package.dsv
+-- Up-to-date: /root/colcon_ws/install/so3_control/share/ament_index/resource_index/packages/so3_control
+-- Up-to-date: /root/colcon_ws/install/so3_control/share/so3_control/cmake/so3_controlConfig.cmake
+-- Up-to-date: /root/colcon_ws/install/so3_control/share/so3_control/cmake/so3_controlConfig-version.cmake
+-- Up-to-date: /root/colcon_ws/install/so3_control/share/so3_control/package.xml

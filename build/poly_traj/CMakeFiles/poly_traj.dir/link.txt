@@ -1,0 +1,2 @@
+/usr/bin/ar qc libpoly_traj.a CMakeFiles/poly_traj.dir/src/polynomial_traj.cpp.o
+/usr/bin/ranlib libpoly_traj.a

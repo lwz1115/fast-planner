@@ -1,0 +1,23 @@
+[0.054s] Invoking command in '/root/colcon_ws/build/odom_visualization': AMENT_PREFIX_PATH=/root/colcon_ws/install/quadrotor_msgs:/root/colcon_ws/install/pose_utils:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/root/colcon_ws/install/quadrotor_msgs:/root/colcon_ws/install/pose_utils:/opt/ros/humble LD_LIBRARY_PATH=/root/colcon_ws/install/quadrotor_msgs/lib:/root/colcon_ws/install/pose_utils/lib:${LD_LIBRARY_PATH} PYTHONPATH=/root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /root/colcon_ws/build/odom_visualization -- -j8 -l8
+[0.184s] [35m[1mConsolidate compiler generated dependencies of target odom_visualization[0m
+[0.261s] [100%] Built target odom_visualization
+[0.318s] Invoked command in '/root/colcon_ws/build/odom_visualization' returned '0': AMENT_PREFIX_PATH=/root/colcon_ws/install/quadrotor_msgs:/root/colcon_ws/install/pose_utils:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/root/colcon_ws/install/quadrotor_msgs:/root/colcon_ws/install/pose_utils:/opt/ros/humble LD_LIBRARY_PATH=/root/colcon_ws/install/quadrotor_msgs/lib:/root/colcon_ws/install/pose_utils/lib:${LD_LIBRARY_PATH} PYTHONPATH=/root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /root/colcon_ws/build/odom_visualization -- -j8 -l8
+[0.322s] Invoking command in '/root/colcon_ws/build/odom_visualization': AMENT_PREFIX_PATH=/root/colcon_ws/install/quadrotor_msgs:/root/colcon_ws/install/pose_utils:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/root/colcon_ws/install/quadrotor_msgs:/root/colcon_ws/install/pose_utils:/opt/ros/humble LD_LIBRARY_PATH=/root/colcon_ws/install/quadrotor_msgs/lib:/root/colcon_ws/install/pose_utils/lib:${LD_LIBRARY_PATH} PYTHONPATH=/root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --install /root/colcon_ws/build/odom_visualization
+[0.439s] -- Install configuration: ""
+[0.440s] -- Up-to-date: /root/colcon_ws/install/odom_visualization/lib/odom_visualization/odom_visualization
+[0.442s] -- Up-to-date: /root/colcon_ws/install/odom_visualization/share/ament_index/resource_index/package_run_dependencies/odom_visualization
+[0.442s] -- Up-to-date: /root/colcon_ws/install/odom_visualization/share/ament_index/resource_index/parent_prefix_path/odom_visualization
+[0.443s] -- Up-to-date: /root/colcon_ws/install/odom_visualization/share/odom_visualization/environment/ament_prefix_path.sh
+[0.443s] -- Up-to-date: /root/colcon_ws/install/odom_visualization/share/odom_visualization/environment/ament_prefix_path.dsv
+[0.443s] -- Up-to-date: /root/colcon_ws/install/odom_visualization/share/odom_visualization/environment/path.sh
+[0.443s] -- Up-to-date: /root/colcon_ws/install/odom_visualization/share/odom_visualization/environment/path.dsv
+[0.443s] -- Up-to-date: /root/colcon_ws/install/odom_visualization/share/odom_visualization/local_setup.bash
+[0.443s] -- Up-to-date: /root/colcon_ws/install/odom_visualization/share/odom_visualization/local_setup.sh
+[0.443s] -- Up-to-date: /root/colcon_ws/install/odom_visualization/share/odom_visualization/local_setup.zsh
+[0.443s] -- Up-to-date: /root/colcon_ws/install/odom_visualization/share/odom_visualization/local_setup.dsv
+[0.443s] -- Installing: /root/colcon_ws/install/odom_visualization/share/odom_visualization/package.dsv
+[0.444s] -- Up-to-date: /root/colcon_ws/install/odom_visualization/share/ament_index/resource_index/packages/odom_visualization
+[0.444s] -- Up-to-date: /root/colcon_ws/install/odom_visualization/share/odom_visualization/cmake/odom_visualizationConfig.cmake
+[0.444s] -- Up-to-date: /root/colcon_ws/install/odom_visualization/share/odom_visualization/cmake/odom_visualizationConfig-version.cmake
+[0.444s] -- Up-to-date: /root/colcon_ws/install/odom_visualization/share/odom_visualization/package.xml
+[0.466s] Invoked command in '/root/colcon_ws/build/odom_visualization' returned '0': AMENT_PREFIX_PATH=/root/colcon_ws/install/quadrotor_msgs:/root/colcon_ws/install/pose_utils:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/root/colcon_ws/install/quadrotor_msgs:/root/colcon_ws/install/pose_utils:/opt/ros/humble LD_LIBRARY_PATH=/root/colcon_ws/install/quadrotor_msgs/lib:/root/colcon_ws/install/pose_utils/lib:${LD_LIBRARY_PATH} PYTHONPATH=/root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --install /root/colcon_ws/build/odom_visualization

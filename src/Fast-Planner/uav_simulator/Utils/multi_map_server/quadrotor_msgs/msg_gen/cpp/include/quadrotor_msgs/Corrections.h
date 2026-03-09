@@ -43,12 +43,12 @@ struct Corrections_ {
 
 
   typedef boost::shared_ptr< ::quadrotor_msgs::Corrections_<ContainerAllocator> > Ptr;
-  typedef boost::shared_ptr< ::quadrotor_msgs::Corrections_<ContainerAllocator>  const> ConstPtr;
+  typedef boost::shared_ptr< ::quadrotor_msgs::Corrections_<ContainerAllocator>  const> SharedPtr;
 }; // struct Corrections
 typedef  ::quadrotor_msgs::Corrections_<std::allocator<void> > Corrections;
 
 typedef boost::shared_ptr< ::quadrotor_msgs::Corrections> CorrectionsPtr;
-typedef boost::shared_ptr< ::quadrotor_msgs::Corrections const> CorrectionsConstPtr;
+typedef boost::shared_ptr< ::quadrotor_msgs::Corrections const> CorrectionsSharedPtr;
 
 
 template<typename ContainerAllocator>

@@ -1,0 +1,20 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from multi_map_server/msg/VerticalOccupancyGridList.msg
+// generated code does not contain a copyright notice
+
+
+module multi_map_server {
+  module msg {
+    struct VerticalOccupancyGridList {
+      float x;
+
+      float y;
+
+      sequence<int32> upper;
+
+      sequence<int32> lower;
+
+      sequence<int32> mass;
+    };
+  };
+};

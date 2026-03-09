@@ -1,0 +1,4 @@
+source;share/poly_traj/local_setup.bash
+source;share/poly_traj/local_setup.dsv
+source;share/poly_traj/local_setup.sh
+source;share/poly_traj/local_setup.zsh

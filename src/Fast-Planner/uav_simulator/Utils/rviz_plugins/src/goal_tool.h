@@ -59,8 +59,8 @@ private Q_SLOTS:
   void updateTopic();
 
 private:
-  ros::NodeHandle nh_;
-  ros::Publisher pub_;
+  rclcpp::Node nh_;
+  rclcpp::Publisher pub_;
 
   StringProperty* topic_property_;
 };

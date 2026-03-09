@@ -1,0 +1,10 @@
+[0.055s] Invoking command in '/root/colcon_ws/build/plan_env': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /root/colcon_ws/build/plan_env -- -j8 -l8
+[0.168s] [35m[1mConsolidate compiler generated dependencies of target plan_env[0m
+[0.262s] [ 25%] [32mBuilding CXX object CMakeFiles/plan_env.dir/src/sdf_map.cpp.o[0m
+[0.267s] [ 50%] [32mBuilding CXX object CMakeFiles/plan_env.dir/src/edt_environment.cpp.o[0m
+[5.821s] gmake[2]: *** [CMakeFiles/plan_env.dir/build.make:90: CMakeFiles/plan_env.dir/src/edt_environment.cpp.o] Interrupt
+[5.821s] gmake[2]: *** wait: No child processes.  Stop.
+[5.821s] gmake[2]: *** Waiting for unfinished jobs....
+[5.821s] gmake[2]: *** wait: No child processes.  Stop.
+[5.821s] gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/plan_env.dir/all] Error 2
+[5.821s] gmake: *** [Makefile:146: all] Interrupt

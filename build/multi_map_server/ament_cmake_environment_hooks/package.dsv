@@ -1,0 +1,4 @@
+source;share/multi_map_server/local_setup.bash
+source;share/multi_map_server/local_setup.dsv
+source;share/multi_map_server/local_setup.sh
+source;share/multi_map_server/local_setup.zsh

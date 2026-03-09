@@ -1,0 +1,48 @@
+[0.049s] Invoking command in '/root/colcon_ws/build/waypoint_generator': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /root/colcon_ws/src/Fast-Planner/uav_simulator/Utils/waypoint_generator -DCMAKE_INSTALL_PREFIX=/root/colcon_ws/install/waypoint_generator
+[1.364s] -- The C compiler identification is GNU 11.4.0
+[1.364s] -- The CXX compiler identification is GNU 11.4.0
+[1.364s] -- Detecting C compiler ABI info
+[1.365s] -- Detecting C compiler ABI info - done
+[1.365s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.365s] -- Detecting C compile features
+[1.365s] -- Detecting C compile features - done
+[1.365s] -- Detecting CXX compiler ABI info
+[1.365s] -- Detecting CXX compiler ABI info - done
+[1.365s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[1.365s] -- Detecting CXX compile features
+[1.365s] -- Detecting CXX compile features - done
+[1.365s] -- Found ament_cmake: 1.3.13 (/opt/ros/humble/share/ament_cmake/cmake)
+[1.365s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.366s] -- Found rclcpp: 16.0.18 (/opt/ros/humble/share/rclcpp/cmake)
+[1.366s] -- Found rosidl_generator_c: 3.1.8 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[1.366s] -- Found rosidl_adapter: 3.1.8 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[1.366s] -- Found rosidl_generator_cpp: 3.1.8 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[1.376s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.405s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.484s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[1.488s] -- Found rmw_fastrtps_cpp: 6.2.10 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[1.654s] -- Found OpenSSL: /usr/lib/aarch64-linux-gnu/libcrypto.so (found version "3.0.2")  
+[1.705s] -- Found FastRTPS: /opt/ros/humble/include  
+[1.798s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[1.816s] -- Looking for pthread.h
+[1.959s] -- Looking for pthread.h - found
+[1.960s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[2.107s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[2.109s] -- Found Threads: TRUE  
+[2.204s] -- Found tf2: 0.25.19 (/opt/ros/humble/share/tf2/cmake)
+[2.249s] -- Found tf2_ros: 0.25.19 (/opt/ros/humble/share/tf2_ros/cmake)
+[2.412s] -- Found tf2_geometry_msgs: 0.25.19 (/opt/ros/humble/share/tf2_geometry_msgs/cmake)
+[2.438s] -- Found eigen3_cmake_module: 0.1.1 (/opt/ros/humble/share/eigen3_cmake_module/cmake)
+[2.442s] -- Found Eigen3: TRUE (found version "3.4.0") 
+[2.442s] -- Ensuring Eigen3 include directory is part of orocos-kdl CMake target
+[2.450s] -- Found nav_msgs: 4.9.1 (/opt/ros/humble/share/nav_msgs/cmake)
+[2.478s] -- Found visualization_msgs: 4.9.1 (/opt/ros/humble/share/visualization_msgs/cmake)
+[2.563s] -- Found Boost: /usr/lib/aarch64-linux-gnu/cmake/Boost-1.74.0/BoostConfig.cmake (found version "1.74.0") found components: system 
+[2.726s] -- Configuring done
+[2.757s] -- Generating done
+[2.767s] -- Build files have been written to: /root/colcon_ws/build/waypoint_generator
+[2.803s] Invoked command in '/root/colcon_ws/build/waypoint_generator' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /root/colcon_ws/src/Fast-Planner/uav_simulator/Utils/waypoint_generator -DCMAKE_INSTALL_PREFIX=/root/colcon_ws/install/waypoint_generator
+[2.804s] Invoking command in '/root/colcon_ws/build/waypoint_generator': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /root/colcon_ws/build/waypoint_generator -- -j8 -l8
+[3.892s] [ 50%] [32mBuilding CXX object CMakeFiles/waypoint_generator.dir/src/waypoint_generator.cpp.o[0m
+[50.769s] [100%] [32m[1mLinking CXX executable waypoint_generator[0m
+[51.160s] [100%] Built target waypoint_generator

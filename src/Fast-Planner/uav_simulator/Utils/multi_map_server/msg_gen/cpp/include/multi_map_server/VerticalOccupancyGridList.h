@@ -56,12 +56,12 @@ struct VerticalOccupancyGridList_ {
 
 
   typedef boost::shared_ptr< ::multi_map_server::VerticalOccupancyGridList_<ContainerAllocator> > Ptr;
-  typedef boost::shared_ptr< ::multi_map_server::VerticalOccupancyGridList_<ContainerAllocator>  const> ConstPtr;
+  typedef boost::shared_ptr< ::multi_map_server::VerticalOccupancyGridList_<ContainerAllocator>  const> SharedPtr;
 }; // struct VerticalOccupancyGridList
 typedef  ::multi_map_server::VerticalOccupancyGridList_<std::allocator<void> > VerticalOccupancyGridList;
 
 typedef boost::shared_ptr< ::multi_map_server::VerticalOccupancyGridList> VerticalOccupancyGridListPtr;
-typedef boost::shared_ptr< ::multi_map_server::VerticalOccupancyGridList const> VerticalOccupancyGridListConstPtr;
+typedef boost::shared_ptr< ::multi_map_server::VerticalOccupancyGridList const> VerticalOccupancyGridListSharedPtr;
 
 
 template<typename ContainerAllocator>

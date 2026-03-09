@@ -1,0 +1,10 @@
+/root/colcon_ws/build/pose_utils/CMakeFiles/uninstall.dir
+/root/colcon_ws/build/pose_utils/CMakeFiles/pose_utils_uninstall.dir
+/root/colcon_ws/build/pose_utils/CMakeFiles/pose_utils.dir
+/root/colcon_ws/build/pose_utils/CMakeFiles/test.dir
+/root/colcon_ws/build/pose_utils/CMakeFiles/edit_cache.dir
+/root/colcon_ws/build/pose_utils/CMakeFiles/rebuild_cache.dir
+/root/colcon_ws/build/pose_utils/CMakeFiles/list_install_components.dir
+/root/colcon_ws/build/pose_utils/CMakeFiles/install.dir
+/root/colcon_ws/build/pose_utils/CMakeFiles/install/local.dir
+/root/colcon_ws/build/pose_utils/CMakeFiles/install/strip.dir

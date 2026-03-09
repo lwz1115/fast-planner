@@ -1,8 +1,0 @@
-prefix=/root/catkin_ws/devel
-
-Name: bspline
-Description: Description of bspline
-Version: 0.0.0
-Cflags: -I/root/catkin_ws/src/Fast-Planner/fast_planner/bspline/include
-Libs: -L${prefix}/lib -lbspline
-Requires: 

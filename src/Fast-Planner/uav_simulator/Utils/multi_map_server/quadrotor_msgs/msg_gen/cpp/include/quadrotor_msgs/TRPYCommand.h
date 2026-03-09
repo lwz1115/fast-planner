@@ -14,8 +14,8 @@
 
 #include "ros/assert.h"
 
-#include "std_msgs/Header.h"
-#include "quadrotor_msgs/AuxCommand.h"
+#include <std_msgs/msg/header.hpp>
+#include <quadrotor_msgs/msg/aux_command.hpp>
 
 namespace quadrotor_msgs
 {
@@ -43,8 +43,8 @@ struct TRPYCommand_ {
   {
   }
 
-  typedef  ::std_msgs::Header_<ContainerAllocator>  _header_type;
-   ::std_msgs::Header_<ContainerAllocator>  header;
+  typedef  ::std_msgs::msg::Header_<ContainerAllocator>  _header_type;
+   ::std_msgs::msg::Header_<ContainerAllocator>  header;
 
   typedef float _thrust_type;
   float thrust;
@@ -63,12 +63,12 @@ struct TRPYCommand_ {
 
 
   typedef boost::shared_ptr< ::quadrotor_msgs::TRPYCommand_<ContainerAllocator> > Ptr;
-  typedef boost::shared_ptr< ::quadrotor_msgs::TRPYCommand_<ContainerAllocator>  const> ConstPtr;
+  typedef boost::shared_ptr< ::quadrotor_msgs::TRPYCommand_<ContainerAllocator>  const> SharedPtr;
 }; // struct TRPYCommand
 typedef  ::quadrotor_msgs::TRPYCommand_<std::allocator<void> > TRPYCommand;
 
 typedef boost::shared_ptr< ::quadrotor_msgs::TRPYCommand> TRPYCommandPtr;
-typedef boost::shared_ptr< ::quadrotor_msgs::TRPYCommand const> TRPYCommandConstPtr;
+typedef boost::shared_ptr< ::quadrotor_msgs::TRPYCommand const> TRPYCommandSharedPtr;
 
 
 template<typename ContainerAllocator>
@@ -189,7 +189,7 @@ struct Printer< ::quadrotor_msgs::TRPYCommand_<ContainerAllocator> >
   {
     s << indent << "header: ";
 s << std::endl;
-    Printer< ::std_msgs::Header_<ContainerAllocator> >::stream(s, indent + "  ", v.header);
+    Printer< ::std_msgs::msg::Header_<ContainerAllocator> >::stream(s, indent + "  ", v.header);
     s << indent << "thrust: ";
     Printer<float>::stream(s, indent + "  ", v.thrust);
     s << indent << "roll: ";

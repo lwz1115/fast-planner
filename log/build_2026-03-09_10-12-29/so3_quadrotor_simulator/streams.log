@@ -1,0 +1,66 @@
+[0.067s] Invoking command in '/root/colcon_ws/build/so3_quadrotor_simulator': AMENT_PREFIX_PATH=/root/colcon_ws/install/uav_utils:/root/colcon_ws/install/quadrotor_msgs:/root/colcon_ws/install/cmake_utils:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/root/colcon_ws/install/uav_utils:/root/colcon_ws/install/quadrotor_msgs:/root/colcon_ws/install/cmake_utils:/opt/ros/humble LD_LIBRARY_PATH=/root/colcon_ws/install/quadrotor_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake /root/colcon_ws/src/Fast-Planner/uav_simulator/so3_quadrotor_simulator -DCMAKE_INSTALL_PREFIX=/root/colcon_ws/install/so3_quadrotor_simulator
+[3.935s] -- The C compiler identification is GNU 11.4.0
+[3.935s] -- The CXX compiler identification is GNU 11.4.0
+[3.935s] -- Detecting C compiler ABI info
+[3.941s] -- Detecting C compiler ABI info - done
+[3.942s] -- Check for working C compiler: /usr/bin/cc - skipped
+[3.942s] -- Detecting C compile features
+[3.942s] -- Detecting C compile features - done
+[3.946s] -- Detecting CXX compiler ABI info
+[3.946s] -- Detecting CXX compiler ABI info - done
+[3.946s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[3.946s] -- Detecting CXX compile features
+[3.946s] -- Detecting CXX compile features - done
+[3.946s] -- Found ament_cmake: 1.3.13 (/opt/ros/humble/share/ament_cmake/cmake)
+[3.946s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[3.946s] -- Found rclcpp: 16.0.18 (/opt/ros/humble/share/rclcpp/cmake)
+[3.947s] -- Found rosidl_generator_c: 3.1.8 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[3.947s] -- Found rosidl_adapter: 3.1.8 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[3.947s] -- Found rosidl_generator_cpp: 3.1.8 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[3.947s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[3.947s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[3.947s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[3.947s] -- Found rmw_fastrtps_cpp: 6.2.10 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[3.947s] -- Found OpenSSL: /usr/lib/aarch64-linux-gnu/libcrypto.so (found version "3.0.2")  
+[3.947s] -- Found FastRTPS: /opt/ros/humble/include  
+[3.947s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[3.948s] -- Looking for pthread.h
+[3.948s] -- Looking for pthread.h - found
+[3.948s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[3.948s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[3.948s] -- Found Threads: TRUE  
+[3.948s] -- Found geometry_msgs: 4.9.1 (/opt/ros/humble/share/geometry_msgs/cmake)
+[3.948s] -- Found nav_msgs: 4.9.1 (/opt/ros/humble/share/nav_msgs/cmake)
+[3.948s] -- Found sensor_msgs: 4.9.1 (/opt/ros/humble/share/sensor_msgs/cmake)
+[3.948s] -- Found visualization_msgs: 4.9.1 (/opt/ros/humble/share/visualization_msgs/cmake)
+[3.948s] -- Found quadrotor_msgs: 0.0.0 (/root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/cmake)
+[3.948s] -- Found uav_utils: 0.0.0 (/root/colcon_ws/install/uav_utils/share/uav_utils/cmake)
+[3.949s] -- Found cmake_utils: 0.0.0 (/root/colcon_ws/install/cmake_utils/share/cmake_utils/cmake)
+[3.949s] -- Found Armadillo: /usr/include (found version "10.8.2") 
+[3.949s] -- Configuring done
+[3.949s] -- Generating done
+[3.949s] -- Build files have been written to: /root/colcon_ws/build/so3_quadrotor_simulator
+[3.961s] Invoked command in '/root/colcon_ws/build/so3_quadrotor_simulator' returned '0': AMENT_PREFIX_PATH=/root/colcon_ws/install/uav_utils:/root/colcon_ws/install/quadrotor_msgs:/root/colcon_ws/install/cmake_utils:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/root/colcon_ws/install/uav_utils:/root/colcon_ws/install/quadrotor_msgs:/root/colcon_ws/install/cmake_utils:/opt/ros/humble LD_LIBRARY_PATH=/root/colcon_ws/install/quadrotor_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake /root/colcon_ws/src/Fast-Planner/uav_simulator/so3_quadrotor_simulator -DCMAKE_INSTALL_PREFIX=/root/colcon_ws/install/so3_quadrotor_simulator
+[3.962s] Invoking command in '/root/colcon_ws/build/so3_quadrotor_simulator': AMENT_PREFIX_PATH=/root/colcon_ws/install/uav_utils:/root/colcon_ws/install/quadrotor_msgs:/root/colcon_ws/install/cmake_utils:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/root/colcon_ws/install/uav_utils:/root/colcon_ws/install/quadrotor_msgs:/root/colcon_ws/install/cmake_utils:/opt/ros/humble LD_LIBRARY_PATH=/root/colcon_ws/install/quadrotor_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /root/colcon_ws/build/so3_quadrotor_simulator -- -j8 -l8
+[6.490s] [ 25%] [32mBuilding CXX object CMakeFiles/quadrotor_dynamics.dir/src/dynamics/Quadrotor.cpp.o[0m
+[13.425s] In file included from [01m[K/usr/include/boost/math/tools/cxx03_warn.hpp:9[m[K,
+[13.425s]                  from [01m[K/usr/include/boost/math/constants/constants.hpp:11[m[K,
+[13.426s]                  from [01m[K/usr/include/boost/math/special_functions/gamma.hpp:24[m[K,
+[13.426s]                  from [01m[K/usr/include/boost/math/special_functions/factorials.hpp:14[m[K,
+[13.426s]                  from [01m[K/usr/include/boost/math/special_functions/binomial.hpp:14[m[K,
+[13.426s]                  from [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/so3_quadrotor_simulator/include/ode/boost/numeric/odeint/stepper/bulirsch_stoer_dense_out.hpp:30[m[K,
+[13.426s]                  from [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/so3_quadrotor_simulator/include/ode/boost/numeric/odeint.hpp:45[m[K,
+[13.427s]                  from [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/so3_quadrotor_simulator/src/dynamics/Quadrotor.cpp:2[m[K:
+[13.427s] [01m[K/usr/include/boost/bind.hpp:36:1:[m[K [01;36m[Knote: [m[K‘[01m[K#pragma message: The practice of declaring the Bind placeholders (_1, _2, ...) in the global namespace is deprecated. Please use <boost/bind/bind.hpp> + using namespace boost::placeholders, or define BOOST_BIND_GLOBAL_PLACEHOLDERS to retain the current behavior.[m[K’
+[13.427s]    36 | [01;36m[KBOOST_PRAGMA_MESSAGE[m[K(
+[13.427s]       | [01;36m[K^~~~~~~~~~~~~~~~~~~~[m[K
+[25.215s] [ 50%] [32m[1mLinking CXX static library libquadrotor_dynamics.a[0m
+[25.368s] [ 50%] Built target quadrotor_dynamics
+[25.408s] [ 75%] [32mBuilding CXX object CMakeFiles/quadrotor_simulator_so3.dir/src/quadrotor_simulator_so3.cpp.o[0m
+[26.089s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/so3_quadrotor_simulator/src/quadrotor_simulator_so3.cpp:8:10:[m[K [01;31m[Kfatal error: [m[Kuav_utils/geometry_utils.h: No such file or directory
+[26.089s]     8 | #include [01;31m[K<uav_utils/geometry_utils.h>[m[K
+[26.089s]       |          [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[26.090s] compilation terminated.
+[26.097s] gmake[2]: *** [CMakeFiles/quadrotor_simulator_so3.dir/build.make:76: CMakeFiles/quadrotor_simulator_so3.dir/src/quadrotor_simulator_so3.cpp.o] Error 1
+[26.098s] gmake[1]: *** [CMakeFiles/Makefile2:165: CMakeFiles/quadrotor_simulator_so3.dir/all] Error 2
+[26.099s] gmake: *** [Makefile:146: all] Error 2

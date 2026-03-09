@@ -1,0 +1,389 @@
+[0.049s] Invoking command in '/root/colcon_ws/build/map_generator': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /root/colcon_ws/build/map_generator -- -j8 -l8
+[0.174s] [35m[1mConsolidate compiler generated dependencies of target random_forest[0m
+[0.263s] [ 50%] [32mBuilding CXX object CMakeFiles/random_forest.dir/src/random_forest_sensing.cpp.o[0m
+[13.638s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:32:19:[m[K [01;31m[Kerror: [m[Kclass template argument deduction failed:
+[13.639s]    32 | rclcpp::Publisher [01;31m[K_local_map_pub[m[K;
+[13.639s]       |                   [01;31m[K^~~~~~~~~~~~~~[m[K
+[13.639s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:32:19:[m[K [01;31m[Kerror: [m[Kno matching function for call to ‘[01m[KPublisher()[m[K’
+[13.639s] In file included from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/topic_statistics/subscription_topic_statistics.hpp:31[m[K,
+[13.639s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/subscription.hpp:50[m[K,
+[13.639s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/any_executable.hpp:25[m[K,
+[13.639s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategy.hpp:25[m[K,
+[13.639s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategies.hpp:18[m[K,
+[13.640s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executor_options.hpp:20[m[K,
+[13.640s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executor.hpp:37[m[K,
+[13.640s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors/multi_threaded_executor.hpp:25[m[K,
+[13.640s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors.hpp:21[m[K,
+[13.640s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/rclcpp.hpp:155[m[K,
+[13.640s]                  from [01m[K/opt/ros/humble/include/pcl_conversions/pcl_conversions/pcl_conversions.h:43[m[K,
+[13.640s]                  from [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:5[m[K:
+[13.640s] [01m[K/opt/ros/humble/include/rclcpp/rclcpp/publisher.hpp:125:3:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class MessageT, class AllocatorT> Publisher(rclcpp::node_interfaces::NodeBaseInterface*, const string&, const rclcpp::QoS&, const rclcpp::PublisherOptionsWithAllocator<AllocatorT>&)-> rclcpp::Publisher<MessageT, AllocatorT>[m[K’
+[13.640s]   125 |   [01;36m[KPublisher[m[K(
+[13.640s]       |   [01;36m[K^~~~~~~~~[m[K
+[13.640s] [01m[K/opt/ros/humble/include/rclcpp/rclcpp/publisher.hpp:125:3:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[13.641s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:32:19:[m[K [01;36m[Knote: [m[K  candidate expects 4 arguments, 0 provided
+[13.641s]    32 | rclcpp::Publisher [01;36m[K_local_map_pub[m[K;
+[13.641s]       |                   [01;36m[K^~~~~~~~~~~~~~[m[K
+[13.641s] In file included from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/topic_statistics/subscription_topic_statistics.hpp:31[m[K,
+[13.641s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/subscription.hpp:50[m[K,
+[13.641s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/any_executable.hpp:25[m[K,
+[13.641s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategy.hpp:25[m[K,
+[13.641s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategies.hpp:18[m[K,
+[13.641s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executor_options.hpp:20[m[K,
+[13.641s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executor.hpp:37[m[K,
+[13.641s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors/multi_threaded_executor.hpp:25[m[K,
+[13.641s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors.hpp:21[m[K,
+[13.642s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/rclcpp.hpp:155[m[K,
+[13.642s]                  from [01m[K/opt/ros/humble/include/pcl_conversions/pcl_conversions/pcl_conversions.h:43[m[K,
+[13.642s]                  from [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:5[m[K:
+[13.642s] [01m[K/opt/ros/humble/include/rclcpp/rclcpp/publisher.hpp:77:7:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class MessageT, class AllocatorT> Publisher(rclcpp::Publisher<MessageT, AllocatorT>)-> rclcpp::Publisher<MessageT, AllocatorT>[m[K’
+[13.642s]    77 | class [01;36m[KPublisher[m[K : public PublisherBase
+[13.642s]       |       [01;36m[K^~~~~~~~~[m[K
+[13.642s] [01m[K/opt/ros/humble/include/rclcpp/rclcpp/publisher.hpp:77:7:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[13.642s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:32:19:[m[K [01;36m[Knote: [m[K  candidate expects 1 argument, 0 provided
+[13.642s]    32 | rclcpp::Publisher [01;36m[K_local_map_pub[m[K;
+[13.642s]       |                   [01;36m[K^~~~~~~~~~~~~~[m[K
+[13.642s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:33:19:[m[K [01;31m[Kerror: [m[Kclass template argument deduction failed:
+[13.643s]    33 | rclcpp::Publisher [01;31m[K_all_map_pub[m[K;
+[13.643s]       |                   [01;31m[K^~~~~~~~~~~~[m[K
+[13.643s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:33:19:[m[K [01;31m[Kerror: [m[Kno matching function for call to ‘[01m[KPublisher()[m[K’
+[13.643s] In file included from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/topic_statistics/subscription_topic_statistics.hpp:31[m[K,
+[13.643s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/subscription.hpp:50[m[K,
+[13.643s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/any_executable.hpp:25[m[K,
+[13.643s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategy.hpp:25[m[K,
+[13.643s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategies.hpp:18[m[K,
+[13.643s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executor_options.hpp:20[m[K,
+[13.643s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executor.hpp:37[m[K,
+[13.644s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors/multi_threaded_executor.hpp:25[m[K,
+[13.644s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors.hpp:21[m[K,
+[13.644s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/rclcpp.hpp:155[m[K,
+[13.644s]                  from [01m[K/opt/ros/humble/include/pcl_conversions/pcl_conversions/pcl_conversions.h:43[m[K,
+[13.644s]                  from [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:5[m[K:
+[13.644s] [01m[K/opt/ros/humble/include/rclcpp/rclcpp/publisher.hpp:125:3:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class MessageT, class AllocatorT> Publisher(rclcpp::node_interfaces::NodeBaseInterface*, const string&, const rclcpp::QoS&, const rclcpp::PublisherOptionsWithAllocator<AllocatorT>&)-> rclcpp::Publisher<MessageT, AllocatorT>[m[K’
+[13.645s]   125 |   [01;36m[KPublisher[m[K(
+[13.645s]       |   [01;36m[K^~~~~~~~~[m[K
+[13.645s] [01m[K/opt/ros/humble/include/rclcpp/rclcpp/publisher.hpp:125:3:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[13.645s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:33:19:[m[K [01;36m[Knote: [m[K  candidate expects 4 arguments, 0 provided
+[13.645s]    33 | rclcpp::Publisher [01;36m[K_all_map_pub[m[K;
+[13.645s]       |                   [01;36m[K^~~~~~~~~~~~[m[K
+[13.645s] In file included from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/topic_statistics/subscription_topic_statistics.hpp:31[m[K,
+[13.645s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/subscription.hpp:50[m[K,
+[13.645s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/any_executable.hpp:25[m[K,
+[13.645s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategy.hpp:25[m[K,
+[13.645s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategies.hpp:18[m[K,
+[13.646s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executor_options.hpp:20[m[K,
+[13.646s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executor.hpp:37[m[K,
+[13.646s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors/multi_threaded_executor.hpp:25[m[K,
+[13.646s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors.hpp:21[m[K,
+[13.646s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/rclcpp.hpp:155[m[K,
+[13.646s]                  from [01m[K/opt/ros/humble/include/pcl_conversions/pcl_conversions/pcl_conversions.h:43[m[K,
+[13.646s]                  from [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:5[m[K:
+[13.646s] [01m[K/opt/ros/humble/include/rclcpp/rclcpp/publisher.hpp:77:7:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class MessageT, class AllocatorT> Publisher(rclcpp::Publisher<MessageT, AllocatorT>)-> rclcpp::Publisher<MessageT, AllocatorT>[m[K’
+[13.646s]    77 | class [01;36m[KPublisher[m[K : public PublisherBase
+[13.646s]       |       [01;36m[K^~~~~~~~~[m[K
+[13.647s] [01m[K/opt/ros/humble/include/rclcpp/rclcpp/publisher.hpp:77:7:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[13.647s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:33:19:[m[K [01;36m[Knote: [m[K  candidate expects 1 argument, 0 provided
+[13.647s]    33 | rclcpp::Publisher [01;36m[K_all_map_pub[m[K;
+[13.647s]       |                   [01;36m[K^~~~~~~~~~~~[m[K
+[13.647s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:34:19:[m[K [01;31m[Kerror: [m[Kclass template argument deduction failed:
+[13.647s]    34 | rclcpp::Publisher [01;31m[Kclick_map_pub_[m[K;
+[13.647s]       |                   [01;31m[K^~~~~~~~~~~~~~[m[K
+[13.647s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:34:19:[m[K [01;31m[Kerror: [m[Kno matching function for call to ‘[01m[KPublisher()[m[K’
+[13.647s] In file included from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/topic_statistics/subscription_topic_statistics.hpp:31[m[K,
+[13.647s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/subscription.hpp:50[m[K,
+[13.648s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/any_executable.hpp:25[m[K,
+[13.648s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategy.hpp:25[m[K,
+[13.648s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategies.hpp:18[m[K,
+[13.648s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executor_options.hpp:20[m[K,
+[13.648s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executor.hpp:37[m[K,
+[13.648s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors/multi_threaded_executor.hpp:25[m[K,
+[13.648s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors.hpp:21[m[K,
+[13.648s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/rclcpp.hpp:155[m[K,
+[13.648s]                  from [01m[K/opt/ros/humble/include/pcl_conversions/pcl_conversions/pcl_conversions.h:43[m[K,
+[13.648s]                  from [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:5[m[K:
+[13.648s] [01m[K/opt/ros/humble/include/rclcpp/rclcpp/publisher.hpp:125:3:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class MessageT, class AllocatorT> Publisher(rclcpp::node_interfaces::NodeBaseInterface*, const string&, const rclcpp::QoS&, const rclcpp::PublisherOptionsWithAllocator<AllocatorT>&)-> rclcpp::Publisher<MessageT, AllocatorT>[m[K’
+[13.648s]   125 |   [01;36m[KPublisher[m[K(
+[13.649s]       |   [01;36m[K^~~~~~~~~[m[K
+[13.649s] [01m[K/opt/ros/humble/include/rclcpp/rclcpp/publisher.hpp:125:3:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[13.649s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:34:19:[m[K [01;36m[Knote: [m[K  candidate expects 4 arguments, 0 provided
+[13.649s]    34 | rclcpp::Publisher [01;36m[Kclick_map_pub_[m[K;
+[13.649s]       |                   [01;36m[K^~~~~~~~~~~~~~[m[K
+[13.649s] In file included from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/topic_statistics/subscription_topic_statistics.hpp:31[m[K,
+[13.649s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/subscription.hpp:50[m[K,
+[13.649s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/any_executable.hpp:25[m[K,
+[13.649s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategy.hpp:25[m[K,
+[13.649s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategies.hpp:18[m[K,
+[13.649s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executor_options.hpp:20[m[K,
+[13.649s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executor.hpp:37[m[K,
+[13.650s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors/multi_threaded_executor.hpp:25[m[K,
+[13.650s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors.hpp:21[m[K,
+[13.650s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/rclcpp.hpp:155[m[K,
+[13.650s]                  from [01m[K/opt/ros/humble/include/pcl_conversions/pcl_conversions/pcl_conversions.h:43[m[K,
+[13.650s]                  from [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:5[m[K:
+[13.650s] [01m[K/opt/ros/humble/include/rclcpp/rclcpp/publisher.hpp:77:7:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class MessageT, class AllocatorT> Publisher(rclcpp::Publisher<MessageT, AllocatorT>)-> rclcpp::Publisher<MessageT, AllocatorT>[m[K’
+[13.650s]    77 | class [01;36m[KPublisher[m[K : public PublisherBase
+[13.650s]       |       [01;36m[K^~~~~~~~~[m[K
+[13.650s] [01m[K/opt/ros/humble/include/rclcpp/rclcpp/publisher.hpp:77:7:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[13.650s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:34:19:[m[K [01;36m[Knote: [m[K  candidate expects 1 argument, 0 provided
+[13.650s]    34 | rclcpp::Publisher [01;36m[Kclick_map_pub_[m[K;
+[13.651s]       |                   [01;36m[K^~~~~~~~~~~~~~[m[K
+[13.651s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:35:22:[m[K [01;31m[Kerror: [m[Kclass template argument deduction failed:
+[13.651s]    35 | rclcpp::Subscription [01;31m[K_odom_sub[m[K;
+[13.651s]       |                      [01;31m[K^~~~~~~~~[m[K
+[13.651s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:35:22:[m[K [01;31m[Kerror: [m[Kno matching function for call to ‘[01m[KSubscription()[m[K’
+[13.651s] In file included from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/context.hpp:35[m[K,
+[13.651s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executor.hpp:34[m[K,
+[13.651s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors/multi_threaded_executor.hpp:25[m[K,
+[13.651s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors.hpp:21[m[K,
+[13.651s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/rclcpp.hpp:155[m[K,
+[13.651s]                  from [01m[K/opt/ros/humble/include/pcl_conversions/pcl_conversions/pcl_conversions.h:43[m[K,
+[13.651s]                  from [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:5[m[K:
+[13.652s] [01m[K/opt/ros/humble/include/rclcpp/rclcpp/subscription.hpp:423:3:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class MessageT, class AllocatorT, class SubscribedT, class ROSMessageT, class MessageMemoryStrategyT> Subscription(const rclcpp::Subscription<MessageT, AllocatorT, SubscribedT, ROSMessageT, MessageMemoryStrategyT>&)-> rclcpp::Subscription<MessageT, AllocatorT, SubscribedT, ROSMessageT, MessageMemoryStrategyT>[m[K’
+[13.652s]   423 |   [01;36m[KRCLCPP_DISABLE_COPY[m[K(Subscription)
+[13.652s]       |   [01;36m[K^~~~~~~~~~~~~~~~~~~[m[K
+[13.652s] [01m[K/opt/ros/humble/include/rclcpp/rclcpp/subscription.hpp:423:3:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[13.652s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:35:22:[m[K [01;36m[Knote: [m[K  candidate expects 1 argument, 0 provided
+[13.652s]    35 | rclcpp::Subscription [01;36m[K_odom_sub[m[K;
+[13.652s]       |                      [01;36m[K^~~~~~~~~[m[K
+[13.652s] In file included from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/any_executable.hpp:25[m[K,
+[13.652s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategy.hpp:25[m[K,
+[13.653s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategies.hpp:18[m[K,
+[13.653s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executor_options.hpp:20[m[K,
+[13.653s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executor.hpp:37[m[K,
+[13.653s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors/multi_threaded_executor.hpp:25[m[K,
+[13.653s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors.hpp:21[m[K,
+[13.653s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/rclcpp.hpp:155[m[K,
+[13.653s]                  from [01m[K/opt/ros/humble/include/pcl_conversions/pcl_conversions/pcl_conversions.h:43[m[K,
+[13.653s]                  from [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:5[m[K:
+[13.653s] [01m[K/opt/ros/humble/include/rclcpp/rclcpp/subscription.hpp:130:3:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class MessageT, class AllocatorT, class SubscribedT, class ROSMessageT, class MessageMemoryStrategyT> Subscription(rclcpp::node_interfaces::NodeBaseInterface*, const rosidl_message_type_support_t&, const string&, const rclcpp::QoS&, rclcpp::AnySubscriptionCallback<CallbackMessageT, AllocatorT>, const rclcpp::SubscriptionOptionsWithAllocator<AllocatorT>&, typename MessageMemoryStrategyT::SharedPtr, std::shared_ptr<rclcpp::topic_statistics::SubscriptionTopicStatistics<ROSMessageT> >)-> rclcpp::Subscription<MessageT, AllocatorT, SubscribedT, ROSMessageT, MessageMemoryStrategyT>[m[K’
+[13.653s]   130 |   [01;36m[KSubscription[m[K(
+[13.653s]       |   [01;36m[K^~~~~~~~~~~~[m[K
+[13.653s] [01m[K/opt/ros/humble/include/rclcpp/rclcpp/subscription.hpp:130:3:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[13.654s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:35:22:[m[K [01;36m[Knote: [m[K  candidate expects 8 arguments, 0 provided
+[13.654s]    35 | rclcpp::Subscription [01;36m[K_odom_sub[m[K;
+[13.654s]       |                      [01;36m[K^~~~~~~~~[m[K
+[13.654s] In file included from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/any_executable.hpp:25[m[K,
+[13.654s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategy.hpp:25[m[K,
+[13.654s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategies.hpp:18[m[K,
+[13.654s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executor_options.hpp:20[m[K,
+[13.654s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executor.hpp:37[m[K,
+[13.654s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors/multi_threaded_executor.hpp:25[m[K,
+[13.654s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors.hpp:21[m[K,
+[13.655s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/rclcpp.hpp:155[m[K,
+[13.655s]                  from [01m[K/opt/ros/humble/include/pcl_conversions/pcl_conversions/pcl_conversions.h:43[m[K,
+[13.655s]                  from [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:5[m[K:
+[13.655s] [01m[K/opt/ros/humble/include/rclcpp/rclcpp/subscription.hpp:75:7:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class MessageT, class AllocatorT, class SubscribedT, class ROSMessageT, class MessageMemoryStrategyT> Subscription(rclcpp::Subscription<MessageT, AllocatorT, SubscribedT, ROSMessageT, MessageMemoryStrategyT>)-> rclcpp::Subscription<MessageT, AllocatorT, SubscribedT, ROSMessageT, MessageMemoryStrategyT>[m[K’
+[13.655s]    75 | class [01;36m[KSubscription[m[K : public SubscriptionBase
+[13.655s]       |       [01;36m[K^~~~~~~~~~~~[m[K
+[13.655s] [01m[K/opt/ros/humble/include/rclcpp/rclcpp/subscription.hpp:75:7:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[13.655s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:35:22:[m[K [01;36m[Knote: [m[K  candidate expects 1 argument, 0 provided
+[13.655s]    35 | rclcpp::Subscription [01;36m[K_odom_sub[m[K;
+[13.655s]       |                      [01;36m[K^~~~~~~~~[m[K
+[13.807s] In file included from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/client.hpp:40[m[K,
+[13.808s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/callback_group.hpp:24[m[K,
+[13.808s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/any_executable.hpp:20[m[K,
+[13.808s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategy.hpp:25[m[K,
+[13.808s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategies.hpp:18[m[K,
+[13.808s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executor_options.hpp:20[m[K,
+[13.808s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executor.hpp:37[m[K,
+[13.808s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors/multi_threaded_executor.hpp:25[m[K,
+[13.809s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors.hpp:21[m[K,
+[13.809s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/rclcpp.hpp:155[m[K,
+[13.809s]                  from [01m[K/opt/ros/humble/include/pcl_conversions/pcl_conversions/pcl_conversions.h:43[m[K,
+[13.809s]                  from [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:5[m[K:
+[13.809s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:[m[K In function ‘[01m[Kvoid RandomMapGenerate()[m[K’:
+[13.809s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:167:15:[m[K [01;31m[Kerror: [m[K‘[01m[Knode_[m[K’ was not declared in this scope; did you mean ‘[01m[Kmode_t[m[K’?
+[13.809s]   167 |   RCLCPP_WARN([01;31m[Knode_[m[K->get_logger(), this->get_logger(), "Finished generate random map ");
+[13.809s]       |               [01;31m[K^~~~~[m[K
+[13.809s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:167:3:[m[K [01;31m[Kerror: [m[Ktemplate argument 1 is invalid
+[13.809s]   167 |   [01;31m[KRCLCPP_WARN[m[K(node_->get_logger(), this->get_logger(), "Finished generate random map ");
+[13.809s]       |   [01;31m[K^~~~~~~~~~~[m[K
+[13.810s] In file included from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/logging.hpp:24[m[K,
+[13.810s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/client.hpp:40[m[K,
+[13.810s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/callback_group.hpp:24[m[K,
+[13.810s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/any_executable.hpp:20[m[K,
+[13.810s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategy.hpp:25[m[K,
+[13.810s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategies.hpp:18[m[K,
+[13.810s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executor_options.hpp:20[m[K,
+[13.810s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executor.hpp:37[m[K,
+[13.810s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors/multi_threaded_executor.hpp:25[m[K,
+[13.810s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors.hpp:21[m[K,
+[13.810s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/rclcpp.hpp:155[m[K,
+[13.810s]                  from [01m[K/opt/ros/humble/include/pcl_conversions/pcl_conversions/pcl_conversions.h:43[m[K,
+[13.811s]                  from [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:5[m[K:
+[13.811s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:167:36:[m[K [01;31m[Kerror: [m[Kinvalid use of ‘[01m[Kthis[m[K’ in non-member function
+[13.811s]   167 |   RCLCPP_WARN(node_->get_logger(), [01;31m[Kthis[m[K->get_logger(), "Finished generate random map ");
+[13.811s]       |                                    [01;31m[K^~~~[m[K
+[13.844s] In file included from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/client.hpp:40[m[K,
+[13.844s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/callback_group.hpp:24[m[K,
+[13.844s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/any_executable.hpp:20[m[K,
+[13.844s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategy.hpp:25[m[K,
+[13.844s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategies.hpp:18[m[K,
+[13.845s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executor_options.hpp:20[m[K,
+[13.845s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executor.hpp:37[m[K,
+[13.845s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors/multi_threaded_executor.hpp:25[m[K,
+[13.845s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors.hpp:21[m[K,
+[13.845s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/rclcpp.hpp:155[m[K,
+[13.845s]                  from [01m[K/opt/ros/humble/include/pcl_conversions/pcl_conversions/pcl_conversions.h:43[m[K,
+[13.845s]                  from [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:5[m[K:
+[13.845s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:[m[K In function ‘[01m[Kvoid pubSensedPoints()[m[K’:
+[13.845s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:221:18:[m[K [01;31m[Kerror: [m[K‘[01m[Knode_[m[K’ was not declared in this scope; did you mean ‘[01m[Kmode_t[m[K’?
+[13.845s]   221 |     RCLCPP_ERROR([01;31m[Knode_[m[K->get_logger(), this->get_logger(), "[Map server] No obstacles .");
+[13.845s]       |                  [01;31m[K^~~~~[m[K
+[13.846s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:221:5:[m[K [01;31m[Kerror: [m[Ktemplate argument 1 is invalid
+[13.846s]   221 |     [01;31m[KRCLCPP_ERROR[m[K(node_->get_logger(), this->get_logger(), "[Map server] No obstacles .");
+[13.846s]       |     [01;31m[K^~~~~~~~~~~~[m[K
+[13.846s] In file included from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/logging.hpp:24[m[K,
+[13.846s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/client.hpp:40[m[K,
+[13.846s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/callback_group.hpp:24[m[K,
+[13.846s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/any_executable.hpp:20[m[K,
+[13.846s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategy.hpp:25[m[K,
+[13.847s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategies.hpp:18[m[K,
+[13.847s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executor_options.hpp:20[m[K,
+[13.847s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executor.hpp:37[m[K,
+[13.847s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors/multi_threaded_executor.hpp:25[m[K,
+[13.847s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors.hpp:21[m[K,
+[13.847s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/rclcpp.hpp:155[m[K,
+[13.847s]                  from [01m[K/opt/ros/humble/include/pcl_conversions/pcl_conversions/pcl_conversions.h:43[m[K,
+[13.850s]                  from [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:5[m[K:
+[13.850s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:221:39:[m[K [01;31m[Kerror: [m[Kinvalid use of ‘[01m[Kthis[m[K’ in non-member function
+[13.850s]   221 |     RCLCPP_ERROR(node_->get_logger(), [01;31m[Kthis[m[K->get_logger(), "[Map server] No obstacles .");
+[13.851s]       |                                       [01;31m[K^~~~[m[K
+[13.851s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:[m[K In function ‘[01m[Kint main(int, char**)[m[K’:
+[13.851s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:272:28:[m[K [01;31m[Kerror: [m[Kinvalid initialization of reference of type ‘[01m[Kconst rclcpp::InitOptions&[m[K’ from expression of type ‘[01m[Kconst char [19][m[K’
+[13.851s]   272 |   rclcpp::init(argc, argv, [01;31m[K"random_map_sensing"[m[K);
+[13.851s]       |                            [01;31m[K^~~~~~~~~~~~~~~~~~~~[m[K
+[13.852s] In file included from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/logging.hpp:25[m[K,
+[13.852s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/client.hpp:40[m[K,
+[13.852s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/callback_group.hpp:24[m[K,
+[13.852s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/any_executable.hpp:20[m[K,
+[13.852s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategy.hpp:25[m[K,
+[13.852s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategies.hpp:18[m[K,
+[13.852s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executor_options.hpp:20[m[K,
+[13.852s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executor.hpp:37[m[K,
+[13.852s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors/multi_threaded_executor.hpp:25[m[K,
+[13.852s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors.hpp:21[m[K,
+[13.852s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/rclcpp.hpp:155[m[K,
+[13.852s]                  from [01m[K/opt/ros/humble/include/pcl_conversions/pcl_conversions/pcl_conversions.h:43[m[K,
+[13.853s]                  from [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:5[m[K:
+[13.853s] [01m[K/opt/ros/humble/include/rclcpp/rclcpp/utilities.hpp:78:23:[m[K [01;36m[Knote: [m[Kin passing argument 3 of ‘[01m[Kvoid rclcpp::init(int, const char* const*, const rclcpp::InitOptions&, rclcpp::SignalHandlerOptions)[m[K’
+[13.853s]    78 |   [01;36m[Kconst InitOptions & init_options = InitOptions()[m[K,
+[13.853s]       |   [01;36m[K~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[13.853s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:275:42:[m[K [01;31m[Kerror: [m[Kbase operand of ‘[01m[K->[m[K’ has non-pointer type ‘[01m[Krclcpp::Node[m[K’
+[13.853s]   275 |   _local_map_pub = /* TODO: 转换发布 */ n[01;31m[K->[m[Kcreate_publisher<sensor_msgs::msg::PointCloud2>("/map_generator/local_cloud", 1);
+[13.854s]       |                                          [01;31m[K^~[m[K
+[13.854s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:275:90:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[K>[m[K’ token
+[13.854s]   275 | TODO: 转换发布 */ n->create_publisher<sensor_msgs::msg::PointCloud2[01;31m[K>[m[K("/map_generator/local_cloud", 1);
+[13.854s]       |                                                                    [01;31m[K^[m[K
+[13.854s] 
+[13.854s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:275:92:[m[K [01;35m[Kwarning: [m[Kleft operand of comma operator has no effect [[01;35m[K-Wunused-value[m[K]
+[13.854s]   275 | DO: 转换发布 */ n->create_publisher<sensor_msgs::msg::PointCloud2>([01;35m[K"/map_generator/local_cloud"[m[K, 1);
+[13.854s]       |                                                                    [01;35m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[13.854s] 
+[13.854s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:276:40:[m[K [01;31m[Kerror: [m[Kbase operand of ‘[01m[K->[m[K’ has non-pointer type ‘[01m[Krclcpp::Node[m[K’
+[13.854s]   276 |   _all_map_pub = /* TODO: 转换发布 */ n[01;31m[K->[m[Kcreate_publisher<sensor_msgs::msg::PointCloud2>("/map_generator/global_cloud", 1);
+[13.855s]       |                                        [01;31m[K^~[m[K
+[13.855s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:276:88:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[K>[m[K’ token
+[13.855s]   276 | TODO: 转换发布 */ n->create_publisher<sensor_msgs::msg::PointCloud2[01;31m[K>[m[K("/map_generator/global_cloud", 1);
+[13.855s]       |                                                                    [01;31m[K^[m[K
+[13.855s] 
+[13.855s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:276:90:[m[K [01;35m[Kwarning: [m[Kleft operand of comma operator has no effect [[01;35m[K-Wunused-value[m[K]
+[13.855s]   276 | DO: 转换发布 */ n->create_publisher<sensor_msgs::msg::PointCloud2>([01;35m[K"/map_generator/global_cloud"[m[K, 1);
+[13.855s]       |                                                                    [01;35m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[13.855s] 
+[13.855s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:278:17:[m[K [01;31m[Kerror: [m[K‘[01m[Kclass rclcpp::Node[m[K’ has no member named ‘[01m[Ksubscribe[m[K’
+[13.855s]   278 |   _odom_sub = n.[01;31m[Ksubscribe[m[K("odometry", 50, rcvOdometryCallbck);
+[13.856s]       |                 [01;31m[K^~~~~~~~~[m[K
+[13.856s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:281:29:[m[K [01;31m[Kerror: [m[Kbase operand of ‘[01m[K->[m[K’ has non-pointer type ‘[01m[Krclcpp::Node[m[K’
+[13.856s]   281 |       /* TODO: 转换发布 */ n[01;31m[K->[m[Kcreate_publisher<sensor_msgs::msg::PointCloud2>("/pcl_render_node/local_map", 1);
+[13.856s]       |                             [01;31m[K^~[m[K
+[13.856s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:281:77:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[K>[m[K’ token
+[13.856s]   281 | TODO: 转换发布 */ n->create_publisher<sensor_msgs::msg::PointCloud2[01;31m[K>[m[K("/pcl_render_node/local_map", 1);
+[13.856s]       |                                                                    [01;31m[K^[m[K
+[13.856s] 
+[13.856s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:281:79:[m[K [01;35m[Kwarning: [m[Kleft operand of comma operator has no effect [[01;35m[K-Wunused-value[m[K]
+[13.856s]   281 | DO: 转换发布 */ n->create_publisher<sensor_msgs::msg::PointCloud2>([01;35m[K"/pcl_render_node/local_map"[m[K, 1);
+[13.856s]       |                                                                    [01;35m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[13.857s] 
+[13.857s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:284:14:[m[K [01;31m[Kerror: [m[Kbase operand of ‘[01m[K->[m[K’ has non-pointer type ‘[01m[Krclcpp::Node[m[K’
+[13.857s]   284 |   _init_x = n[01;31m[K->[m[Kdeclare_parameter("init_state_x", 0.0);
+[13.857s]       |              [01;31m[K^~[m[K
+[13.857s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:285:14:[m[K [01;31m[Kerror: [m[Kbase operand of ‘[01m[K->[m[K’ has non-pointer type ‘[01m[Krclcpp::Node[m[K’
+[13.857s]   285 |   _init_y = n[01;31m[K->[m[Kdeclare_parameter("init_state_y", 0.0);
+[13.857s]       |              [01;31m[K^~[m[K
+[13.857s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:287:14:[m[K [01;31m[Kerror: [m[Kbase operand of ‘[01m[K->[m[K’ has non-pointer type ‘[01m[Krclcpp::Node[m[K’
+[13.857s]   287 |   _x_size = n[01;31m[K->[m[Kdeclare_parameter("map/x_size", 50.0);
+[13.857s]       |              [01;31m[K^~[m[K
+[13.857s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:288:14:[m[K [01;31m[Kerror: [m[Kbase operand of ‘[01m[K->[m[K’ has non-pointer type ‘[01m[Krclcpp::Node[m[K’
+[13.857s]   288 |   _y_size = n[01;31m[K->[m[Kdeclare_parameter("map/y_size", 50.0);
+[13.858s]       |              [01;31m[K^~[m[K
+[13.858s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:289:14:[m[K [01;31m[Kerror: [m[Kbase operand of ‘[01m[K->[m[K’ has non-pointer type ‘[01m[Krclcpp::Node[m[K’
+[13.858s]   289 |   _z_size = n[01;31m[K->[m[Kdeclare_parameter("map/z_size", 5.0);
+[13.858s]       |              [01;31m[K^~[m[K
+[13.858s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:290:15:[m[K [01;31m[Kerror: [m[Kbase operand of ‘[01m[K->[m[K’ has non-pointer type ‘[01m[Krclcpp::Node[m[K’
+[13.858s]   290 |   _obs_num = n[01;31m[K->[m[Kdeclare_parameter("map/obs_num", 30);
+[13.858s]       |               [01;31m[K^~[m[K
+[13.858s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:291:18:[m[K [01;31m[Kerror: [m[Kbase operand of ‘[01m[K->[m[K’ has non-pointer type ‘[01m[Krclcpp::Node[m[K’
+[13.858s]   291 |   _resolution = n[01;31m[K->[m[Kdeclare_parameter("map/resolution", 0.1);
+[13.858s]       |                  [01;31m[K^~[m[K
+[13.859s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:292:18:[m[K [01;31m[Kerror: [m[Kbase operand of ‘[01m[K->[m[K’ has non-pointer type ‘[01m[Krclcpp::Node[m[K’
+[13.859s]   292 |   circle_num_ = n[01;31m[K->[m[Kdeclare_parameter("map/circle_num", 30);
+[13.859s]       |                  [01;31m[K^~[m[K
+[13.859s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:294:11:[m[K [01;31m[Kerror: [m[Kbase operand of ‘[01m[K->[m[K’ has non-pointer type ‘[01m[Krclcpp::Node[m[K’
+[13.859s]   294 |   _w_l = n[01;31m[K->[m[Kdeclare_parameter("ObstacleShape/lower_rad", 0.3);
+[13.859s]       |           [01;31m[K^~[m[K
+[13.859s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:295:11:[m[K [01;31m[Kerror: [m[Kbase operand of ‘[01m[K->[m[K’ has non-pointer type ‘[01m[Krclcpp::Node[m[K’
+[13.859s]   295 |   _w_h = n[01;31m[K->[m[Kdeclare_parameter("ObstacleShape/upper_rad", 0.8);
+[13.859s]       |           [01;31m[K^~[m[K
+[13.859s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:296:11:[m[K [01;31m[Kerror: [m[Kbase operand of ‘[01m[K->[m[K’ has non-pointer type ‘[01m[Krclcpp::Node[m[K’
+[13.860s]   296 |   _h_l = n[01;31m[K->[m[Kdeclare_parameter("ObstacleShape/lower_hei", 3.0);
+[13.860s]       |           [01;31m[K^~[m[K
+[13.860s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:297:11:[m[K [01;31m[Kerror: [m[Kbase operand of ‘[01m[K->[m[K’ has non-pointer type ‘[01m[Krclcpp::Node[m[K’
+[13.860s]   297 |   _h_h = n[01;31m[K->[m[Kdeclare_parameter("ObstacleShape/upper_hei", 7.0);
+[13.860s]       |           [01;31m[K^~[m[K
+[13.860s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:299:16:[m[K [01;31m[Kerror: [m[Kbase operand of ‘[01m[K->[m[K’ has non-pointer type ‘[01m[Krclcpp::Node[m[K’
+[13.860s]   299 |   radius_l_ = n[01;31m[K->[m[Kdeclare_parameter("ObstacleShape/radius_l", 7.0);
+[13.860s]       |                [01;31m[K^~[m[K
+[13.860s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:300:16:[m[K [01;31m[Kerror: [m[Kbase operand of ‘[01m[K->[m[K’ has non-pointer type ‘[01m[Krclcpp::Node[m[K’
+[13.860s]   300 |   radius_h_ = n[01;31m[K->[m[Kdeclare_parameter("ObstacleShape/radius_h", 7.0);
+[13.860s]       |                [01;31m[K^~[m[K
+[13.860s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:301:11:[m[K [01;31m[Kerror: [m[Kbase operand of ‘[01m[K->[m[K’ has non-pointer type ‘[01m[Krclcpp::Node[m[K’
+[13.861s]   301 |   z_l_ = n[01;31m[K->[m[Kdeclare_parameter("ObstacleShape/z_l", 7.0);
+[13.861s]       |           [01;31m[K^~[m[K
+[13.861s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:302:11:[m[K [01;31m[Kerror: [m[Kbase operand of ‘[01m[K->[m[K’ has non-pointer type ‘[01m[Krclcpp::Node[m[K’
+[13.861s]   302 |   z_h_ = n[01;31m[K->[m[Kdeclare_parameter("ObstacleShape/z_h", 7.0);
+[13.861s]       |           [01;31m[K^~[m[K
+[13.861s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:303:13:[m[K [01;31m[Kerror: [m[Kbase operand of ‘[01m[K->[m[K’ has non-pointer type ‘[01m[Krclcpp::Node[m[K’
+[13.861s]   303 |   theta_ = n[01;31m[K->[m[Kdeclare_parameter("ObstacleShape/theta", 7.0);
+[13.861s]       |             [01;31m[K^~[m[K
+[13.861s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:305:21:[m[K [01;31m[Kerror: [m[Kbase operand of ‘[01m[K->[m[K’ has non-pointer type ‘[01m[Krclcpp::Node[m[K’
+[13.861s]   305 |   _sensing_range = n[01;31m[K->[m[Kdeclare_parameter("sensing/radius", 10.0);
+[13.861s]       |                     [01;31m[K^~[m[K
+[13.861s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:306:18:[m[K [01;31m[Kerror: [m[Kbase operand of ‘[01m[K->[m[K’ has non-pointer type ‘[01m[Krclcpp::Node[m[K’
+[13.862s]   306 |   _sense_rate = n[01;31m[K->[m[Kdeclare_parameter("sensing/radius", 10.0);
+[13.862s]       |                  [01;31m[K^~[m[K
+[13.862s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:317:34:[m[K [01;31m[Kerror: [m[Kinvalid initialization of reference of type ‘[01m[Kconst nanoseconds&[m[K’ {aka ‘[01m[Kconst std::chrono::duration<long int, std::ratio<1, 1000000000> >&[m[K’} from expression of type ‘[01m[Kstd::chrono::duration<double>[m[K’
+[13.862s]   317 |   rclcpp::sleep_for(std::chrono::[01;31m[Kduration<double>(0.5)[m[K);
+[13.862s]       |                                  [01;31m[K^~~~~~~~~~~~~~~~~~~~~[m[K
+[13.862s] In file included from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/logging.hpp:25[m[K,
+[13.862s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/client.hpp:40[m[K,
+[13.862s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/callback_group.hpp:24[m[K,
+[13.862s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/any_executable.hpp:20[m[K,
+[13.862s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategy.hpp:25[m[K,
+[13.862s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategies.hpp:18[m[K,
+[13.863s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executor_options.hpp:20[m[K,
+[13.863s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executor.hpp:37[m[K,
+[13.863s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors/multi_threaded_executor.hpp:25[m[K,
+[13.863s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/executors.hpp:21[m[K,
+[13.863s]                  from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/rclcpp.hpp:155[m[K,
+[13.863s]                  from [01m[K/opt/ros/humble/include/pcl_conversions/pcl_conversions/pcl_conversions.h:43[m[K,
+[13.863s]                  from [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:5[m[K:
+[13.863s] [01m[K/opt/ros/humble/include/rclcpp/rclcpp/utilities.hpp:233:36:[m[K [01;36m[Knote: [m[Kin passing argument 1 of ‘[01m[Kbool rclcpp::sleep_for(const nanoseconds&, rclcpp::Context::SharedPtr)[m[K’
+[13.863s]   233 |   [01;36m[Kconst std::chrono::nanoseconds & nanoseconds[m[K,
+[13.863s]       |   [01;36m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~[m[K
+[13.883s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/map_generator/src/random_forest_sensing.cpp:325:23:[m[K [01;31m[Kerror: [m[K‘[01m[Knode[m[K’ was not declared in this scope
+[13.883s]   325 |     rclcpp::spin_some([01;31m[Knode[m[K);
+[13.883s]       |                       [01;31m[K^~~~[m[K
+[17.326s] gmake[2]: *** [CMakeFiles/random_forest.dir/build.make:76: CMakeFiles/random_forest.dir/src/random_forest_sensing.cpp.o] Error 1
+[17.327s] gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/random_forest.dir/all] Error 2
+[17.327s] gmake: *** [Makefile:146: all] Error 2

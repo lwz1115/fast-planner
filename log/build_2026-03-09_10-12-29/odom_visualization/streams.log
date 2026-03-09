@@ -1,0 +1,54 @@
+[0.068s] Invoking command in '/root/colcon_ws/build/odom_visualization': AMENT_PREFIX_PATH=/root/colcon_ws/install/quadrotor_msgs:/root/colcon_ws/install/pose_utils:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/root/colcon_ws/install/quadrotor_msgs:/root/colcon_ws/install/pose_utils:/opt/ros/humble LD_LIBRARY_PATH=/root/colcon_ws/install/quadrotor_msgs/lib:/root/colcon_ws/install/pose_utils/lib:${LD_LIBRARY_PATH} PYTHONPATH=/root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake /root/colcon_ws/src/Fast-Planner/uav_simulator/Utils/odom_visualization -DCMAKE_INSTALL_PREFIX=/root/colcon_ws/install/odom_visualization
+[0.199s] -- The C compiler identification is GNU 11.4.0
+[0.374s] -- The CXX compiler identification is GNU 11.4.0
+[0.394s] -- Detecting C compiler ABI info
+[0.638s] -- Detecting C compiler ABI info - done
+[0.651s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.651s] -- Detecting C compile features
+[0.651s] -- Detecting C compile features - done
+[0.657s] -- Detecting CXX compiler ABI info
+[0.903s] -- Detecting CXX compiler ABI info - done
+[0.914s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.914s] -- Detecting CXX compile features
+[0.915s] -- Detecting CXX compile features - done
+[0.922s] -- Found ament_cmake: 1.3.13 (/opt/ros/humble/share/ament_cmake/cmake)
+[1.487s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.763s] -- Found rclcpp: 16.0.18 (/opt/ros/humble/share/rclcpp/cmake)
+[1.850s] -- Found rosidl_generator_c: 3.1.8 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[1.865s] -- Found rosidl_adapter: 3.1.8 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[1.895s] -- Found rosidl_generator_cpp: 3.1.8 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[1.924s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.974s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[2.075s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[2.098s] -- Found rmw_fastrtps_cpp: 6.2.10 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[2.333s] -- Found OpenSSL: /usr/lib/aarch64-linux-gnu/libcrypto.so (found version "3.0.2")  
+[2.391s] -- Found FastRTPS: /opt/ros/humble/include  
+[2.512s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[2.536s] -- Looking for pthread.h
+[2.808s] -- Looking for pthread.h - found
+[2.808s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[3.056s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[3.057s] -- Found Threads: TRUE  
+[3.242s] -- Found geometry_msgs: 4.9.1 (/opt/ros/humble/share/geometry_msgs/cmake)
+[3.272s] -- Found nav_msgs: 4.9.1 (/opt/ros/humble/share/nav_msgs/cmake)
+[3.308s] -- Found sensor_msgs: 4.9.1 (/opt/ros/humble/share/sensor_msgs/cmake)
+[3.338s] -- Found visualization_msgs: 4.9.1 (/opt/ros/humble/share/visualization_msgs/cmake)
+[3.376s] -- Found quadrotor_msgs: 0.0.0 (/root/colcon_ws/install/quadrotor_msgs/share/quadrotor_msgs/cmake)
+[3.420s] -- Found tf2: 0.25.19 (/opt/ros/humble/share/tf2/cmake)
+[3.443s] -- Found tf2_ros: 0.25.19 (/opt/ros/humble/share/tf2_ros/cmake)
+[3.657s] -- Found pose_utils: 0.0.0 (/root/colcon_ws/install/pose_utils/share/pose_utils/cmake)
+[3.674s] -- Found Armadillo: /usr/include (found version "10.8.2") 
+[3.864s] -- Configuring done
+[3.899s] -- Generating done
+[3.916s] -- Build files have been written to: /root/colcon_ws/build/odom_visualization
+[3.974s] Invoked command in '/root/colcon_ws/build/odom_visualization' returned '0': AMENT_PREFIX_PATH=/root/colcon_ws/install/quadrotor_msgs:/root/colcon_ws/install/pose_utils:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/root/colcon_ws/install/quadrotor_msgs:/root/colcon_ws/install/pose_utils:/opt/ros/humble LD_LIBRARY_PATH=/root/colcon_ws/install/quadrotor_msgs/lib:/root/colcon_ws/install/pose_utils/lib:${LD_LIBRARY_PATH} PYTHONPATH=/root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake /root/colcon_ws/src/Fast-Planner/uav_simulator/Utils/odom_visualization -DCMAKE_INSTALL_PREFIX=/root/colcon_ws/install/odom_visualization
+[3.975s] Invoking command in '/root/colcon_ws/build/odom_visualization': AMENT_PREFIX_PATH=/root/colcon_ws/install/quadrotor_msgs:/root/colcon_ws/install/pose_utils:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/root/colcon_ws/install/quadrotor_msgs:/root/colcon_ws/install/pose_utils:/opt/ros/humble LD_LIBRARY_PATH=/root/colcon_ws/install/quadrotor_msgs/lib:/root/colcon_ws/install/pose_utils/lib:${LD_LIBRARY_PATH} PYTHONPATH=/root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /root/colcon_ws/build/odom_visualization -- -j8 -l8
+[4.116s] [ 50%] [32mBuilding CXX object CMakeFiles/odom_visualization.dir/src/odom_visualization.cpp.o[0m
+[5.409s] [01m[K/root/colcon_ws/src/Fast-Planner/uav_simulator/Utils/odom_visualization/src/odom_visualization.cpp:15:10:[m[K [01;31m[Kfatal error: [m[Kpose_utils.h: No such file or directory
+[5.409s]    15 | #include [01;31m[K"pose_utils.h"[m[K
+[5.409s]       |          [01;31m[K^~~~~~~~~~~~~~[m[K
+[5.409s] compilation terminated.
+[5.415s] gmake[2]: *** [CMakeFiles/odom_visualization.dir/build.make:76: CMakeFiles/odom_visualization.dir/src/odom_visualization.cpp.o] Error 1
+[5.420s] gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/odom_visualization.dir/all] Error 2
+[5.420s] gmake: *** [Makefile:146: all] Error 2
+[5.433s] Invoked command in '/root/colcon_ws/build/odom_visualization' returned '2': AMENT_PREFIX_PATH=/root/colcon_ws/install/quadrotor_msgs:/root/colcon_ws/install/pose_utils:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/root/colcon_ws/install/quadrotor_msgs:/root/colcon_ws/install/pose_utils:/opt/ros/humble LD_LIBRARY_PATH=/root/colcon_ws/install/quadrotor_msgs/lib:/root/colcon_ws/install/pose_utils/lib:${LD_LIBRARY_PATH} PYTHONPATH=/root/colcon_ws/install/quadrotor_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /root/colcon_ws/build/odom_visualization -- -j8 -l8
