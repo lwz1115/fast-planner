@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  fast-planner:
+    build:
+      context: /home/nvidia/ROS2/fastplanner
+      dockerfile: Dockerfile.dev
+    container_name: fast-planner-dev
+    environment:
+      - ROS_DOMAIN_ID=0
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /home/nvidia/ROS2/fastplanner/src:/root/colcon_ws/src
+      - /home/nvidia/ROS2/fastplanner/install:/root/colcon_ws/install
+      - /home/nvidia/ROS2/fastplanner/build:/root/colcon_ws/build
+    working_dir: /root/colcon_ws
+    command: >
+      bash -c "
+        source /opt/ros/humble/setup.bash &&
+        echo 'Building Fast-Planner for ROS2...' &&
+        colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release &&
+        source install/setup.bash &&
+        echo 'Fast-Planner built successfully' &&
+        /bin/bash
+      "
+    stdin_open: true
+    tty: true
+    privileged: true
+    network_mode: host
+    restart: unless-stopped
+

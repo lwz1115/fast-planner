@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la /media/zzxl/数据/my_projects/fastplanner/fastapi_planner/*.py | grep -v __pycache__ | grep -v test_)"
+    ]
+  }
+}
