@@ -222,10 +222,10 @@ async def lifespan(app: FastAPI):
     
     # Shutdown
     logger.info("Shutting down FastAPI-Fast-Planner Interface")
-    
+
     if ros_bridge:
-        ros_bridge.shutdown()
-    
+        ros_bridge.disconnect()
+
     logger.info("Shutdown complete")
 
 
@@ -1031,3 +1031,4 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"Failed to start service: {e}")
         sys.exit(1)
+

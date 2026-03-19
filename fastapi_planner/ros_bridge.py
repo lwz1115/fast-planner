@@ -1,35 +1,62 @@
 """
-ROS Bridge component for FastAPI-Fast-Planner Interface.
+ROS2 Bridge component for FastAPI-Fast-Planner Interface.
 
-This module handles all ROS communication including:
-- ROS node initialization and lifecycle management
+This module handles all ROS2 communication including:
+- ROS2 node initialization and lifecycle management
 - Odometry subscription with message caching
 - Goal publishing to Fast-Planner
 - Trajectory subscription from Fast-Planner
 - Connection validation and status checking
 
-Requirements: 4.4, 5.1-5.5
+Converted from ROS1 (rospy) to ROS2 (rclpy)
 """
 
 import logging
 import threading
 import time
-from typing import Optional, Callable, Dict
+from typing import Optional, Callable, Dict, TYPE_CHECKING, Any
 from datetime import datetime
 
+# 使用 TYPE_CHECKING 避免运行时导入错误
+if TYPE_CHECKING:
+    from nav_msgs.msg import Odometry
+    from geometry_msgs.msg import PoseStamped
+    from sensor_msgs.msg import PointCloud2
+    from plan_manage.msg import Bspline
+
 try:
-    import rospy
+    import rclpy
+    from rclpy.node import Node
+    from rclpy.executors import MultiThreadedExecutor
+    from rclpy.qos import QoSProfile, ReliabilityPolicy, HistoryPolicy
     from nav_msgs.msg import Odometry
     from geometry_msgs.msg import PoseStamped, Point, Quaternion as ROSQuaternion
-    from plan_manage.msg import Bspline
     from sensor_msgs.msg import PointCloud2, PointField
     from std_msgs.msg import Header
     import struct
     import numpy as np
+
+    # 尝试导入自定义消息
+    try:
+        from plan_manage.msg import Bspline
+        BSPLINE_AVAILABLE = True
+    except ImportError:
+        BSPLINE_AVAILABLE = False
+        logging.warning("plan_manage.msg.Bspline not available")
+
     ROS_AVAILABLE = True
-except ImportError:
+except ImportError as e:
     ROS_AVAILABLE = False
-    logging.warning("ROS packages not available. ROSBridge will not function.")
+    BSPLINE_AVAILABLE = False
+    logging.warning(f"ROS2 packages not available: {e}")
+
+    # 定义占位符类型
+    Node = Any
+    MultiThreadedExecutor = Any
+    Odometry = Any
+    PoseStamped = Any
+    PointCloud2 = Any
+    Bspline = Any
 
 from config import ROSConfig
 from models import Position, Quaternion, OdometryResponse
@@ -38,620 +65,450 @@ from models import Position, Quaternion, OdometryResponse
 logger = logging.getLogger(__name__)
 
 
+class ROSBridgeNode(Node):
+    """
+    ROS2 Node for ROSBridge.
+
+    Separated from ROSBridge class to follow ROS2 best practices.
+    """
+
+    def __init__(self, config: ROSConfig):
+        super().__init__(config.node_name)
+        self.config = config
+
+        # QoS 配置
+        self.qos_profile = QoSProfile(
+            reliability=ReliabilityPolicy.RELIABLE,
+            history=HistoryPolicy.KEEP_LAST,
+            depth=10
+        )
+
+        # 数据缓存
+        self._latest_odometry: Optional[Odometry] = None
+        self._odometry_timestamp: Optional[float] = None
+        self._odometry_lock = threading.Lock()
+
+        self._latest_trajectory: Optional['Bspline'] = None
+        self._trajectory_timestamp: Optional[float] = None
+        self._trajectory_lock = threading.Lock()
+
+        # 回调函数
+        self._trajectory_callback: Optional[Callable] = None
+
+        # 创建发布者
+        self._setup_publishers()
+
+        # 创建订阅者
+        self._setup_subscribers()
+
+        self.get_logger().info(f"ROSBridgeNode initialized: {config.node_name}")
+
+    def _setup_publishers(self) -> None:
+        """设置 ROS2 发布者"""
+        try:
+            # 默认目标发布者
+            self._goal_publisher = self.create_publisher(
+                PoseStamped,
+                self.config.topics.goal,
+                self.qos_profile
+            )
+            self.get_logger().info(f"Goal publisher created: {self.config.topics.goal}")
+
+            # 算法特定的发布者
+            self._goal_publishers: Dict[str, any] = {}
+
+            if self.config.topics.kinodynamic_goal:
+                self._goal_publishers['kinodynamic'] = self.create_publisher(
+                    PoseStamped,
+                    self.config.topics.kinodynamic_goal,
+                    self.qos_profile
+                )
+                self.get_logger().info(f"Kinodynamic goal publisher: {self.config.topics.kinodynamic_goal}")
+
+            if self.config.topics.topological_goal:
+                self._goal_publishers['topological'] = self.create_publisher(
+                    PoseStamped,
+                    self.config.topics.topological_goal,
+                    self.qos_profile
+                )
+                self.get_logger().info(f"Topological goal publisher: {self.config.topics.topological_goal}")
+
+            # 点云发布者
+            self._point_cloud_publisher = self.create_publisher(
+                PointCloud2,
+                self.config.topics.point_cloud,
+                self.qos_profile
+            )
+            self.get_logger().info(f"Point cloud publisher: {self.config.topics.point_cloud}")
+
+        except Exception as e:
+            self.get_logger().error(f"Failed to create publishers: {e}")
+            raise
+
+    def _setup_subscribers(self) -> None:
+        """设置 ROS2 订阅者"""
+        try:
+            # 里程计订阅者
+            self._odometry_subscriber = self.create_subscription(
+                Odometry,
+                self.config.topics.odometry,
+                self._odometry_callback,
+                self.qos_profile
+            )
+            self.get_logger().info(f"Odometry subscriber: {self.config.topics.odometry}")
+
+            # 轨迹订阅者（如果 Bspline 消息可用）
+            if BSPLINE_AVAILABLE:
+                self._trajectory_subscriber = self.create_subscription(
+                    Bspline,
+                    self.config.topics.trajectory,
+                    self._trajectory_callback_wrapper,
+                    self.qos_profile
+                )
+                self.get_logger().info(f"Trajectory subscriber: {self.config.topics.trajectory}")
+            else:
+                self.get_logger().warning("Bspline message not available, trajectory subscription disabled")
+
+        except Exception as e:
+            self.get_logger().error(f"Failed to create subscribers: {e}")
+            raise
+
+    def _odometry_callback(self, msg: Odometry) -> None:
+        """里程计回调函数"""
+        with self._odometry_lock:
+            self._latest_odometry = msg
+            self._odometry_timestamp = time.time()
+            self.get_logger().debug(
+                f"Odometry: pos=({msg.pose.pose.position.x:.2f}, "
+                f"{msg.pose.pose.position.y:.2f}, {msg.pose.pose.position.z:.2f})"
+            )
+
+    def _trajectory_callback_wrapper(self, msg: 'Bspline') -> None:
+        """轨迹回调包装函数"""
+        with self._trajectory_lock:
+            self._latest_trajectory = msg
+            self._trajectory_timestamp = time.time()
+            self.get_logger().debug("Received trajectory")
+
+        # 调用外部回调
+        if self._trajectory_callback:
+            try:
+                self._trajectory_callback(msg)
+            except Exception as e:
+                self.get_logger().error(f"Trajectory callback error: {e}")
+
+    def get_latest_odometry(self, max_age: float = 1.0) -> Optional[Odometry]:
+        """获取最新里程计数据"""
+        with self._odometry_lock:
+            if self._latest_odometry is None:
+                return None
+
+            age = time.time() - self._odometry_timestamp
+            if age > max_age:
+                self.get_logger().warning(f"Odometry data too old: {age:.2f}s")
+                return None
+
+            return self._latest_odometry
+
+    def publish_goal(self, goal: PoseStamped, algorithm: str = "kinodynamic") -> bool:
+        """发布目标位置"""
+        try:
+            # 选择发布者
+            if algorithm in self._goal_publishers:
+                publisher = self._goal_publishers[algorithm]
+                self.get_logger().info(f"Publishing goal to {algorithm} topic")
+            else:
+                publisher = self._goal_publisher
+                self.get_logger().info("Publishing goal to default topic")
+
+            # 发布消息
+            publisher.publish(goal)
+
+            # 等待消息发送
+            time.sleep(0.1)
+            return True
+
+        except Exception as e:
+            self.get_logger().error(f"Failed to publish goal: {e}")
+            return False
+
+    def publish_point_cloud(self, cloud: PointCloud2) -> bool:
+        """发布点云"""
+        try:
+            self._point_cloud_publisher.publish(cloud)
+            return True
+        except Exception as e:
+            self.get_logger().error(f"Failed to publish point cloud: {e}")
+            return False
+
+    def set_trajectory_callback(self, callback: Callable) -> None:
+        """设置轨迹回调函数"""
+        self._trajectory_callback = callback
+
+    def check_planner_status(self) -> bool:
+        """检查Fast-Planner是否可用（通过检查goal topic是否有订阅者）"""
+        try:
+            count = self._goal_publisher.get_subscription_count()
+            return count > 0
+        except Exception:
+            return False
+
+    def get_odometry_age_ms(self) -> Optional[float]:
+        """获取里程计数据的年龄（毫秒）"""
+        with self._odometry_lock:
+            if self._odometry_timestamp is None:
+                return None
+            return (time.time() - self._odometry_timestamp) * 1000.0
+
+
 class ROSBridge:
     """
-    Bridge between FastAPI service and ROS Fast-Planner system.
-    
-    Manages ROS node lifecycle, subscribes to odometry and trajectory topics,
+    Bridge between FastAPI service and ROS2 Fast-Planner system.
+
+    Manages ROS2 node lifecycle, subscribes to odometry and trajectory topics,
     publishes goal positions, and provides connection status checking.
     """
 
     def __init__(self, config: ROSConfig):
         """
         Initialize ROS Bridge with configuration.
-        
+
         Args:
-            config: ROS configuration including master URI and topic names
+            config: ROS configuration including topics and node name
         """
         if not ROS_AVAILABLE:
-            raise RuntimeError("ROS packages are not available. Cannot initialize ROSBridge.")
-        
+            raise RuntimeError("ROS2 packages are not available. Cannot initialize ROSBridge.")
+
         self.config = config
-        self._node_initialized = False
+        self._node: Optional[ROSBridgeNode] = None
+        self._executor: Optional[MultiThreadedExecutor] = None
+        self._spin_thread: Optional[threading.Thread] = None
         self._ros_connected = False
-        
-        # Odometry caching (max age 1 second per requirement 5.5)
-        self._latest_odometry: Optional[Odometry] = None
-        self._odometry_timestamp: Optional[float] = None
-        self._odometry_lock = threading.Lock()
         self._max_odometry_age = 1.0  # seconds
-        
-        # Trajectory caching
-        self._latest_trajectory: Optional[Bspline] = None
-        self._trajectory_timestamp: Optional[float] = None
-        self._trajectory_lock = threading.Lock()
-        self._trajectory_callback: Optional[Callable] = None
-        
-        # ROS publishers and subscribers
-        self._goal_publisher: Optional[rospy.Publisher] = None
-        self._goal_publishers: Dict[str, rospy.Publisher] = {}  # Algorithm-specific publishers
-        self._point_cloud_publisher: Optional[rospy.Publisher] = None
-        self._odometry_subscriber: Optional[rospy.Subscriber] = None
-        self._trajectory_subscriber: Optional[rospy.Subscriber] = None
-        
+
         logger.info(f"ROSBridge initialized with config: {config.dict()}")
 
     def connect(self) -> bool:
         """
-        Initialize ROS node and establish connections.
-        
-        Initializes the ROS node, sets up publishers and subscribers,
-        and validates the connection to ROS master.
-        
+        Initialize ROS2 node and establish connections.
+
         Returns:
             True if connection successful, False otherwise
-            
-        Requirements: 4.4
         """
         try:
-            # Set ROS Master URI from config
-            import os
-            os.environ['ROS_MASTER_URI'] = self.config.master_uri
-            logger.info(f"Setting ROS_MASTER_URI to {self.config.master_uri}")
-            
-            # Initialize ROS node if not already initialized
-            if not self._node_initialized:
-                try:
-                    rospy.init_node(
-                        self.config.node_name,
-                        anonymous=True,
-                        disable_signals=True,
-                        log_level=rospy.INFO
-                    )
-                    self._node_initialized = True
-                    logger.info(f"ROS node '{self.config.node_name}' initialized")
-                except rospy.exceptions.ROSException as e:
-                    if "rospy.init_node() has already been called" in str(e):
-                        logger.warning("ROS node already initialized")
-                        self._node_initialized = True
-                    else:
-                        raise
-            
-            # Validate connection to ROS master
-            if not self._check_ros_master():
-                logger.error("Cannot connect to ROS master")
-                return False
-            
-            # Set up publishers
-            self._setup_publishers()
-            
-            # Set up subscribers
-            self._setup_subscribers()
-            
+            # 初始化 rclpy（如果还没初始化）
+            if not rclpy.ok():
+                rclpy.init()
+                logger.info("rclpy initialized")
+
+            # 创建节点
+            self._node = ROSBridgeNode(self.config)
+            logger.info(f"ROS2 node created: {self.config.node_name}")
+
+            # 创建多线程执行器
+            self._executor = MultiThreadedExecutor()
+            self._executor.add_node(self._node)
+
+            # 在后台线程中运行 spin
+            self._spin_thread = threading.Thread(
+                target=self._executor.spin,
+                daemon=True
+            )
+            self._spin_thread.start()
+            logger.info("ROS2 executor started in background thread")
+
             self._ros_connected = True
             logger.info("ROS Bridge connected successfully")
             return True
-            
+
         except Exception as e:
             logger.error(f"Failed to connect ROS Bridge: {e}", exc_info=True)
             self._ros_connected = False
             return False
 
-    def _check_ros_master(self) -> bool:
+    def disconnect(self) -> None:
         """
-        Check if ROS master is reachable.
-        
+        Disconnect and cleanup ROS2 resources.
+        """
+        try:
+            logger.info("Disconnecting ROS Bridge...")
+
+            if self._executor:
+                self._executor.shutdown()
+                logger.info("Executor shutdown")
+
+            if self._node:
+                self._node.destroy_node()
+                logger.info("Node destroyed")
+
+            if rclpy.ok():
+                rclpy.shutdown()
+                logger.info("rclpy shutdown")
+
+            self._ros_connected = False
+            logger.info("ROS Bridge disconnected")
+
+        except Exception as e:
+            logger.error(f"Error during disconnect: {e}", exc_info=True)
+
+    def is_connected(self) -> bool:
+        """
+        Check if ROS Bridge is connected.
+
         Returns:
-            True if ROS master is reachable, False otherwise
+            True if connected, False otherwise
         """
-        try:
-            rospy.get_master().getPid()
-            return True
-        except Exception as e:
-            logger.error(f"ROS master not reachable: {e}")
-            return False
+        return self._ros_connected and rclpy.ok()
 
-    def _setup_publishers(self) -> None:
+    def get_odometry(self) -> Optional[OdometryResponse]:
         """
-        Set up ROS publishers for goal positions and point clouds.
-        
-        Creates publishers for both default and algorithm-specific goal topics,
-        as well as point cloud topic for depth image processing.
-        
-        Requirements: 4.4, 7.3, 10.5, 13.4
-        """
-        try:
-            # Dictionary to store publishers for different algorithms
-            self._goal_publishers = {}
-            
-            # Publisher for default goal topic
-            self._goal_publisher = rospy.Publisher(
-                self.config.topics.goal,
-                PoseStamped,
-                queue_size=10
-            )
-            logger.info(f"Default goal publisher created on topic: {self.config.topics.goal}")
-            
-            # Create algorithm-specific publishers if configured
-            if self.config.topics.kinodynamic_goal:
-                self._goal_publishers['kinodynamic'] = rospy.Publisher(
-                    self.config.topics.kinodynamic_goal,
-                    PoseStamped,
-                    queue_size=10
-                )
-                logger.info(f"Kinodynamic goal publisher created on topic: {self.config.topics.kinodynamic_goal}")
-            
-            if self.config.topics.topological_goal:
-                self._goal_publishers['topological'] = rospy.Publisher(
-                    self.config.topics.topological_goal,
-                    PoseStamped,
-                    queue_size=10
-                )
-                logger.info(f"Topological goal publisher created on topic: {self.config.topics.topological_goal}")
-            
-            # Publisher for point cloud from depth images
-            self._point_cloud_publisher = rospy.Publisher(
-                self.config.topics.point_cloud,
-                PointCloud2,
-                queue_size=10
-            )
-            logger.info(f"Point cloud publisher created on topic: {self.config.topics.point_cloud}")
-            
-        except Exception as e:
-            logger.error(f"Failed to create publishers: {e}", exc_info=True)
-            raise
+        Get latest odometry data.
 
-    def _setup_subscribers(self) -> None:
+        Returns:
+            OdometryResponse if available and fresh, None otherwise
         """
-        Set up ROS subscribers for odometry and trajectory.
-        
-        Requirements: 4.4, 5.1
-        """
-        try:
-            # Subscriber for odometry
-            self._odometry_subscriber = rospy.Subscriber(
-                self.config.topics.odometry,
-                Odometry,
-                self._odometry_callback,
-                queue_size=10
-            )
-            logger.info(f"Odometry subscriber created on topic: {self.config.topics.odometry}")
-            
-            # Subscriber for trajectory (B-spline from Fast-Planner)
-            self._trajectory_subscriber = rospy.Subscriber(
-                self.config.topics.trajectory,
-                Bspline,
-                self._trajectory_callback_wrapper,
-                queue_size=10
-            )
-            logger.info(f"Trajectory subscriber created on topic: {self.config.topics.trajectory}")
-            
-        except Exception as e:
-            logger.error(f"Failed to create subscribers: {e}", exc_info=True)
-            raise
+        if not self._node:
+            return None
 
-    def _odometry_callback(self, msg: Odometry) -> None:
+        odom_msg = self._node.get_latest_odometry(self._max_odometry_age)
+        if not odom_msg:
+            return None
+
+        # 转换为 OdometryResponse
+        return OdometryResponse(
+            position=Position(
+                x=odom_msg.pose.pose.position.x,
+                y=odom_msg.pose.pose.position.y,
+                z=odom_msg.pose.pose.position.z
+            ),
+            orientation=Quaternion(
+                x=odom_msg.pose.pose.orientation.x,
+                y=odom_msg.pose.pose.orientation.y,
+                z=odom_msg.pose.pose.orientation.z,
+                w=odom_msg.pose.pose.orientation.w
+            ),
+            linear_velocity=Position(
+                x=odom_msg.twist.twist.linear.x,
+                y=odom_msg.twist.twist.linear.y,
+                z=odom_msg.twist.twist.linear.z
+            ),
+            angular_velocity=Position(
+                x=odom_msg.twist.twist.angular.x,
+                y=odom_msg.twist.twist.angular.y,
+                z=odom_msg.twist.twist.angular.z
+            ),
+            timestamp=datetime.now()
+        )
+
+    def publish_goal(self, position: Position, orientation: Quaternion,
+                    algorithm: str = "kinodynamic", frame_id: str = "world") -> bool:
         """
-        Callback for odometry messages.
-        
-        Caches the latest odometry message with timestamp for age checking.
-        
+        Publish goal position to Fast-Planner.
+
         Args:
-            msg: Odometry message from ROS
-            
-        Requirements: 5.1, 5.5
-        """
-        with self._odometry_lock:
-            self._latest_odometry = msg
-            self._odometry_timestamp = time.time()
-            logger.debug(f"Received odometry: pos=({msg.pose.pose.position.x:.2f}, "
-                        f"{msg.pose.pose.position.y:.2f}, {msg.pose.pose.position.z:.2f})")
-
-    def _trajectory_callback_wrapper(self, msg: Bspline) -> None:
-        """
-        Callback for trajectory messages.
-        
-        Caches the latest trajectory and calls registered callback if present.
-        
-        Args:
-            msg: B-spline trajectory message from Fast-Planner
-            
-        Requirements: 4.4
-        """
-        with self._trajectory_lock:
-            self._latest_trajectory = msg
-            self._trajectory_timestamp = time.time()
-            logger.info(f"Received trajectory with {len(msg.pos_pts)} position points")
-            
-            # Call registered callback if present
-            if self._trajectory_callback:
-                try:
-                    self._trajectory_callback(msg)
-                except Exception as e:
-                    logger.error(f"Error in trajectory callback: {e}", exc_info=True)
-
-    def publish_goal(self, start: Position, goal: Position, algorithm: str = "kinodynamic") -> bool:
-        """
-        Publish goal position to Fast-Planner using algorithm-specific topic routing.
-        
-        Routes the goal to the appropriate ROS topic based on the selected algorithm.
-        If no algorithm-specific topic is configured, uses the default goal topic.
-        
-        Args:
-            start: Start position (currently not used by Fast-Planner)
-            goal: Goal position to reach
+            position: Goal position
+            orientation: Goal orientation
             algorithm: Planning algorithm ("kinodynamic" or "topological")
-            
+            frame_id: Reference frame
+
         Returns:
-            True if goal published successfully, False otherwise
-            
-        Requirements: 4.4, 7.3
+            True if published successfully, False otherwise
         """
-        if not self._ros_connected or self._goal_publisher is None:
-            logger.error("Cannot publish goal: ROS not connected")
+        if not self._node:
+            logger.error("Node not initialized")
             return False
-        
+
         try:
-            # Validate algorithm
-            if algorithm not in ["kinodynamic", "topological"]:
-                logger.error(f"Invalid algorithm: {algorithm}")
-                return False
-            
-            # Select the appropriate publisher based on algorithm
-            if algorithm in self._goal_publishers:
-                publisher = self._goal_publishers[algorithm]
-                topic = self.config.topics.get_goal_topic_for_algorithm(algorithm)
-            else:
-                publisher = self._goal_publisher
-                topic = self.config.topics.goal
-            
-            # Create PoseStamped message for goal
+            # 创建 PoseStamped 消息
             goal_msg = PoseStamped()
-            goal_msg.header.stamp = rospy.Time.now()
-            goal_msg.header.frame_id = "world"
-            
-            # Set goal position
-            goal_msg.pose.position = Point(x=goal.x, y=goal.y, z=goal.z)
-            
-            # Set neutral orientation (Fast-Planner typically ignores orientation)
-            goal_msg.pose.orientation = ROSQuaternion(x=0.0, y=0.0, z=0.0, w=1.0)
-            
-            # Publish goal to algorithm-specific topic
-            publisher.publish(goal_msg)
-            logger.info(f"Published goal to {topic} (algorithm={algorithm}): "
-                       f"({goal.x:.2f}, {goal.y:.2f}, {goal.z:.2f})")
-            
-            return True
-            
+            goal_msg.header.stamp = self._node.get_clock().now().to_msg()
+            goal_msg.header.frame_id = frame_id
+
+            goal_msg.pose.position.x = position.x
+            goal_msg.pose.position.y = position.y
+            goal_msg.pose.position.z = position.z
+
+            goal_msg.pose.orientation.x = orientation.x
+            goal_msg.pose.orientation.y = orientation.y
+            goal_msg.pose.orientation.z = orientation.z
+            goal_msg.pose.orientation.w = orientation.w
+
+            # 发布
+            return self._node.publish_goal(goal_msg, algorithm)
+
         except Exception as e:
             logger.error(f"Failed to publish goal: {e}", exc_info=True)
             return False
 
-    def get_latest_odometry(self) -> Optional[OdometryResponse]:
+    def publish_point_cloud(self, points: np.ndarray, frame_id: str = "world") -> bool:
         """
-        Get the most recent odometry data if available and fresh.
-        
-        Returns odometry only if it's less than max_odometry_age seconds old.
-        
-        Returns:
-            OdometryResponse if fresh odometry available, None otherwise
-            
-        Requirements: 5.2, 5.3, 5.4, 5.5
-        """
-        with self._odometry_lock:
-            if self._latest_odometry is None or self._odometry_timestamp is None:
-                logger.debug("No odometry data available")
-                return None
-            
-            # Check if odometry is too old
-            age = time.time() - self._odometry_timestamp
-            if age > self._max_odometry_age:
-                logger.warning(f"Odometry data is stale (age: {age:.2f}s)")
-                return None
-            
-            # Convert ROS Odometry message to OdometryResponse
-            try:
-                odom = self._latest_odometry
-                response = OdometryResponse(
-                    timestamp=odom.header.stamp.to_sec(),
-                    position=Position(
-                        x=odom.pose.pose.position.x,
-                        y=odom.pose.pose.position.y,
-                        z=odom.pose.pose.position.z
-                    ),
-                    orientation=Quaternion(
-                        x=odom.pose.pose.orientation.x,
-                        y=odom.pose.pose.orientation.y,
-                        z=odom.pose.pose.orientation.z,
-                        w=odom.pose.pose.orientation.w
-                    ),
-                    linear_velocity=Position(
-                        x=odom.twist.twist.linear.x,
-                        y=odom.twist.twist.linear.y,
-                        z=odom.twist.twist.linear.z
-                    ),
-                    angular_velocity=Position(
-                        x=odom.twist.twist.angular.x,
-                        y=odom.twist.twist.angular.y,
-                        z=odom.twist.twist.angular.z
-                    )
-                )
-                return response
-            except Exception as e:
-                logger.error(f"Failed to convert odometry message: {e}", exc_info=True)
-                return None
+        Publish point cloud from depth image.
 
-    def get_odometry_age_ms(self) -> Optional[float]:
-        """
-        Get the age of the most recent odometry message in milliseconds.
-        
-        Returns:
-            Age in milliseconds if odometry available, None otherwise
-            
-        Requirements: 6.5
-        """
-        with self._odometry_lock:
-            if self._odometry_timestamp is None:
-                return None
-            age_seconds = time.time() - self._odometry_timestamp
-            return age_seconds * 1000.0
-
-    def wait_for_trajectory(self, timeout: float = 5.0) -> Optional[Bspline]:
-        """
-        Wait for a new trajectory message from Fast-Planner.
-        
         Args:
-            timeout: Maximum time to wait in seconds
-            
-        Returns:
-            B-spline trajectory message if received, None if timeout
-            
-        Requirements: 4.4
-        """
-        start_time = time.time()
-        initial_timestamp = self._trajectory_timestamp
-        
-        while time.time() - start_time < timeout:
-            with self._trajectory_lock:
-                # Check if we received a new trajectory
-                if (self._trajectory_timestamp is not None and 
-                    self._trajectory_timestamp != initial_timestamp):
-                    logger.info("New trajectory received")
-                    return self._latest_trajectory
-            
-            # Sleep briefly to avoid busy waiting
-            time.sleep(0.01)
-        
-        logger.warning(f"Trajectory wait timeout after {timeout}s")
-        return None
+            points: Nx3 numpy array of points
+            frame_id: Reference frame
 
-    def register_trajectory_callback(self, callback: Callable[[Bspline], None]) -> None:
-        """
-        Register a callback to be called when trajectory is received.
-        
-        Args:
-            callback: Function to call with trajectory message
-        """
-        self._trajectory_callback = callback
-        logger.info("Trajectory callback registered")
-
-    def check_planner_status(self) -> bool:
-        """
-        Check if Fast-Planner node is available and responding.
-        
-        Checks if the trajectory topic has active publishers, which indicates
-        Fast-Planner is running.
-        
         Returns:
-            True if Fast-Planner appears to be running, False otherwise
-            
-        Requirements: 6.2, 6.3
+            True if published successfully, False otherwise
         """
-        if not self._ros_connected:
+        if not self._node:
+            logger.error("Node not initialized")
             return False
-        
+
         try:
-            # Check if trajectory topic has publishers
-            topic_info = rospy.get_published_topics()
-            trajectory_topic = self.config.topics.trajectory
-            
-            for topic, msg_type in topic_info:
-                if topic == trajectory_topic:
-                    logger.debug(f"Fast-Planner topic {trajectory_topic} is being published")
-                    return True
-            
-            logger.warning(f"Fast-Planner topic {trajectory_topic} not found in published topics")
-            return False
-            
-        except Exception as e:
-            logger.error(f"Failed to check planner status: {e}", exc_info=True)
-            return False
+            # 创建 PointCloud2 消息
+            cloud_msg = PointCloud2()
+            cloud_msg.header.stamp = self._node.get_clock().now().to_msg()
+            cloud_msg.header.frame_id = frame_id
 
-    def is_connected(self) -> bool:
-        """
-        Check if ROS connection is active.
-        
-        Returns:
-            True if connected to ROS, False otherwise
-            
-        Requirements: 4.4, 6.4
-        """
-        if not self._ros_connected:
-            return False
-        
-        try:
-            # Check if ROS master is still reachable
-            return self._check_ros_master()
-        except Exception:
-            return False
+            cloud_msg.height = 1
+            cloud_msg.width = len(points)
+            cloud_msg.is_dense = False
+            cloud_msg.is_bigendian = False
 
-    def publish_point_cloud(
-        self, 
-        points: np.ndarray, 
-        frame_id: str = "map", 
-        timestamp: Optional[float] = None
-    ) -> bool:
-        """
-        Publish point cloud to ROS topic for Fast-Planner consumption.
-        
-        Converts numpy array of 3D points to sensor_msgs/PointCloud2 message
-        and publishes to the configured point cloud topic.
-        
-        Args:
-            points: Numpy array of shape (N, 3) containing XYZ coordinates
-            frame_id: Frame ID for the point cloud (default: "map")
-            timestamp: Timestamp for the point cloud (default: current time)
-            
-        Returns:
-            True if point cloud published successfully, False otherwise
-            
-        Requirements: 10.5, 12.5, 13.4
-        """
-        if not self._ros_connected or self._point_cloud_publisher is None:
-            logger.error("Cannot publish point cloud: ROS not connected")
-            return False
-        
-        try:
-            # Validate input
-            if not isinstance(points, np.ndarray):
-                logger.error("Points must be a numpy array")
-                return False
-            
-            if points.ndim != 2 or points.shape[1] != 3:
-                logger.error(f"Points must have shape (N, 3), got {points.shape}")
-                return False
-            
-            if points.shape[0] == 0:
-                logger.warning("Empty point cloud, skipping publish")
-                return True
-            
-            # Create PointCloud2 message
-            msg = self._create_pointcloud2_message(points, frame_id, timestamp)
-            
-            # Publish the message
-            self._point_cloud_publisher.publish(msg)
-            
-            logger.info(f"Published point cloud with {points.shape[0]} points to {self.config.topics.point_cloud}")
-            return True
-            
+            # 定义字段
+            cloud_msg.fields = [
+                PointField(name='x', offset=0, datatype=PointField.FLOAT32, count=1),
+                PointField(name='y', offset=4, datatype=PointField.FLOAT32, count=1),
+                PointField(name='z', offset=8, datatype=PointField.FLOAT32, count=1),
+            ]
+
+            cloud_msg.point_step = 12  # 3 * 4 bytes
+            cloud_msg.row_step = cloud_msg.point_step * cloud_msg.width
+
+            # 打包数据
+            cloud_data = []
+            for point in points:
+                cloud_data.append(struct.pack('fff', point[0], point[1], point[2]))
+
+            cloud_msg.data = b''.join(cloud_data)
+
+            # 发布
+            return self._node.publish_point_cloud(cloud_msg)
+
         except Exception as e:
             logger.error(f"Failed to publish point cloud: {e}", exc_info=True)
             return False
 
-    def _create_pointcloud2_message(
-        self,
-        points: np.ndarray,
-        frame_id: str,
-        timestamp: Optional[float] = None
-    ) -> PointCloud2:
+    def set_trajectory_callback(self, callback: Callable) -> None:
         """
-        Create a PointCloud2 message from numpy array of points.
-        
+        Set callback function for trajectory updates.
+
         Args:
-            points: Numpy array of shape (N, 3) containing XYZ coordinates
-            frame_id: Frame ID for the point cloud
-            timestamp: Timestamp for the point cloud (default: current time)
-            
-        Returns:
-            PointCloud2 message
+            callback: Function to call when trajectory is received
         """
-        # Create header
-        header = Header()
-        header.frame_id = frame_id
-        
-        if timestamp is not None:
-            # Convert float timestamp to ROS Time
-            header.stamp = rospy.Time.from_sec(timestamp)
-        else:
-            header.stamp = rospy.Time.now()
-        
-        # Define point cloud fields (X, Y, Z as float32)
-        fields = [
-            PointField(
-                name='x',
-                offset=0,
-                datatype=PointField.FLOAT32,
-                count=1
-            ),
-            PointField(
-                name='y',
-                offset=4,
-                datatype=PointField.FLOAT32,
-                count=1
-            ),
-            PointField(
-                name='z',
-                offset=8,
-                datatype=PointField.FLOAT32,
-                count=1
-            )
-        ]
-        
-        # Convert points to binary data
-        # Each point is 3 float32 values (12 bytes total)
-        points_float32 = points.astype(np.float32)
-        cloud_data = points_float32.tobytes()
-        
-        # Create PointCloud2 message
-        msg = PointCloud2()
-        msg.header = header
-        msg.height = 1  # Unorganized point cloud
-        msg.width = points.shape[0]
-        msg.fields = fields
-        msg.is_bigendian = False
-        msg.point_step = 12  # 3 floats * 4 bytes
-        msg.row_step = msg.point_step * msg.width
-        msg.data = cloud_data
-        msg.is_dense = True  # No invalid points (already filtered)
-        
-        return msg
+        if self._node:
+            self._node.set_trajectory_callback(callback)
 
-    def shutdown(self) -> None:
-        """
-        Gracefully shutdown ROS bridge and cleanup resources.
-        
-        Unregisters subscribers and publishers, and marks connection as closed.
-        
-        Requirements: 4.5
-        """
-        logger.info("Shutting down ROS Bridge")
-        
-        try:
-            # Unregister subscribers
-            if self._odometry_subscriber:
-                self._odometry_subscriber.unregister()
-                logger.info("Odometry subscriber unregistered")
-            
-            if self._trajectory_subscriber:
-                self._trajectory_subscriber.unregister()
-                logger.info("Trajectory subscriber unregistered")
-            
-            # Unregister publishers
-            if self._goal_publisher:
-                self._goal_publisher.unregister()
-                logger.info("Goal publisher unregistered")
-            
-            # Unregister algorithm-specific publishers
-            for algorithm, publisher in self._goal_publishers.items():
-                publisher.unregister()
-                logger.info(f"{algorithm} goal publisher unregistered")
-            
-            # Unregister point cloud publisher
-            if self._point_cloud_publisher:
-                self._point_cloud_publisher.unregister()
-                logger.info("Point cloud publisher unregistered")
-            
-            self._ros_connected = False
-            logger.info("ROS Bridge shutdown complete")
-            
-        except Exception as e:
-            logger.error(f"Error during ROS Bridge shutdown: {e}", exc_info=True)
+    def check_planner_status(self) -> bool:
+        """检查Fast-Planner规划器是否可用"""
+        if not self._node:
+            return False
+        return self._node.check_planner_status()
 
-    def __enter__(self):
-        """Context manager entry."""
-        self.connect()
-        return self
+    def get_odometry_age_ms(self) -> Optional[float]:
+        """获取里程计数据年龄（毫秒）"""
+        if not self._node:
+            return None
+        return self._node.get_odometry_age_ms()
 
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        """Context manager exit."""
-        self.shutdown()

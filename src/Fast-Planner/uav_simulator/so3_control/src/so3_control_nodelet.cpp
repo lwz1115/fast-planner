@@ -36,7 +36,7 @@ public:
     
     // Get parameters
     std::string quadrotor_name = this->get_parameter("quadrotor_name").as_string();
-    frame_id_ = "/" + quadrotor_name;
+    frame_id_ = quadrotor_name;
     
     double mass = this->get_parameter("mass").as_double();
     controller_.setMass(mass);
@@ -200,4 +200,3 @@ int main(int argc, char** argv) {
   rclcpp::shutdown();
   return 0;
 }
-

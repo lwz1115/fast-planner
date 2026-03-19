@@ -1,3 +1,0 @@
-[35m[1mConsolidate compiler generated dependencies of target quadrotor_dynamics[0m
-[ 50%] Built target quadrotor_dynamics
-[ 75%] [32mBuilding CXX object CMakeFiles/quadrotor_simulator_so3.dir/src/quadrotor_simulator_so3.cpp.o[0m

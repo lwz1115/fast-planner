@@ -1,1 +1,0 @@
-Invoking command in '/root/colcon_ws/build/map_generator': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /root/colcon_ws/build/map_generator -- -j8 -l8

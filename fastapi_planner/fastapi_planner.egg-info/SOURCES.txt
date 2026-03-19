@@ -1,0 +1,8 @@
+README.md
+setup.py
+fastapi_planner.egg-info/PKG-INFO
+fastapi_planner.egg-info/SOURCES.txt
+fastapi_planner.egg-info/dependency_links.txt
+fastapi_planner.egg-info/entry_points.txt
+fastapi_planner.egg-info/requires.txt
+fastapi_planner.egg-info/top_level.txt

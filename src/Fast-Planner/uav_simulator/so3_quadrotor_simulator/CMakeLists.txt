@@ -52,6 +52,7 @@ ament_target_dependencies(quadrotor_simulator_so3
   sensor_msgs
   visualization_msgs
   quadrotor_msgs
+  uav_utils
 )
 
 target_link_libraries(quadrotor_simulator_so3
@@ -84,4 +85,5 @@ install(DIRECTORY config/
 )
 
 ament_package()
+
 

@@ -1,26 +1,29 @@
 #!/usr/bin/env python3
 """
-ROS2 Launch文件 - 从ROS1自动转换
-原始文件: rviz.launch
+ROS2 Launch文件 - RViz可视化
+启动RViz用于Fast-Planner可视化
 """
 
+import os
+from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch_ros.actions import Node
-from launch.actions import DeclareLaunchArgument
-from launch.substitutions import LaunchConfiguration
 
 def generate_launch_description():
-    # TODO: 根据原始launch文件配置节点
-    # 原始XML内容已注释在下方
+    # 获取config文件路径
+    pkg_share = get_package_share_directory('plan_manage')
+    rviz_config_file = os.path.join(pkg_share, 'config', 'kino.rviz')
+    
+    # RViz节点
+    rviz_node = Node(
+        package='rviz2',
+        executable='rviz2',
+        name='rvizvisualisation',
+        arguments=['-d', rviz_config_file],
+        output='log'
+    )
     
     return LaunchDescription([
-        # 在此添加节点配置
+        rviz_node
     ])
 
-"""
-原始XML内容:
-<launch>
-  <node name="rvizvisualisation" pkg="rviz" type="rviz" output="log" args="-d $(find plan_manage)/config/traj.rviz" />
-</launch>
-
-"""

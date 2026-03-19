@@ -41,7 +41,17 @@ install(TARGETS
 )
 
 install(DIRECTORY include/
-  DESTINATION include/${PROJECT_NAME}
+  DESTINATION include/
+)
+
+# 导出依赖
+ament_export_include_directories(include)
+ament_export_libraries(bspline)
+ament_export_dependencies(
+  rclcpp
+  std_msgs
+  visualization_msgs
+  pcl_conversions
 )
 
 ament_package()  

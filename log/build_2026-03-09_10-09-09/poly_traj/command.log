@@ -1,4 +1,0 @@
-Invoking command in '/root/colcon_ws/build/poly_traj': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj -DCMAKE_INSTALL_PREFIX=/root/colcon_ws/install/poly_traj
-Invoked command in '/root/colcon_ws/build/poly_traj' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /root/colcon_ws/src/Fast-Planner/fast_planner/poly_traj -DCMAKE_INSTALL_PREFIX=/root/colcon_ws/install/poly_traj
-Invoking command in '/root/colcon_ws/build/poly_traj': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /root/colcon_ws/build/poly_traj -- -j8 -l8
-Invoked command in '/root/colcon_ws/build/poly_traj' returned '2': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /root/colcon_ws/build/poly_traj -- -j8 -l8

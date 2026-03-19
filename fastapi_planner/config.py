@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 
 class ROSTopicsConfig(BaseModel):
     """ROS topic configuration."""
-    odometry: str = Field(default="/state_ukf/odom", description="Odometry topic")
+    odometry: str = Field(default="/visual_slam/odom", description="Odometry topic")
     goal: str = Field(default="/move_base_simple/goal", description="Default goal topic")
     trajectory: str = Field(default="/planning/bspline", description="Trajectory topic")
     planning_goal: str = Field(default="/planning/goal", description="Alternative goal topic")
@@ -359,3 +359,4 @@ def get_config(config_path: Optional[str] = None, reload: bool = False) -> Confi
         _config_instance = load_config(config_path)
     
     return _config_instance
+

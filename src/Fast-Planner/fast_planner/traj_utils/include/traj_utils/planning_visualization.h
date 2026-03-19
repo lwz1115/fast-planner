@@ -36,8 +36,8 @@
 #include <rclcpp/rclcpp.hpp>
 #include <vector>
 #include <visualization_msgs/msg/marker.hpp>
+#include <list>
 
-using std::vector;
 namespace fast_planner {
 class PlanningVisualization {
 private:
@@ -59,14 +59,14 @@ private:
 
   /* data */
   /* visib_pub is seperated from previous ones for different info */
-  rclcpp::Node node;
-  rclcpp::Publisher traj_pub_;      // 0
-  rclcpp::Publisher topo_pub_;      // 1
-  rclcpp::Publisher predict_pub_;   // 2
-  rclcpp::Publisher visib_pub_;     // 3, visibility constraints
-  rclcpp::Publisher frontier_pub_;  // 4, frontier searching
-  rclcpp::Publisher yaw_pub_;       // 5, yaw trajectory
-  vector<rclcpp::Publisher> pubs_;  //
+  rclcpp::Node::SharedPtr node_;
+  rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr traj_pub_;      // 0
+  rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr topo_pub_;      // 1
+  rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr predict_pub_;   // 2
+  rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr visib_pub_;     // 3, visibility constraints
+  rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr frontier_pub_;  // 4, frontier searching
+  rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr yaw_pub_;       // 5, yaw trajectory
+  std::vector<rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr> pubs_;  //
 
   int last_topo_path1_num_;
   int last_topo_path2_num_;
@@ -77,18 +77,18 @@ private:
 public:
   PlanningVisualization(/* args */) {}
   ~PlanningVisualization() {}
-  PlanningVisualization(rclcpp::Node& nh);
+  PlanningVisualization(rclcpp::Node::SharedPtr nh);
 
   // draw basic shapes
-  void displaySphereList(const vector<Eigen::Vector3d>& list, double resolution,
+  void displaySphereList(const std::vector<Eigen::Vector3d>& list, double resolution,
                          const Eigen::Vector4d& color, int id, int pub_id = 0);
-  void displayCubeList(const vector<Eigen::Vector3d>& list, double resolution,
+  void displayCubeList(const std::vector<Eigen::Vector3d>& list, double resolution,
                        const Eigen::Vector4d& color, int id, int pub_id = 0);
-  void displayLineList(const vector<Eigen::Vector3d>& list1, const vector<Eigen::Vector3d>& list2,
+  void displayLineList(const std::vector<Eigen::Vector3d>& list1, const std::vector<Eigen::Vector3d>& list2,
                        double line_width, const Eigen::Vector4d& color, int id, int pub_id = 0);
 
   // draw a piece-wise straight line path
-  void drawGeometricPath(const vector<Eigen::Vector3d>& path, double resolution,
+  void drawGeometricPath(const std::vector<Eigen::Vector3d>& path, double resolution,
                          const Eigen::Vector4d& color, int id = 0);
 
   // draw a polynomial trajectory
@@ -102,16 +102,16 @@ public:
                    int id2 = 0);
 
   // draw a set of bspline trajectories generated in different phases
-  void drawBsplinesPhase1(vector<NonUniformBspline>& bsplines, double size);
-  void drawBsplinesPhase2(vector<NonUniformBspline>& bsplines, double size);
+  void drawBsplinesPhase1(std::vector<NonUniformBspline>& bsplines, double size);
+  void drawBsplinesPhase2(std::vector<NonUniformBspline>& bsplines, double size);
 
   // draw topological graph and paths
-  void drawTopoGraph(list<GraphNode::SharedPtr>& graph, double point_size, double line_width,
+  void drawTopoGraph(std::list<GraphNode::Ptr>& graph, double point_size, double line_width,
                      const Eigen::Vector4d& color1, const Eigen::Vector4d& color2,
                      const Eigen::Vector4d& color3, int id = 0);
 
-  void drawTopoPathsPhase1(vector<vector<Eigen::Vector3d>>& paths, double line_width);
-  void drawTopoPathsPhase2(vector<vector<Eigen::Vector3d>>& paths, double line_width);
+  void drawTopoPathsPhase1(std::vector<std::vector<Eigen::Vector3d>>& paths, double line_width);
+  void drawTopoPathsPhase2(std::vector<std::vector<Eigen::Vector3d>>& paths, double line_width);
 
   void drawGoal(Eigen::Vector3d goal, double resolution, const Eigen::Vector4d& color, int id = 0);
   void drawPrediction(ObjPrediction pred, double resolution, const Eigen::Vector4d& color, int id = 0);
@@ -119,10 +119,12 @@ public:
   Eigen::Vector4d getColor(double h, double alpha = 1.0);
 
   typedef std::shared_ptr<PlanningVisualization> Ptr;
+  typedef std::shared_ptr<PlanningVisualization> SharedPtr;
 
   // SECTION developing
   void drawYawTraj(NonUniformBspline& pos, NonUniformBspline& yaw, const double& dt);
-  void drawYawPath(NonUniformBspline& pos, const vector<double>& yaw, const double& dt);
+  void drawYawPath(NonUniformBspline& pos, const std::vector<double>& yaw, const double& dt);
 };
 }  // namespace fast_planner
 #endif
+

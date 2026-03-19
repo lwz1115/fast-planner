@@ -13,6 +13,7 @@ find_package(visualization_msgs REQUIRED)
 find_package(std_srvs REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(tf2_ros REQUIRED)
+find_package(tf2_geometry_msgs REQUIRED)
 find_package(laser_geometry REQUIRED)
 find_package(pose_utils REQUIRED)
 find_package(quadrotor_msgs REQUIRED)
@@ -32,6 +33,8 @@ rosidl_generate_interfaces(${PROJECT_NAME}
 include_directories(
   include
   include/multi_map_server
+  /root/colcon_ws/install/pose_utils/include
+  ${CMAKE_INSTALL_PREFIX}/include
   ${ARMADILLO_INCLUDE_DIRS}
 )
 
@@ -47,9 +50,15 @@ ament_target_dependencies(multi_map_visualization
   std_srvs
   tf2
   tf2_ros
+  tf2_geometry_msgs
   laser_geometry
   pose_utils
   quadrotor_msgs
+)
+
+# 显式链接pose_utils库
+target_link_libraries(multi_map_visualization
+  pose_utils::pose_utils
 )
 
 rosidl_get_typesupport_target(cpp_typesupport_target ${PROJECT_NAME} "rosidl_typesupport_cpp")
@@ -64,4 +73,5 @@ install(TARGETS
 )
 
 ament_package()
+
 

@@ -31,7 +31,7 @@ namespace fast_planner {
 void EDTEnvironment::init() {
 }
 
-void EDTEnvironment::setMap(shared_ptr<SDFMap> map) {
+void EDTEnvironment::setMap(SDFMap::Ptr map) {
   this->sdf_map_ = map;
   resolution_inv_ = 1 / sdf_map_->getResolution();
 }

@@ -17,9 +17,8 @@
 #include <sensor_msgs/msg/point_cloud2.hpp>
 #include <std_msgs/msg/bool.hpp>
 
-#include <tf2/tf.h>
+#include <tf2_ros/transform_broadcaster.h>
 #include <tf2/transform_datatypes.h>
-#include <tf2/transform_broadcaster.h>
 //include pcl dep
 #include <pcl/io/pcd_io.h>
 #include <pcl/io/ply_io.h>
@@ -48,18 +47,21 @@ int width, height;
 double fx,fy,cx,cy;
 
 DepthRender depthrender;
-rclcpp::Publisher pub_depth;
-rclcpp::Publisher pub_color;
-rclcpp::Publisher pub_pose;
-rclcpp::Publisher pub_pcl_wolrd;
+rclcpp::Publisher<sensor_msgs::msg::Image>::SharedPtr pub_depth;
+rclcpp::Publisher<sensor_msgs::msg::Image>::SharedPtr pub_color;
+rclcpp::Publisher<geometry_msgs::msg::PoseStamped>::SharedPtr pub_pose;
+rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr pub_pcl_wolrd;
 
 sensor_msgs::msg::PointCloud2 local_map_pcl;
 sensor_msgs::msg::PointCloud2 local_depth_pcl;
 
-rclcpp::Subscription odom_sub;
-rclcpp::Subscription global_map_sub, local_map_sub;
+rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr odom_sub;
+rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr global_map_sub, local_map_sub;
 
-rclcpp::Timer local_sensing_timer, estimation_timer;
+rclcpp::TimerBase::SharedPtr local_sensing_timer, estimation_timer;
+
+// 全局节点指针
+rclcpp::Node::SharedPtr node_;
 
 bool has_global_map(false);
 bool has_local_map(false);
@@ -76,7 +78,7 @@ double _gl_xl, _gl_yl, _gl_zl;
 double _resolution, _inv_resolution;
 int _GLX_SIZE, _GLY_SIZE, _GLZ_SIZE;
 
-rclcpp::Time last_odom_stamp = ros::TIME_MAX;
+rclcpp::Time last_odom_stamp = rclcpp::Time(0, 0, RCL_ROS_TIME);
 Eigen::Vector3d last_pose_world;
 
 void render_currentpose();
@@ -102,23 +104,23 @@ inline Eigen::Vector3i coord2gridIndex(const Eigen::Vector3d & pt)
     return idx;
 };
 
-void rcvOdometryCallbck(const nav_msgs::msg::Odometry& odom)
+void rcvOdometryCallbck(const nav_msgs::msg::Odometry::SharedPtr odom)
 {
   /*if(!has_global_map)
     return;*/
   has_odom = true;
-  _odom = odom;
+  _odom = *odom;
   Matrix4d Pose_receive = Matrix4d::Identity();
 
   Eigen::Vector3d request_position;
   Eigen::Quaterniond request_pose;
-  request_position.x() = odom.pose.pose.position.x;
-  request_position.y() = odom.pose.pose.position.y;
-  request_position.z() = odom.pose.pose.position.z;
-  request_pose.x() = odom.pose.pose.orientation.x;
-  request_pose.y() = odom.pose.pose.orientation.y;
-  request_pose.z() = odom.pose.pose.orientation.z;
-  request_pose.w() = odom.pose.pose.orientation.w;
+  request_position.x() = odom->pose.pose.position.x;
+  request_position.y() = odom->pose.pose.position.y;
+  request_position.z() = odom->pose.pose.position.z;
+  request_pose.x() = odom->pose.pose.orientation.x;
+  request_pose.y() = odom->pose.pose.orientation.y;
+  request_pose.z() = odom->pose.pose.orientation.z;
+  request_pose.w() = odom->pose.pose.orientation.w;
   Pose_receive.block<3,3>(0,0) = request_pose.toRotationMatrix();
   Pose_receive(0,3) = request_position(0);
   Pose_receive(1,3) = request_position(1);
@@ -129,26 +131,38 @@ void rcvOdometryCallbck(const nav_msgs::msg::Odometry& odom)
   cam2world = body_pose * cam02body;
   cam2world_quat = cam2world.block<3,3>(0,0);
 
-  last_odom_stamp = odom.header.stamp;
+  last_odom_stamp = odom->header.stamp;
 
-  last_pose_world(0) = odom.pose.pose.position.x;
-  last_pose_world(1) = odom.pose.pose.position.y;
-  last_pose_world(2) = odom.pose.pose.position.z;
+  last_pose_world(0) = odom->pose.pose.position.x;
+  last_pose_world(1) = odom->pose.pose.position.y;
+  last_pose_world(2) = odom->pose.pose.position.z;
 
   //publish tf
-  /*static tf::TransformBroadcaster br;
-  tf::Transform transform;
-  transform.setOrigin( tf::Vector3(cam2world(0,3), cam2world(1,3), cam2world(2,3) ));
-  transform.setRotation(tf::Quaternion(cam2world_quat.x(), cam2world_quat.y(), cam2world_quat.z(), cam2world_quat.w()));
-  br.sendTransform(tf::StampedTransform(transform, last_odom_stamp, "world", "camera")); //publish transform from world frame to quadrotor frame.*/
+  static std::shared_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster;
+  if (!tf_broadcaster) {
+    tf_broadcaster = std::make_shared<tf2_ros::TransformBroadcaster>(node_);
+  }
+  
+  geometry_msgs::msg::TransformStamped transform;
+  transform.header.stamp = last_odom_stamp;
+  transform.header.frame_id = "world";
+  transform.child_frame_id = "camera";
+  transform.transform.translation.x = cam2world(0,3);
+  transform.transform.translation.y = cam2world(1,3);
+  transform.transform.translation.z = cam2world(2,3);
+  transform.transform.rotation.x = cam2world_quat.x();
+  transform.transform.rotation.y = cam2world_quat.y();
+  transform.transform.rotation.z = cam2world_quat.z();
+  transform.transform.rotation.w = cam2world_quat.w();
+  tf_broadcaster->sendTransform(transform);
 }
 
-void pubCameraPose(const rclcpp::TimerEvent & event)
+void pubCameraPose()
 { 
   //cout<<"pub cam pose"
   geometry_msgs::msg::PoseStamped camera_pose;
   camera_pose.header = _odom.header;
-  camera_pose.header.frame_id = "/map";
+  camera_pose.header.frame_id = "world";
   camera_pose.pose.position.x = cam2world(0,3);
   camera_pose.pose.position.y = cam2world(1,3);
   camera_pose.pose.position.z = cam2world(2,3);
@@ -156,10 +170,10 @@ void pubCameraPose(const rclcpp::TimerEvent & event)
   camera_pose.pose.orientation.x = cam2world_quat.x();
   camera_pose.pose.orientation.y = cam2world_quat.y();
   camera_pose.pose.orientation.z = cam2world_quat.z();
-  pub_pose.publish(camera_pose);
+  pub_pose->publish(camera_pose);
 }
 
-void renderSensedPoints(const rclcpp::TimerEvent & event)
+void renderSensedPoints()
 { 
   //if(! has_global_map || ! has_odom) return;
   if( !has_global_map && !has_local_map) return;
@@ -170,17 +184,19 @@ void renderSensedPoints(const rclcpp::TimerEvent & event)
 }
 
 vector<float> cloud_data;
-void rcvGlobalPointCloudCallBack(const sensor_msgs::msg::PointCloud2 & pointcloud_map )
+void rcvGlobalPointCloudCallBack(const sensor_msgs::msg::PointCloud2::SharedPtr pointcloud_map)
 {
   if(has_global_map)
     return;
 
-  RCLCPP_WARN(node_->get_logger(), this->get_logger(), "Global Pointcloud received..");
+  RCLCPP_WARN(node_->get_logger(), "Global Pointcloud received..");
   //load global map
   pcl::PointCloud<pcl::PointXYZ> cloudIn;
   pcl::PointXYZ pt_in;
   //transform map to point cloud format
-  pcl::fromROSMsg(pointcloud_map, cloudIn);
+  pcl::fromROSMsg(*pointcloud_map, cloudIn);
+  
+  cloud_data.clear();
   for(int i = 0; i < int(cloudIn.points.size()); i++){
     pt_in = cloudIn.points[i];
     cloud_data.push_back(pt_in.x);
@@ -190,21 +206,26 @@ void rcvGlobalPointCloudCallBack(const sensor_msgs::msg::PointCloud2 & pointclou
   printf("global map has points: %d.\n", (int)cloud_data.size() / 3 );
   //pass cloud_data to depth render
   depthrender.set_data(cloud_data);
+  if (depth_hostptr != nullptr) {
+    free(depth_hostptr);
+  }
   depth_hostptr = (int*) malloc(width * height * sizeof(int));
 
   has_global_map = true;
 }
 
-void rcvLocalPointCloudCallBack(const sensor_msgs::msg::PointCloud2 & pointcloud_map )
+void rcvLocalPointCloudCallBack(const sensor_msgs::msg::PointCloud2::SharedPtr pointcloud_map)
 {
   //RCLCPP_WARN(node_->get_logger(), this->get_logger(), "Local Pointcloud received..");
   //load local map
   pcl::PointCloud<pcl::PointXYZ> cloudIn;
   pcl::PointXYZ pt_in;
   //transform map to point cloud format
-  pcl::fromROSMsg(pointcloud_map, cloudIn);
+  pcl::fromROSMsg(*pointcloud_map, cloudIn);
 
   if(cloudIn.points.size() == 0) return;
+  
+  cloud_data.clear();
   for(int i = 0; i < int(cloudIn.points.size()); i++){
     pt_in = cloudIn.points[i];
     Eigen::Vector3d pose_pt(pt_in.x, pt_in.y, pt_in.z);
@@ -216,6 +237,9 @@ void rcvLocalPointCloudCallBack(const sensor_msgs::msg::PointCloud2 & pointcloud
   //printf("local map has points: %d.\n", (int)cloud_data.size() / 3 );
   //pass cloud_data to depth render
   depthrender.set_data(cloud_data);
+  if (depth_hostptr != nullptr) {
+    free(depth_hostptr);
+  }
   depth_hostptr = (int*) malloc(width * height * sizeof(int));
 
   has_local_map = true;
@@ -245,7 +269,7 @@ void render_pcl_world()
       
       pose_in_world = cam2world * pose_in_camera;
 
-      if( (pose_in_world.segment(0,3) - last_pose_world).norm() > sensing_horizon )
+      if( (pose_in_world.block<3,1>(0,0) - last_pose_world).norm() > sensing_horizon )
           continue; 
 
       pose_pt = pose_in_world.head(3);
@@ -262,10 +286,10 @@ void render_pcl_world()
   localMap.is_dense = true;
 
   pcl::toROSMsg(localMap, local_map_pcl);
-  local_map_pcl.header.frame_id  = "/map";
+  local_map_pcl.header.frame_id  = "world";
   local_map_pcl.header.stamp     = last_odom_stamp;
 
-  pub_pcl_wolrd.publish(local_map_pcl);
+  pub_pcl_wolrd->publish(local_map_pcl);
 }
 
 void render_currentpose()
@@ -300,9 +324,9 @@ void render_currentpose()
   cv_bridge::CvImage out_msg;
   out_msg.header.stamp = last_odom_stamp;
   out_msg.header.frame_id = "camera";
-  out_msg.encoding = sensor_msgs::msg::image_encodings::TYPE_32FC1;
+  out_msg.encoding = sensor_msgs::image_encodings::TYPE_32FC1;
   out_msg.image = depth_mat.clone();
-  pub_depth.publish(out_msg.toImageMsg());
+  pub_depth->publish(*out_msg.toImageMsg());
 
   cv::Mat adjMap;
   // depth_mat.convertTo(adjMap,CV_8UC1, 255 / (max-min), -min);
@@ -312,30 +336,31 @@ void render_currentpose()
   cv_bridge::CvImage cv_image_colored;
   cv_image_colored.header.frame_id = "depthmap";
   cv_image_colored.header.stamp = last_odom_stamp;
-  cv_image_colored.encoding = sensor_msgs::msg::image_encodings::BGR8;
+  cv_image_colored.encoding = sensor_msgs::image_encodings::BGR8;
   cv_image_colored.image = falseColorsMap;
-  pub_color.publish(cv_image_colored.toImageMsg());
+  pub_color->publish(*cv_image_colored.toImageMsg());
   //cv::imshow("depth_image", adjMap);
 }
 
 int main(int argc, char **argv)
 {
-  rclcpp::init(argc, argv, "pcl_render");
-  rclcpp::Node nh("~");
+  rclcpp::init(argc, argv);
+  auto nh = std::make_shared<rclcpp::Node>("pcl_render_node");
+  node_ = nh;  // 设置全局节点指针
 
-  nh.getParam("cam_width", width);
-  nh.getParam("cam_height", height);
-  nh.getParam("cam_fx", fx);
-  nh.getParam("cam_fy", fy);
-  nh.getParam("cam_cx", cx);
-  nh.getParam("cam_cy", cy);
-  nh.getParam("sensing_horizon", sensing_horizon);
-  nh.getParam("sensing_rate",    sensing_rate);
-  nh.getParam("estimation_rate", estimation_rate);
-
-  nh.getParam("map/x_size",     _x_size);
-  nh.getParam("map/y_size",     _y_size);
-  nh.getParam("map/z_size",     _z_size);
+  width = nh->declare_parameter("cam_width", 640);
+  height = nh->declare_parameter("cam_height", 480);
+  fx = nh->declare_parameter("cam_fx", 387.229);
+  fy = nh->declare_parameter("cam_fy", 387.229);
+  cx = nh->declare_parameter("cam_cx", 321.046);
+  cy = nh->declare_parameter("cam_cy", 243.45);
+  sensing_horizon = nh->declare_parameter("sensing_horizon", 5.0);
+  sensing_rate = nh->declare_parameter("sensing_rate", 30.0);
+  estimation_rate = nh->declare_parameter("estimation_rate", 30.0);
+  _x_size = nh->declare_parameter("map.x_size", 40.0);
+  _y_size = nh->declare_parameter("map.y_size", 20.0);
+  _z_size = nh->declare_parameter("map.z_size", 5.0);
+  _resolution = nh->declare_parameter("map.resolution", 0.1);
 
   depthrender.set_para(fx, fy, cx, cy, width, height);
 
@@ -352,15 +377,15 @@ int main(int argc, char **argv)
   //init cam2world transformation
   cam2world = Matrix4d::Identity();
   //subscribe point cloud
-  global_map_sub = nh.subscribe( "global_map", 1,  rcvGlobalPointCloudCallBack);  
-  local_map_sub  = nh.subscribe( "local_map",  1,  rcvLocalPointCloudCallBack);  
-  odom_sub       = nh.subscribe( "odometry",   50, rcvOdometryCallbck   );  
+  global_map_sub = nh->create_subscription<sensor_msgs::msg::PointCloud2>("global_map", 1, rcvGlobalPointCloudCallBack);  
+  local_map_sub  = nh->create_subscription<sensor_msgs::msg::PointCloud2>("local_map", 1, rcvLocalPointCloudCallBack);  
+  odom_sub       = nh->create_subscription<nav_msgs::msg::Odometry>("odometry", 50, rcvOdometryCallbck);  
 
   //publisher depth image and color image
-  pub_depth = /* TODO: 转换发布 */ nh->create_publisher<sensor_msgs::msg::Image>("depth",1000);
-  pub_color = /* TODO: 转换发布 */ nh->create_publisher<sensor_msgs::msg::Image>("colordepth",1000);
-  pub_pose  = /* TODO: 转换发布 */ nh->create_publisher<geometry_msgs::msg::PoseStamped>("camera_pose",1000);
-  pub_pcl_wolrd = /* TODO: 转换发布 */ nh->create_publisher<sensor_msgs::msg::PointCloud2>("rendered_pcl",1);
+  pub_depth = nh->create_publisher<sensor_msgs::msg::Image>("depth",1000);
+  pub_color = nh->create_publisher<sensor_msgs::msg::Image>("colordepth",1000);
+  pub_pose  = nh->create_publisher<geometry_msgs::msg::PoseStamped>("camera_pose",1000);
+  pub_pcl_wolrd = nh->create_publisher<sensor_msgs::msg::PointCloud2>("rendered_pcl",1);
 
   double sensing_duration  = 1.0 / sensing_rate;
   double estimate_duration = 1.0 / estimation_rate;
@@ -379,12 +404,11 @@ int main(int argc, char **argv)
   _GLY_SIZE = (int)(_y_size * _inv_resolution);
   _GLZ_SIZE = (int)(_z_size * _inv_resolution);
 
-  rclcpp::Rate rate(100);
-  bool status = rclcpp::ok();
-  while(status) 
-  {
-    rclcpp::spin_some(node);  
-    status = rclcpp::ok();
-    rate.sleep();
-  } 
+  rclcpp::spin(nh);
+  
+  if (depth_hostptr != nullptr) {
+    free(depth_hostptr);
+  }
+  
+  return 0;
 }

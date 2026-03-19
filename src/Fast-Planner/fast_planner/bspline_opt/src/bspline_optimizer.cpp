@@ -40,38 +40,49 @@ const int BsplineOptimizer::GUIDE_PHASE = BsplineOptimizer::SMOOTHNESS | Bspline
 const int BsplineOptimizer::NORMAL_PHASE =
     BsplineOptimizer::SMOOTHNESS | BsplineOptimizer::DISTANCE | BsplineOptimizer::FEASIBILITY;
 
-void BsplineOptimizer::setParam(rclcpp::Node& nh) {
-  lambda1_ = nh->declare_parameter("optimization/lambda1", -1.0);
-  lambda2_ = nh->declare_parameter("optimization/lambda2", -1.0);
-  lambda3_ = nh->declare_parameter("optimization/lambda3", -1.0);
-  lambda4_ = nh->declare_parameter("optimization/lambda4", -1.0);
-  lambda5_ = nh->declare_parameter("optimization/lambda5", -1.0);
-  lambda6_ = nh->declare_parameter("optimization/lambda6", -1.0);
-  lambda7_ = nh->declare_parameter("optimization/lambda7", -1.0);
-  lambda8_ = nh->declare_parameter("optimization/lambda8", -1.0);
-
-  dist0_ = nh->declare_parameter("optimization/dist0", -1.0);
-  max_vel_ = nh->declare_parameter("optimization/max_vel", -1.0);
-  max_acc_ = nh->declare_parameter("optimization/max_acc", -1.0);
-  visib_min_ = nh->declare_parameter("optimization/visib_min", -1.0);
-  dlmin_ = nh->declare_parameter("optimization/dlmin", -1.0);
-  wnl_ = nh->declare_parameter("optimization/wnl", -1.0);
-
-  max_iteration_num_[0] = nh->declare_parameter("optimization/max_iteration_num1", -1);
-  max_iteration_num_[1] = nh->declare_parameter("optimization/max_iteration_num2", -1);
-  max_iteration_num_[2] = nh->declare_parameter("optimization/max_iteration_num3", -1);
-  max_iteration_num_[3] = nh->declare_parameter("optimization/max_iteration_num4", -1);
-  max_iteration_time_[0] = nh->declare_parameter("optimization/max_iteration_time1", -1.0);
-  max_iteration_time_[1] = nh->declare_parameter("optimization/max_iteration_time2", -1.0);
-  max_iteration_time_[2] = nh->declare_parameter("optimization/max_iteration_time3", -1.0);
-  max_iteration_time_[3] = nh->declare_parameter("optimization/max_iteration_time4", -1.0);
-
-  algorithm1_ = nh->declare_parameter("optimization/algorithm1", -1);
-  algorithm2_ = nh->declare_parameter("optimization/algorithm2", -1);
-  order_ = nh->declare_parameter("optimization/order", -1);
+// Helper to declare-or-get a double parameter (safe for multiple calls)
+static double declare_or_get_double(rclcpp::Node::SharedPtr nh, const std::string& name, double default_val) {
+  if (!nh->has_parameter(name)) nh->declare_parameter(name, default_val);
+  return nh->get_parameter(name).as_double();
+}
+static int declare_or_get_int(rclcpp::Node::SharedPtr nh, const std::string& name, int default_val) {
+  if (!nh->has_parameter(name)) nh->declare_parameter(name, default_val);
+  return nh->get_parameter(name).as_int();
 }
 
-void BsplineOptimizer::setEnvironment(const EDTEnvironment::SharedPtr& env) {
+void BsplineOptimizer::setParam(rclcpp::Node::SharedPtr nh) {
+  node_ = nh;
+  lambda1_ = declare_or_get_double(nh, "optimization/lambda1", -1.0);
+  lambda2_ = declare_or_get_double(nh, "optimization/lambda2", -1.0);
+  lambda3_ = declare_or_get_double(nh, "optimization/lambda3", -1.0);
+  lambda4_ = declare_or_get_double(nh, "optimization/lambda4", -1.0);
+  lambda5_ = declare_or_get_double(nh, "optimization/lambda5", -1.0);
+  lambda6_ = declare_or_get_double(nh, "optimization/lambda6", -1.0);
+  lambda7_ = declare_or_get_double(nh, "optimization/lambda7", -1.0);
+  lambda8_ = declare_or_get_double(nh, "optimization/lambda8", -1.0);
+
+  dist0_    = declare_or_get_double(nh, "optimization/dist0", -1.0);
+  max_vel_  = declare_or_get_double(nh, "optimization/max_vel", -1.0);
+  max_acc_  = declare_or_get_double(nh, "optimization/max_acc", -1.0);
+  visib_min_= declare_or_get_double(nh, "optimization/visib_min", -1.0);
+  dlmin_    = declare_or_get_double(nh, "optimization/dlmin", -1.0);
+  wnl_      = declare_or_get_double(nh, "optimization/wnl", -1.0);
+
+  max_iteration_num_[0] = declare_or_get_int(nh, "optimization/max_iteration_num1", -1);
+  max_iteration_num_[1] = declare_or_get_int(nh, "optimization/max_iteration_num2", -1);
+  max_iteration_num_[2] = declare_or_get_int(nh, "optimization/max_iteration_num3", -1);
+  max_iteration_num_[3] = declare_or_get_int(nh, "optimization/max_iteration_num4", -1);
+  max_iteration_time_[0] = declare_or_get_double(nh, "optimization/max_iteration_time1", -1.0);
+  max_iteration_time_[1] = declare_or_get_double(nh, "optimization/max_iteration_time2", -1.0);
+  max_iteration_time_[2] = declare_or_get_double(nh, "optimization/max_iteration_time3", -1.0);
+  max_iteration_time_[3] = declare_or_get_double(nh, "optimization/max_iteration_time4", -1.0);
+
+  algorithm1_ = declare_or_get_int(nh, "optimization/algorithm1", -1);
+  algorithm2_ = declare_or_get_int(nh, "optimization/algorithm2", -1);
+  order_      = declare_or_get_int(nh, "optimization/order", -1);
+}
+
+void BsplineOptimizer::setEnvironment(const std::shared_ptr<EDTEnvironment>& env) {
   this->edt_environment_ = env;
 }
 
@@ -99,7 +110,7 @@ void BsplineOptimizer::setCostFunction(const int& cost_code) {
   if (cost_function_ & GUIDE) cost_str += " guide |";
   if (cost_function_ & WAYPOINTS) cost_str += " waypt |";
 
-  RCLCPP_INFO_STREAM(this->get_logger(), "cost func: " << cost_str);
+  RCLCPP_INFO_STREAM(node_->get_logger(), "cost func: " << cost_str);
 }
 
 void BsplineOptimizer::setGuidePath(const vector<Eigen::Vector3d>& guide_pt) { guide_pts_ = guide_pt; }
@@ -183,7 +194,7 @@ void BsplineOptimizer::optimize() {
     /* retrieve the optimization result */
     // cout << "Min cost:" << min_cost_ << endl;
   } catch (std::exception& e) {
-    RCLCPP_WARN(node_->get_logger(), this->get_logger(), "[Optimization]: nlopt exception");
+    RCLCPP_WARN(node_->get_logger(), "[Optimization]: nlopt exception");
     cout << e.what() << endl;
   }
 
@@ -194,7 +205,7 @@ void BsplineOptimizer::optimize() {
     }
   }
 
-  if (!(cost_function_ & GUIDE)) RCLCPP_INFO_STREAM(this->get_logger(), "iter num: " << iter_num_);
+  if (!(cost_function_ & GUIDE)) RCLCPP_INFO_STREAM(node_->get_logger(), "iter num: " << iter_num_);
 }
 
 void BsplineOptimizer::calcSmoothnessCost(const vector<Eigen::Vector3d>& q, double& cost,
@@ -500,3 +511,4 @@ bool BsplineOptimizer::isQuadratic() {
 }
 
 }  // namespace fast_planner
+

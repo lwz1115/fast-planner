@@ -26,11 +26,11 @@
 #ifndef _ASTAR_H
 #define _ASTAR_H
 
+#include <rclcpp/rclcpp.hpp>
+#include <rclcpp/logging.hpp>
 #include <Eigen/Eigen>
 #include <iostream>
 #include <map>
-#include <rclcpp/logging.hpp>
-#include <rclcpp/rclcpp.hpp>
 #include <string>
 #include <unordered_map>
 // #include "grad_spline/sdf_map.h"
@@ -122,14 +122,14 @@ public:
 class Astar {
 private:
   /* ---------- main data structure ---------- */
-  vector<NodePtr> path_node_pool_;
+  std::vector<NodePtr> path_node_pool_;
   int use_node_num_, iter_num_;
   NodeHashTable0 expanded_nodes_;
   std::priority_queue<NodePtr, std::vector<NodePtr>, NodeComparator0> open_set_;
   std::vector<NodePtr> path_nodes_;
 
   /* ---------- record data ---------- */
-  EDTEnvironment::SharedPtr edt_environment_;
+  EDTEnvironment::Ptr edt_environment_;
   bool has_path_ = false;
 
   /* ---------- parameter ---------- */
@@ -160,17 +160,17 @@ public:
   enum { REACH_END = 1, NO_PATH = 2 };
 
   /* main API */
-  void setParam(rclcpp::Node& nh);
+  void setParam(rclcpp::Node::SharedPtr nh);
   void init();
   void reset();
   int search(Eigen::Vector3d start_pt, Eigen::Vector3d end_pt, bool dynamic = false,
              double time_start = -1.0);
 
-  void setEnvironment(const EDTEnvironment::SharedPtr& env);
+  void setEnvironment(const EDTEnvironment::Ptr& env);
   std::vector<Eigen::Vector3d> getPath();
   std::vector<NodePtr> getVisitedNodes();
 
-  typedef shared_ptr<Astar> Ptr;
+  typedef std::shared_ptr<Astar> Ptr;
 };
 
 }  // namespace fast_planner

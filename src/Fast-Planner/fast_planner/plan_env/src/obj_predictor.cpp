@@ -39,13 +39,13 @@ void ObjHistory::init(int id) {
   obj_idx_ = id;
 }
 
-void ObjHistory::poseCallback(const geometry_msgs::msg::PoseStampedSharedPtr& msg) {
+void ObjHistory::poseCallback(const geometry_msgs::msg::PoseStamped::ConstSharedPtr& msg) {
   ++skip_;
   if (skip_ < ObjHistory::skip_num_) return;
 
   Eigen::Vector4d pos_t;
   pos_t(0) = msg->pose.position.x, pos_t(1) = msg->pose.position.y, pos_t(2) = msg->pose.position.z;
-  pos_t(3) = (node_->now() - ObjHistory::global_start_time_).seconds();
+  pos_t(3) = (rclcpp::Clock().now() - ObjHistory::global_start_time_).seconds();
 
   history_.push_back(pos_t);
   // cout << "idx: " << obj_idx_ << "pos_t: " << pos_t.transpose() << endl;
@@ -61,7 +61,7 @@ void ObjHistory::poseCallback(const geometry_msgs::msg::PoseStampedSharedPtr& ms
 ObjPredictor::ObjPredictor(/* args */) {
 }
 
-ObjPredictor::ObjPredictor(rclcpp::Node& node) {
+ObjPredictor::ObjPredictor(rclcpp::Node* node) {
   this->node_handle_ = node;
 }
 
@@ -90,18 +90,22 @@ void ObjPredictor::init() {
     obj_his->init(i);
     obj_histories_.push_back(obj_his);
 
-    rclcpp::Subscription pose_sub = /* TODO: 转换订阅 */ node_handle_->create_subscription<geometry_msgs::msg::PoseStamped>(
-        "/dynamic/pose_" + std::to_string(i), 10, &ObjHistory::poseCallback, obj_his.get());
+    auto pose_sub = node_handle_->create_subscription<geometry_msgs::msg::PoseStamped>(
+        "/dynamic/pose_" + std::to_string(i), 10, 
+        std::bind(&ObjHistory::poseCallback, obj_his.get(), std::placeholders::_1));
 
     pose_subs_.push_back(pose_sub);
   }
 
-  marker_sub_ = /* TODO: 转换订阅 */ node_handle_->create_subscription<visualization_msgs::msg::Marker>("/dynamic/obj", 10,
-                                                                   &ObjPredictor::markerCallback, this);
+  marker_sub_ = node_handle_->create_subscription<visualization_msgs::msg::Marker>(
+      "/dynamic/obj", 10,
+      std::bind(&ObjPredictor::markerCallback, this, std::placeholders::_1));
 
   /* update prediction */
   predict_timer_ =
-      node_handle_->create_wall_timer(std::chrono::duration<double>(1 / predict_rate_), &ObjPredictor::predictCallback, this);
+      node_handle_->create_wall_timer(
+          std::chrono::duration<double>(1 / predict_rate_), 
+          std::bind(&ObjPredictor::predictCallback, this));
 }
 
 ObjPrediction ObjPredictor::getPredictionTraj() {
@@ -173,12 +177,12 @@ void ObjPredictor::predictPolyFit() {
   }
 }
 
-void ObjPredictor::predictCallback(const rclcpp::TimerEvent& e) {
+void ObjPredictor::predictCallback() {
   // predictPolyFit();
   predictConstVel();
 }
 
-void ObjPredictor::markerCallback(const visualization_msgs::msg::MarkerSharedPtr& msg) {
+void ObjPredictor::markerCallback(const visualization_msgs::msg::Marker::ConstSharedPtr& msg) {
   int idx = msg->id;
   (*obj_scale_)[idx](0) = msg->scale.x;
   (*obj_scale_)[idx](1) = msg->scale.y;
@@ -191,9 +195,10 @@ void ObjPredictor::markerCallback(const visualization_msgs::msg::MarkerSharedPtr
     if (scale_init_[i]) finish_num++;
   }
 
-  if (finish_num == obj_num_) {
-    marker_sub_.shutdown();
-  }
+  // In ROS2, we don't shutdown subscriptions like this
+  // if (finish_num == obj_num_) {
+  //   marker_sub_.shutdown();
+  // }
 }
 
 void ObjPredictor::predictConstVel() {

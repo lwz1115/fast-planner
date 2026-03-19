@@ -49,6 +49,8 @@ install(EXPORT pose_utilsTargets
 ament_export_targets(pose_utilsTargets HAS_LIBRARY_TARGET)
 ament_export_dependencies(rclcpp Armadillo)
 ament_export_include_directories(include)
+ament_export_include_directories(include)
 
 ament_package()
+
 

@@ -25,9 +25,6 @@
 #include <sstream>
 #include <plan_env/sdf_map.h>
 
-using namespace std;
-using namespace Eigen;
-
 namespace fast_planner
 {
 KinodynamicAstar::~KinodynamicAstar()
@@ -74,7 +71,7 @@ int KinodynamicAstar::search(Eigen::Vector3d start_pt, Eigen::Vector3d start_v, 
   else
     expanded_nodes_.insert(cur_node->index, cur_node);
 
-  PathNodePtr neighbor = NULL;
+  PathNodePtr neighbor = nullptr;
   PathNodePtr terminate_node = NULL;
   bool init_search = init;
   const int tolerance = ceil(1 / resolution_);
@@ -99,7 +96,7 @@ int KinodynamicAstar::search(Eigen::Vector3d start_pt, Eigen::Vector3d start_v, 
         estimateHeuristic(cur_node->state, end_state, time_to_goal);
         computeShotTraj(cur_node->state, end_state, time_to_goal);
         if (init_search)
-          RCLCPP_ERROR(node_->get_logger(), this->get_logger(), "Shot in first search loop!");
+          std::cout << "[KinodynamicAstar]: Shot in first search loop!" << std::endl;
       }
     }
     if (reach_horizon)
@@ -141,11 +138,11 @@ int KinodynamicAstar::search(Eigen::Vector3d start_pt, Eigen::Vector3d start_v, 
     double res = 1 / 2.0, time_res = 1 / 1.0, time_res_init = 1 / 20.0;
     Eigen::Matrix<double, 6, 1> cur_state = cur_node->state;
     Eigen::Matrix<double, 6, 1> pro_state;
-    vector<PathNodePtr> tmp_expand_nodes;
+    std::vector<PathNodePtr> tmp_expand_nodes;
     Eigen::Vector3d um;
     double pro_t;
-    vector<Eigen::Vector3d> inputs;
-    vector<double> durations;
+    std::vector<Eigen::Vector3d> inputs;
+    std::vector<double> durations;
     if (init_search)
     {
       inputs.push_back(start_acc_);
@@ -321,7 +318,7 @@ int KinodynamicAstar::search(Eigen::Vector3d start_pt, Eigen::Vector3d start_v, 
   return NO_PATH;
 }
 
-void KinodynamicAstar::setParam(rclcpp::Node& nh)
+void KinodynamicAstar::setParam(rclcpp::Node::SharedPtr nh)
 {
   max_tau_ = nh->declare_parameter("search/max_tau", -1.0);
   init_max_tau_ = nh->declare_parameter("search/init_max_tau", -1.0);
@@ -357,9 +354,9 @@ void KinodynamicAstar::retrievePath(PathNodePtr end_node)
 }
 double KinodynamicAstar::estimateHeuristic(Eigen::VectorXd x1, Eigen::VectorXd x2, double& optimal_time)
 {
-  const Vector3d dp = x2.head(3) - x1.head(3);
-  const Vector3d v0 = x1.segment(3, 3);
-  const Vector3d v1 = x2.segment(3, 3);
+  const Eigen::Vector3d dp = x2.head(3) - x1.head(3);
+  const Eigen::Vector3d v0 = x1.segment(3, 3);
+  const Eigen::Vector3d v1 = x2.segment(3, 3);
 
   double c1 = -36 * dp.dot(dp);
   double c2 = 24 * (v0 + v1).dot(dp);
@@ -370,7 +367,7 @@ double KinodynamicAstar::estimateHeuristic(Eigen::VectorXd x1, Eigen::VectorXd x
   std::vector<double> ts = quartic(c5, c4, c3, c2, c1);
 
   double v_max = max_vel_ * 0.5;
-  double t_bar = (x1.head(3) - x2.head(3)).lpNorm<Infinity>() / v_max;
+  double t_bar = (x1.head(3) - x2.head(3)).lpNorm<Eigen::Infinity>() / v_max;
   ts.push_back(t_bar);
 
   double cost = 100000000;
@@ -396,27 +393,27 @@ double KinodynamicAstar::estimateHeuristic(Eigen::VectorXd x1, Eigen::VectorXd x
 bool KinodynamicAstar::computeShotTraj(Eigen::VectorXd state1, Eigen::VectorXd state2, double time_to_goal)
 {
   /* ---------- get coefficient ---------- */
-  const Vector3d p0 = state1.head(3);
-  const Vector3d dp = state2.head(3) - p0;
-  const Vector3d v0 = state1.segment(3, 3);
-  const Vector3d v1 = state2.segment(3, 3);
-  const Vector3d dv = v1 - v0;
+  const Eigen::Vector3d p0 = state1.head(3);
+  const Eigen::Vector3d dp = state2.head(3) - p0;
+  const Eigen::Vector3d v0 = state1.segment(3, 3);
+  const Eigen::Vector3d v1 = state2.segment(3, 3);
+  const Eigen::Vector3d dv = v1 - v0;
   double t_d = time_to_goal;
-  MatrixXd coef(3, 4);
+  Eigen::MatrixXd coef(3, 4);
   end_vel_ = v1;
 
-  Vector3d a = 1.0 / 6.0 * (-12.0 / (t_d * t_d * t_d) * (dp - v0 * t_d) + 6 / (t_d * t_d) * dv);
-  Vector3d b = 0.5 * (6.0 / (t_d * t_d) * (dp - v0 * t_d) - 2 / t_d * dv);
-  Vector3d c = v0;
-  Vector3d d = p0;
+  Eigen::Vector3d a = 1.0 / 6.0 * (-12.0 / (t_d * t_d * t_d) * (dp - v0 * t_d) + 6 / (t_d * t_d) * dv);
+  Eigen::Vector3d b = 0.5 * (6.0 / (t_d * t_d) * (dp - v0 * t_d) - 2 / t_d * dv);
+  Eigen::Vector3d c = v0;
+  Eigen::Vector3d d = p0;
 
   // 1/6 * alpha * t^3 + 1/2 * beta * t^2 + v0
   // a*t^3 + b*t^2 + v0*t + p0
   coef.col(3) = a, coef.col(2) = b, coef.col(1) = c, coef.col(0) = d;
 
-  Vector3d coord, vel, acc;
-  VectorXd poly1d, t, polyv, polya;
-  Vector3i index;
+  Eigen::Vector3d coord, vel, acc;
+  Eigen::VectorXd poly1d, t, polyv, polya;
+  Eigen::Vector3i index;
 
   Eigen::MatrixXd Tm(4, 4);
   Tm << 0, 1, 0, 0, 0, 0, 2, 0, 0, 0, 0, 3, 0, 0, 0, 0;
@@ -425,7 +422,7 @@ bool KinodynamicAstar::computeShotTraj(Eigen::VectorXd state1, Eigen::VectorXd s
   double t_delta = t_d / 10;
   for (double time = t_delta; time <= t_d; time += t_delta)
   {
-    t = VectorXd::Zero(4);
+    t = Eigen::VectorXd::Zero(4);
     for (int j = 0; j < 4; j++)
       t(j) = pow(time, j);
 
@@ -463,9 +460,9 @@ bool KinodynamicAstar::computeShotTraj(Eigen::VectorXd state1, Eigen::VectorXd s
   return true;
 }
 
-vector<double> KinodynamicAstar::cubic(double a, double b, double c, double d)
+std::vector<double> KinodynamicAstar::cubic(double a, double b, double c, double d)
 {
-  vector<double> dts;
+  std::vector<double> dts;
 
   double a2 = b / a;
   double a1 = c / a;
@@ -498,16 +495,16 @@ vector<double> KinodynamicAstar::cubic(double a, double b, double c, double d)
   }
 }
 
-vector<double> KinodynamicAstar::quartic(double a, double b, double c, double d, double e)
+std::vector<double> KinodynamicAstar::quartic(double a, double b, double c, double d, double e)
 {
-  vector<double> dts;
+  std::vector<double> dts;
 
   double a3 = b / a;
   double a2 = c / a;
   double a1 = d / a;
   double a0 = e / a;
 
-  vector<double> ys = cubic(1, -a2, a1 * a3 - 4 * a0, 4 * a2 * a0 - a1 * a1 - a3 * a3 * a0);
+  std::vector<double> ys = cubic(1, -a2, a1 * a3 - 4 * a0, 4 * a2 * a0 - a1 * a1 - a3 * a3 * a0);
   double y1 = ys.front();
   double r = a3 * a3 / 4 - a2 + y1;
   if (r < 0)
@@ -562,7 +559,7 @@ void KinodynamicAstar::init()
   iter_num_ = 0;
 }
 
-void KinodynamicAstar::setEnvironment(const EDTEnvironment::SharedPtr& env)
+void KinodynamicAstar::setEnvironment(const EDTEnvironment::Ptr& env)
 {
   this->edt_environment_ = env;
 }
@@ -590,15 +587,15 @@ void KinodynamicAstar::reset()
 
 std::vector<Eigen::Vector3d> KinodynamicAstar::getKinoTraj(double delta_t)
 {
-  vector<Vector3d> state_list;
+  std::vector<Eigen::Vector3d> state_list;
 
   /* ---------- get traj of searching ---------- */
   PathNodePtr node = path_nodes_.back();
-  Matrix<double, 6, 1> x0, xt;
+  Eigen::Matrix<double, 6, 1> x0, xt;
 
   while (node->parent != NULL)
   {
-    Vector3d ut = node->input;
+    Eigen::Vector3d ut = node->input;
     double duration = node->duration;
     x0 = node->parent->state;
 
@@ -613,18 +610,18 @@ std::vector<Eigen::Vector3d> KinodynamicAstar::getKinoTraj(double delta_t)
   /* ---------- get traj of one shot ---------- */
   if (is_shot_succ_)
   {
-    Vector3d coord;
-    VectorXd poly1d, time(4);
+    Eigen::Vector3d coord;
+    Eigen::VectorXd poly1d, time_vec(4);
 
     for (double t = delta_t; t <= t_shot_; t += delta_t)
     {
       for (int j = 0; j < 4; j++)
-        time(j) = pow(t, j);
+        time_vec(j) = pow(t, j);
 
       for (int dim = 0; dim < 3; dim++)
       {
         poly1d = coef_shot_.row(dim);
-        coord(dim) = poly1d.dot(time);
+        coord(dim) = poly1d.dot(time_vec);
       }
       state_list.push_back(coord);
     }
@@ -633,8 +630,8 @@ std::vector<Eigen::Vector3d> KinodynamicAstar::getKinoTraj(double delta_t)
   return state_list;
 }
 
-void KinodynamicAstar::getSamples(double& ts, vector<Eigen::Vector3d>& point_set,
-                                  vector<Eigen::Vector3d>& start_end_derivatives)
+void KinodynamicAstar::getSamples(double& ts, std::vector<Eigen::Vector3d>& point_set,
+                                  std::vector<Eigen::Vector3d>& start_end_derivatives)
 {
   /* ---------- path duration ---------- */
   double T_sum = 0.0;
@@ -657,7 +654,7 @@ void KinodynamicAstar::getSamples(double& ts, vector<Eigen::Vector3d>& point_set
     end_vel = end_vel_;
     for (int dim = 0; dim < 3; ++dim)
     {
-      Vector4d coe = coef_shot_.row(dim);
+      Eigen::Vector4d coe = coef_shot_.row(dim);
       end_acc(dim) = 2 * coe(2) + 6 * coe(3) * t_shot_;
     }
   }
@@ -680,16 +677,16 @@ void KinodynamicAstar::getSamples(double& ts, vector<Eigen::Vector3d>& point_set
     if (sample_shot_traj)
     {
       // samples on shot traj
-      Vector3d coord;
-      Vector4d poly1d, time;
+      Eigen::Vector3d coord;
+      Eigen::Vector4d poly1d, time_vec;
 
       for (int j = 0; j < 4; j++)
-        time(j) = pow(t, j);
+        time_vec(j) = pow(t, j);
 
       for (int dim = 0; dim < 3; dim++)
       {
         poly1d = coef_shot_.row(dim);
-        coord(dim) = poly1d.dot(time);
+        coord(dim) = poly1d.dot(time_vec);
       }
 
       point_set.push_back(coord);
@@ -708,7 +705,7 @@ void KinodynamicAstar::getSamples(double& ts, vector<Eigen::Vector3d>& point_set
       // samples on searched traj
       Eigen::Matrix<double, 6, 1> x0 = node->parent->state;
       Eigen::Matrix<double, 6, 1> xt;
-      Vector3d ut = node->input;
+      Eigen::Vector3d ut = node->input;
 
       stateTransit(x0, xt, ut, t);
 
@@ -746,14 +743,14 @@ void KinodynamicAstar::getSamples(double& ts, vector<Eigen::Vector3d>& point_set
 
 std::vector<PathNodePtr> KinodynamicAstar::getVisitedNodes()
 {
-  vector<PathNodePtr> visited;
+  std::vector<PathNodePtr> visited;
   visited.assign(path_node_pool_.begin(), path_node_pool_.begin() + use_node_num_ - 1);
   return visited;
 }
 
 Eigen::Vector3i KinodynamicAstar::posToIndex(Eigen::Vector3d pt)
 {
-  Vector3i idx = ((pt - origin_) * inv_resolution_).array().floor().cast<int>();
+  Eigen::Vector3i idx = ((pt - origin_) * inv_resolution_).array().floor().cast<int>();
 
   // idx << floor((pt(0) - origin_(0)) * inv_resolution_), floor((pt(1) -
   // origin_(1)) * inv_resolution_),
@@ -782,3 +779,4 @@ void KinodynamicAstar::stateTransit(Eigen::Matrix<double, 6, 1>& state0, Eigen::
 }
 
 }  // namespace fast_planner
+

@@ -1,5 +1,5 @@
 Panels:
-  - Class: rviz/Displays
+  - Class: rviz_common/Displays
     Help Height: 0
     Name: Displays
     Property Tree Widget:
@@ -11,34 +11,30 @@ Panels:
         - /Mapping1/simulation_map1/Autocompute Value Bounds1
       Splitter Ratio: 0.5
     Tree Height: 480
-  - Class: rviz/Selection
+  - Class: rviz_common/Selection
     Name: Selection
-  - Class: rviz/Tool Properties
+  - Class: rviz_common/Tool Properties
     Expanded:
       - /2D Pose Estimate1
       - /2D Nav Goal1
       - /Publish Point1
     Name: Tool Properties
     Splitter Ratio: 0.5886790156364441
-  - Class: rviz/Views
+  - Class: rviz_common/Views
     Expanded:
       - /Current View1
       - /ThirdPersonFollower1
     Name: Views
     Splitter Ratio: 0.5
-  - Class: rviz/Time
+  - Class: rviz_common/Time
     Name: Time
     SyncMode: 0
     SyncSource: simulation_map
-Preferences:
-  PromptSaveOnExit: true
-Toolbars:
-  toolButtonStyle: 2
 Visualization Manager:
   Class: ""
   Displays:
     - Alpha: 1
-      Class: rviz/Axes
+      Class: rviz_default_plugins/Axes
       Enabled: true
       Length: 10
       Name: Axes
@@ -48,7 +44,7 @@ Visualization Manager:
       Value: true
     - Alpha: 0.5
       Cell Size: 1
-      Class: rviz/Grid
+      Class: rviz_default_plugins/Grid
       Color: 160; 160; 164
       Enabled: true
       Line Style:
@@ -64,7 +60,7 @@ Visualization Manager:
       Plane Cell Count: 40
       Reference Frame: <Fixed Frame>
       Value: true
-    - Class: rviz/Group
+    - Class: rviz_common/Group
       Displays:
         - Alpha: 1
           Autocompute Intensity Bounds: true
@@ -74,7 +70,7 @@ Visualization Manager:
             Value: false
           Axis: Z
           Channel Name: intensity
-          Class: rviz/PointCloud2
+          Class: rviz_default_plugins/PointCloud2
           Color: 0; 0; 0
           Color Transformer: AxisColor
           Decay Time: 0
@@ -89,7 +85,12 @@ Visualization Manager:
           Size (Pixels): 3
           Size (m): 0.10000000149011612
           Style: Flat Squares
-          Topic: /sdf_map/occupancy_inflate
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /sdf_map/occupancy_inflate
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
@@ -102,7 +103,7 @@ Visualization Manager:
             Value: true
           Axis: Z
           Channel Name: intensity
-          Class: rviz/PointCloud2
+          Class: rviz_default_plugins/PointCloud2
           Color: 0; 0; 0
           Color Transformer: Intensity
           Decay Time: 0
@@ -117,14 +118,24 @@ Visualization Manager:
           Size (Pixels): 3
           Size (m): 0.10000000149011612
           Style: Flat Squares
-          Topic: /sdf_map/esdf
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /sdf_map/esdf
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
           Value: false
-        - Class: rviz/Marker
+        - Class: rviz_default_plugins/Marker
           Enabled: false
-          Marker Topic: /sdf_map/update_range
+          Marker Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /sdf_map/update_range
           Name: local_range
           Namespaces:
             {}
@@ -138,7 +149,7 @@ Visualization Manager:
             Value: true
           Axis: Z
           Channel Name: intensity
-          Class: rviz/PointCloud2
+          Class: rviz_default_plugins/PointCloud2
           Color: 255; 255; 255
           Color Transformer: Intensity
           Decay Time: 0
@@ -153,42 +164,67 @@ Visualization Manager:
           Size (Pixels): 3
           Size (m): 0.10000000149011612
           Style: Boxes
-          Topic: /sdf_map/depth_cloud
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /sdf_map/depth_cloud
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
           Value: false
       Enabled: true
       Name: LocalMap
-    - Class: rviz/Group
+    - Class: rviz_common/Group
       Displays:
-        - Class: rviz/Marker
+        - Class: rviz_default_plugins/Marker
           Enabled: true
-          Marker Topic: /planning_vis/trajectory
+          Marker Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /planning_vis/trajectory
           Name: bspline_traj
           Namespaces:
             "": true
           Queue Size: 100
           Value: true
-        - Class: rviz/Marker
+        - Class: rviz_default_plugins/Marker
           Enabled: false
-          Marker Topic: /planning_vis/topo_path
+          Marker Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /planning_vis/topo_path
           Name: topo_path
           Namespaces:
             {}
           Queue Size: 100
           Value: false
-        - Class: rviz/Marker
+        - Class: rviz_default_plugins/Marker
           Enabled: false
-          Marker Topic: /planning/travel_traj
+          Marker Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /planning/travel_traj
           Name: executed_traj
           Namespaces:
             {}
           Queue Size: 100
           Value: false
-        - Class: rviz/Marker
+        - Class: rviz_default_plugins/Marker
           Enabled: true
-          Marker Topic: /planning/position_cmd_vis
+          Marker Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /planning/position_cmd_vis
           Name: position_cmd
           Namespaces:
             "": true
@@ -196,7 +232,7 @@ Visualization Manager:
           Value: true
       Enabled: true
       Name: Planning
-    - Class: rviz/Group
+    - Class: rviz_common/Group
       Displays:
         - Alpha: 0.10000000149011612
           Autocompute Intensity Bounds: true
@@ -206,7 +242,7 @@ Visualization Manager:
             Value: false
           Axis: Z
           Channel Name: intensity
-          Class: rviz/PointCloud2
+          Class: rviz_default_plugins/PointCloud2
           Color: 161; 161; 161
           Color Transformer: FlatColor
           Decay Time: 0
@@ -221,7 +257,12 @@ Visualization Manager:
           Size (Pixels): 3
           Size (m): 0.10000000149011612
           Style: Flat Squares
-          Topic: /map_generator/global_cloud
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /map_generator/global_cloud
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
@@ -234,7 +275,7 @@ Visualization Manager:
             Value: false
           Axis: Z
           Channel Name: intensity
-          Class: rviz/PointCloud2
+          Class: rviz_default_plugins/PointCloud2
           Color: 187; 187; 187
           Color Transformer: AxisColor
           Decay Time: 0
@@ -249,18 +290,28 @@ Visualization Manager:
           Size (Pixels): 3
           Size (m): 0.20000000298023224
           Style: Boxes
-          Topic: /laser_cloud_surround
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /laser_cloud_surround
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
           Value: false
       Enabled: true
       Name: Mapping
-    - Class: rviz/Group
+    - Class: rviz_common/Group
       Displays:
-        - Class: rviz/Marker
+        - Class: rviz_default_plugins/Marker
           Enabled: true
-          Marker Topic: /odom_visualization/robot
+          Marker Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /odom_visualization/robot
           Name: robot
           Namespaces:
             mesh: true
@@ -268,11 +319,16 @@ Visualization Manager:
           Value: true
       Enabled: true
       Name: Simulation
-    - Class: rviz/Group
+    - Class: rviz_common/Group
       Displays:
-        - Class: rviz/MarkerArray
+        - Class: rviz_default_plugins/MarkerArray
           Enabled: true
-          Marker Topic: /vins_estimator/camera_pose_visual
+          Marker Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /vins_estimator/camera_pose_visual
           Name: vins-camera
           Namespaces:
             {}
@@ -281,7 +337,7 @@ Visualization Manager:
         - Alpha: 1
           Axes Length: 0.5
           Axes Radius: 0.019999999552965164
-          Class: rviz/Pose
+          Class: rviz_default_plugins/Pose
           Color: 255; 25; 0
           Enabled: true
           Head Length: 0.30000001192092896
@@ -291,11 +347,16 @@ Visualization Manager:
           Shaft Length: 1
           Shaft Radius: 0.05000000074505806
           Shape: Axes
-          Topic: /pcl_render_node/camera_pose
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /pcl_render_node/camera_pose
           Unreliable: false
           Value: true
         - Angle Tolerance: 0.009999999776482582
-          Class: rviz/Odometry
+          Class: rviz_default_plugins/Odometry
           Covariance:
             Orientation:
               Alpha: 0.5
@@ -326,13 +387,18 @@ Visualization Manager:
             Shaft Length: 1
             Shaft Radius: 0.05000000074505806
             Value: Axes
-          Topic: /uart_odom/out_odom
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /uart_odom/out_odom
           Unreliable: false
           Value: true
         - Alpha: 1
           Axes Length: 1
           Axes Radius: 0.10000000149011612
-          Class: rviz/Pose
+          Class: rviz_default_plugins/Pose
           Color: 255; 25; 0
           Enabled: true
           Head Length: 0.30000001192092896
@@ -342,7 +408,12 @@ Visualization Manager:
           Shaft Length: 1
           Shaft Radius: 0.05000000074505806
           Shape: Arrow
-          Topic: /Robot_1/pose
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /Robot_1/pose
           Unreliable: false
           Value: true
       Enabled: false
@@ -355,25 +426,40 @@ Visualization Manager:
     Frame Rate: 30
   Name: root
   Tools:
-    - Class: rviz/Interact
+    - Class: rviz_default_plugins/Interact
       Hide Inactive Objects: true
-    - Class: rviz/Select
-    - Class: rviz/FocusCamera
-    - Class: rviz/Measure
-    - Class: rviz/SetInitialPose
+    - Class: rviz_default_plugins/Select
+    - Class: rviz_default_plugins/FocusCamera
+    - Class: rviz_default_plugins/Measure
+    - Class: rviz_default_plugins/SetInitialPose
       Theta std deviation: 0.2617993950843811
-      Topic: /initialpose
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /initialpose
       X std deviation: 0.5
       Y std deviation: 0.5
-    - Class: rviz/SetGoal
-      Topic: /move_base_simple/goal
-    - Class: rviz/PublishPoint
+    - Class: rviz_default_plugins/SetGoal
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /move_base_simple/goal
+    - Class: rviz_default_plugins/PublishPoint
       Single click: true
-      Topic: /clicked_point
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /clicked_point
   Value: true
   Views:
     Current:
-      Class: rviz/ThirdPersonFollower
+      Class: rviz_default_plugins/ThirdPersonFollower
       Distance: 11.390932083129883
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
@@ -394,7 +480,7 @@ Visualization Manager:
       Target Frame: <Fixed Frame>
       Yaw: 3.735466480255127
     Saved:
-      - Class: rviz/ThirdPersonFollower
+      - Class: rviz_default_plugins/ThirdPersonFollower
         Distance: 17.48538589477539
         Enable Stereo Rendering:
           Stereo Eye Separation: 0.05999999865889549
@@ -414,7 +500,7 @@ Visualization Manager:
         Pitch: 1.0347968339920044
         Target Frame: <Fixed Frame>
         Yaw: 3.150407314300537
-      - Class: rviz/ThirdPersonFollower
+      - Class: rviz_default_plugins/ThirdPersonFollower
         Distance: 19.123916625976562
         Enable Stereo Rendering:
           Stereo Eye Separation: 0.05999999865889549
@@ -434,7 +520,7 @@ Visualization Manager:
         Pitch: 1.0997971296310425
         Target Frame: <Fixed Frame>
         Yaw: 3.180875539779663
-      - Class: rviz/ThirdPersonFollower
+      - Class: rviz_default_plugins/ThirdPersonFollower
         Distance: 9.999999046325684
         Enable Stereo Rendering:
           Stereo Eye Separation: 0.05999999865889549
@@ -454,7 +540,7 @@ Visualization Manager:
         Pitch: 0.7853982448577881
         Target Frame: <Fixed Frame>
         Yaw: 0.7853981852531433
-      - Class: rviz/ThirdPersonFollower
+      - Class: rviz_default_plugins/ThirdPersonFollower
         Distance: 13.322423934936523
         Enable Stereo Rendering:
           Stereo Eye Separation: 0.05999999865889549
@@ -492,3 +578,4 @@ Window Geometry:
   Width: 1175
   X: 57
   Y: 27
+

@@ -25,28 +25,26 @@
 
 #include <traj_utils/planning_visualization.h>
 
-using std::cout;
-using std::endl;
 namespace fast_planner {
-PlanningVisualization::PlanningVisualization(rclcpp::Node& nh) {
-  node = nh;
+PlanningVisualization::PlanningVisualization(rclcpp::Node::SharedPtr nh) {
+  node_ = nh;
 
-  traj_pub_ = /* TODO: 转换发布 */ node->create_publisher<visualization_msgs::msg::Marker>("/planning_vis/trajectory", 20);
+  traj_pub_ = node_->create_publisher<visualization_msgs::msg::Marker>("/planning_vis/trajectory", 20);
   pubs_.push_back(traj_pub_);
 
-  topo_pub_ = /* TODO: 转换发布 */ node->create_publisher<visualization_msgs::msg::Marker>("/planning_vis/topo_path", 20);
+  topo_pub_ = node_->create_publisher<visualization_msgs::msg::Marker>("/planning_vis/topo_path", 20);
   pubs_.push_back(topo_pub_);
 
-  predict_pub_ = /* TODO: 转换发布 */ node->create_publisher<visualization_msgs::msg::Marker>("/planning_vis/prediction", 20);
+  predict_pub_ = node_->create_publisher<visualization_msgs::msg::Marker>("/planning_vis/prediction", 20);
   pubs_.push_back(predict_pub_);
 
-  visib_pub_ = /* TODO: 转换发布 */ node->create_publisher<visualization_msgs::msg::Marker>("/planning_vis/visib_constraint", 20);
+  visib_pub_ = node_->create_publisher<visualization_msgs::msg::Marker>("/planning_vis/visib_constraint", 20);
   pubs_.push_back(visib_pub_);
 
-  frontier_pub_ = /* TODO: 转换发布 */ node->create_publisher<visualization_msgs::msg::Marker>("/planning_vis/frontier", 20);
+  frontier_pub_ = node_->create_publisher<visualization_msgs::msg::Marker>("/planning_vis/frontier", 20);
   pubs_.push_back(frontier_pub_);
 
-  yaw_pub_ = /* TODO: 转换发布 */ node->create_publisher<visualization_msgs::msg::Marker>("/planning_vis/yaw", 20);
+  yaw_pub_ = node_->create_publisher<visualization_msgs::msg::Marker>("/planning_vis/yaw", 20);
   pubs_.push_back(yaw_pub_);
 
   last_topo_path1_num_     = 0;
@@ -56,7 +54,7 @@ PlanningVisualization::PlanningVisualization(rclcpp::Node& nh) {
   last_frontier_num_       = 0;
 }
 
-void PlanningVisualization::displaySphereList(const vector<Eigen::Vector3d>& list, double resolution,
+void PlanningVisualization::displaySphereList(const std::vector<Eigen::Vector3d>& list, double resolution,
                                               const Eigen::Vector4d& color, int id, int pub_id) {
   visualization_msgs::msg::Marker mk;
   mk.header.frame_id = "world";
@@ -64,7 +62,7 @@ void PlanningVisualization::displaySphereList(const vector<Eigen::Vector3d>& lis
   mk.type            = visualization_msgs::msg::Marker::SPHERE_LIST;
   mk.action          = visualization_msgs::msg::Marker::DELETE;
   mk.id              = id;
-  pubs_[pub_id].publish(mk);
+  pubs_[pub_id]->publish(mk);
 
   mk.action             = visualization_msgs::msg::Marker::ADD;
   mk.pose.orientation.x = 0.0;
@@ -88,11 +86,11 @@ void PlanningVisualization::displaySphereList(const vector<Eigen::Vector3d>& lis
     pt.z = list[i](2);
     mk.points.push_back(pt);
   }
-  pubs_[pub_id].publish(mk);
-  rclcpp::sleep_for(std::chrono::duration<double>(0.001));
+  pubs_[pub_id]->publish(mk);
+  rclcpp::sleep_for(std::chrono::nanoseconds(1000000));
 }
 
-void PlanningVisualization::displayCubeList(const vector<Eigen::Vector3d>& list, double resolution,
+void PlanningVisualization::displayCubeList(const std::vector<Eigen::Vector3d>& list, double resolution,
                                             const Eigen::Vector4d& color, int id, int pub_id) {
   visualization_msgs::msg::Marker mk;
   mk.header.frame_id = "world";
@@ -100,7 +98,7 @@ void PlanningVisualization::displayCubeList(const vector<Eigen::Vector3d>& list,
   mk.type            = visualization_msgs::msg::Marker::CUBE_LIST;
   mk.action          = visualization_msgs::msg::Marker::DELETE;
   mk.id              = id;
-  pubs_[pub_id].publish(mk);
+  pubs_[pub_id]->publish(mk);
 
   mk.action             = visualization_msgs::msg::Marker::ADD;
   mk.pose.orientation.x = 0.0;
@@ -124,13 +122,13 @@ void PlanningVisualization::displayCubeList(const vector<Eigen::Vector3d>& list,
     pt.z = list[i](2);
     mk.points.push_back(pt);
   }
-  pubs_[pub_id].publish(mk);
+  pubs_[pub_id]->publish(mk);
 
-  rclcpp::sleep_for(std::chrono::duration<double>(0.001));
+  rclcpp::sleep_for(std::chrono::nanoseconds(1000000));
 }
 
-void PlanningVisualization::displayLineList(const vector<Eigen::Vector3d>& list1,
-                                            const vector<Eigen::Vector3d>& list2, double line_width,
+void PlanningVisualization::displayLineList(const std::vector<Eigen::Vector3d>& list1,
+                                            const std::vector<Eigen::Vector3d>& list2, double line_width,
                                             const Eigen::Vector4d& color, int id, int pub_id) {
   visualization_msgs::msg::Marker mk;
   mk.header.frame_id = "world";
@@ -138,7 +136,7 @@ void PlanningVisualization::displayLineList(const vector<Eigen::Vector3d>& list1
   mk.type            = visualization_msgs::msg::Marker::LINE_LIST;
   mk.action          = visualization_msgs::msg::Marker::DELETE;
   mk.id              = id;
-  pubs_[pub_id].publish(mk);
+  pubs_[pub_id]->publish(mk);
 
   mk.action             = visualization_msgs::msg::Marker::ADD;
   mk.pose.orientation.x = 0.0;
@@ -164,13 +162,13 @@ void PlanningVisualization::displayLineList(const vector<Eigen::Vector3d>& list1
     pt.z = list2[i](2);
     mk.points.push_back(pt);
   }
-  pubs_[pub_id].publish(mk);
+  pubs_[pub_id]->publish(mk);
 
-  rclcpp::sleep_for(std::chrono::duration<double>(0.001));
+  rclcpp::sleep_for(std::chrono::nanoseconds(1000000));
 }
 
-void PlanningVisualization::drawBsplinesPhase1(vector<NonUniformBspline>& bsplines, double size) {
-  vector<Eigen::Vector3d> empty;
+void PlanningVisualization::drawBsplinesPhase1(std::vector<NonUniformBspline>& bsplines, double size) {
+  std::vector<Eigen::Vector3d> empty;
 
   for (int i = 0; i < last_bspline_phase1_num_; ++i) {
     displaySphereList(empty, size, Eigen::Vector4d(1, 0, 0, 1), BSPLINE + i % 100);
@@ -184,8 +182,8 @@ void PlanningVisualization::drawBsplinesPhase1(vector<NonUniformBspline>& bsplin
   }
 }
 
-void PlanningVisualization::drawBsplinesPhase2(vector<NonUniformBspline>& bsplines, double size) {
-  vector<Eigen::Vector3d> empty;
+void PlanningVisualization::drawBsplinesPhase2(std::vector<NonUniformBspline>& bsplines, double size) {
+  std::vector<Eigen::Vector3d> empty;
 
   for (int i = 0; i < last_bspline_phase2_num_; ++i) {
     displaySphereList(empty, size, Eigen::Vector4d(1, 0, 0, 1), BSPLINE + (50 + i) % 100);
@@ -204,7 +202,7 @@ void PlanningVisualization::drawBspline(NonUniformBspline& bspline, double size,
                                         const Eigen::Vector4d& color2, int id1, int id2) {
   if (bspline.getControlPoint().size() == 0) return;
 
-  vector<Eigen::Vector3d> traj_pts;
+  std::vector<Eigen::Vector3d> traj_pts;
   double                  tm, tmp;
   bspline.getTimeSpan(tm, tmp);
 
@@ -218,7 +216,7 @@ void PlanningVisualization::drawBspline(NonUniformBspline& bspline, double size,
   if (!show_ctrl_pts) return;
 
   Eigen::MatrixXd         ctrl_pts = bspline.getControlPoint();
-  vector<Eigen::Vector3d> ctp;
+  std::vector<Eigen::Vector3d> ctp;
 
   for (int i = 0; i < int(ctrl_pts.rows()); ++i) {
     Eigen::Vector3d pt = ctrl_pts.row(i).transpose();
@@ -228,19 +226,19 @@ void PlanningVisualization::drawBspline(NonUniformBspline& bspline, double size,
   displaySphereList(ctp, size2, color2, BSPLINE_CTRL_PT + id2 % 100);
 }
 
-void PlanningVisualization::drawTopoGraph(list<GraphNode::SharedPtr>& graph, double point_size,
+void PlanningVisualization::drawTopoGraph(std::list<GraphNode::Ptr>& graph, double point_size,
                                           double line_width, const Eigen::Vector4d& color1,
                                           const Eigen::Vector4d& color2, const Eigen::Vector4d& color3,
                                           int id) {
   // clear exsiting node and edge (drawn last time)
-  vector<Eigen::Vector3d> empty;
+  std::vector<Eigen::Vector3d> empty;
   displaySphereList(empty, point_size, color1, GRAPH_NODE, 1);
   displaySphereList(empty, point_size, color1, GRAPH_NODE + 50, 1);
   displayLineList(empty, empty, line_width, color3, GRAPH_EDGE, 1);
 
   /* draw graph node */
-  vector<Eigen::Vector3d> guards, connectors;
-  for (list<GraphNode::SharedPtr>::iterator iter = graph.begin(); iter != graph.end(); ++iter) {
+  std::vector<Eigen::Vector3d> guards, connectors;
+  for (std::list<GraphNode::Ptr>::iterator iter = graph.begin(); iter != graph.end(); ++iter) {
 
     if ((*iter)->type_ == GraphNode::Guard) {
       guards.push_back((*iter)->pos_);
@@ -252,8 +250,8 @@ void PlanningVisualization::drawTopoGraph(list<GraphNode::SharedPtr>& graph, dou
   displaySphereList(connectors, point_size, color2, GRAPH_NODE + 50, 1);
 
   /* draw graph edge */
-  vector<Eigen::Vector3d> edge_pt1, edge_pt2;
-  for (list<GraphNode::SharedPtr>::iterator iter = graph.begin(); iter != graph.end(); ++iter) {
+  std::vector<Eigen::Vector3d> edge_pt1, edge_pt2;
+  for (std::list<GraphNode::Ptr>::iterator iter = graph.begin(); iter != graph.end(); ++iter) {
     for (int k = 0; k < (*iter)->neighbors_.size(); ++k) {
 
       edge_pt1.push_back((*iter)->pos_);
@@ -263,12 +261,12 @@ void PlanningVisualization::drawTopoGraph(list<GraphNode::SharedPtr>& graph, dou
   displayLineList(edge_pt1, edge_pt2, line_width, color3, GRAPH_EDGE, 1);
 }
 
-void PlanningVisualization::drawTopoPathsPhase2(vector<vector<Eigen::Vector3d>>& paths,
+void PlanningVisualization::drawTopoPathsPhase2(std::vector<std::vector<Eigen::Vector3d>>& paths,
                                                 double                           line_width) {
   // clear drawn paths
   Eigen::Vector4d color1(1, 1, 1, 1);
   for (int i = 0; i < last_topo_path1_num_; ++i) {
-    vector<Eigen::Vector3d> empty;
+    std::vector<Eigen::Vector3d> empty;
     displayLineList(empty, empty, line_width, color1, SELECT_PATH + i % 100, 1);
     displaySphereList(empty, line_width, color1, PATH + i % 100, 1);
   }
@@ -277,7 +275,7 @@ void PlanningVisualization::drawTopoPathsPhase2(vector<vector<Eigen::Vector3d>>&
 
   // draw new paths
   for (int i = 0; i < paths.size(); ++i) {
-    vector<Eigen::Vector3d> edge_pt1, edge_pt2;
+    std::vector<Eigen::Vector3d> edge_pt1, edge_pt2;
 
     for (int j = 0; j < paths[i].size() - 1; ++j) {
       edge_pt1.push_back(paths[i][j]);
@@ -289,11 +287,11 @@ void PlanningVisualization::drawTopoPathsPhase2(vector<vector<Eigen::Vector3d>>&
   }
 }
 
-void PlanningVisualization::drawTopoPathsPhase1(vector<vector<Eigen::Vector3d>>& paths, double size) {
+void PlanningVisualization::drawTopoPathsPhase1(std::vector<std::vector<Eigen::Vector3d>>& paths, double size) {
   // clear drawn paths
   Eigen::Vector4d color1(1, 1, 1, 1);
   for (int i = 0; i < last_topo_path2_num_; ++i) {
-    vector<Eigen::Vector3d> empty;
+    std::vector<Eigen::Vector3d> empty;
     displayLineList(empty, empty, size, color1, FILTERED_PATH + i % 100, 1);
   }
 
@@ -301,7 +299,7 @@ void PlanningVisualization::drawTopoPathsPhase1(vector<vector<Eigen::Vector3d>>&
 
   // draw new paths
   for (int i = 0; i < paths.size(); ++i) {
-    vector<Eigen::Vector3d> edge_pt1, edge_pt2;
+    std::vector<Eigen::Vector3d> edge_pt1, edge_pt2;
 
     for (int j = 0; j < paths[i].size() - 1; ++j) {
       edge_pt1.push_back(paths[i][j]);
@@ -315,11 +313,11 @@ void PlanningVisualization::drawTopoPathsPhase1(vector<vector<Eigen::Vector3d>>&
 
 void PlanningVisualization::drawGoal(Eigen::Vector3d goal, double resolution,
                                      const Eigen::Vector4d& color, int id) {
-  vector<Eigen::Vector3d> goal_vec = { goal };
+  std::vector<Eigen::Vector3d> goal_vec = { goal };
   displaySphereList(goal_vec, resolution, color, GOAL + id % 100);
 }
 
-void PlanningVisualization::drawGeometricPath(const vector<Eigen::Vector3d>& path, double resolution,
+void PlanningVisualization::drawGeometricPath(const std::vector<Eigen::Vector3d>& path, double resolution,
                                               const Eigen::Vector4d& color, int id) {
   displaySphereList(path, resolution, color, PATH + id % 100);
 }
@@ -327,7 +325,7 @@ void PlanningVisualization::drawGeometricPath(const vector<Eigen::Vector3d>& pat
 void PlanningVisualization::drawPolynomialTraj(PolynomialTraj poly_traj, double resolution,
                                                const Eigen::Vector4d& color, int id) {
   poly_traj.init();
-  vector<Eigen::Vector3d> poly_pts = poly_traj.getTraj();
+  std::vector<Eigen::Vector3d> poly_pts = poly_traj.getTraj();
   displaySphereList(poly_pts, resolution, color, POLY_TRAJ + id % 100);
 }
 
@@ -337,7 +335,7 @@ void PlanningVisualization::drawPrediction(ObjPrediction pred, double resolution
   double       start_time = (time_now - ObjHistory::global_start_time_).seconds();
   const double range      = 5.6;
 
-  vector<Eigen::Vector3d> traj;
+  std::vector<Eigen::Vector3d> traj;
   for (int i = 0; i < pred->size(); i++) {
 
     PolynomialPrediction poly = pred->at(i);
@@ -354,7 +352,7 @@ void PlanningVisualization::drawPrediction(ObjPrediction pred, double resolution
 void PlanningVisualization::drawYawTraj(NonUniformBspline& pos, NonUniformBspline& yaw,
                                         const double& dt) {
   double                  duration = pos.getTimeSum();
-  vector<Eigen::Vector3d> pts1, pts2;
+  std::vector<Eigen::Vector3d> pts1, pts2;
 
   for (double tc = 0.0; tc <= duration + 1e-3; tc += dt) {
     Eigen::Vector3d pc = pos.evaluateDeBoorT(tc);
@@ -368,9 +366,9 @@ void PlanningVisualization::drawYawTraj(NonUniformBspline& pos, NonUniformBsplin
   displayLineList(pts1, pts2, 0.04, Eigen::Vector4d(1, 0.5, 0, 1), 0, 5);
 }
 
-void PlanningVisualization::drawYawPath(NonUniformBspline& pos, const vector<double>& yaw,
+void PlanningVisualization::drawYawPath(NonUniformBspline& pos, const std::vector<double>& yaw,
                                         const double& dt) {
-  vector<Eigen::Vector3d> pts1, pts2;
+  std::vector<Eigen::Vector3d> pts1, pts2;
 
   for (int i = 0; i < yaw.size(); ++i) {
     Eigen::Vector3d pc = pos.evaluateDeBoorT(i * dt);
@@ -429,3 +427,4 @@ Eigen::Vector4d PlanningVisualization::getColor(double h, double alpha) {
 }
 // PlanningVisualization::
 }  // namespace fast_planner
+

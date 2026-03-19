@@ -3,7 +3,8 @@
 
 #include <iostream>
 #include <rclcpp/rclcpp.hpp>
-#include <tf2/tf.h>
+#include <tf2/utils.h>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
 #include <armadillo>
 #include <multi_map_server/msg/sparse_map3_d.hpp>
 
@@ -54,7 +55,7 @@ public:
 
   ~OccupancyGridList() { }
 
-  void PackMsg(multi_map_server::VerticalOccupancyGridList &msg)
+  void PackMsg(multi_map_server::msg::VerticalOccupancyGridList &msg)
   {
     msg.x = x;
     msg.y = y;
@@ -66,7 +67,7 @@ public:
     }
   }
 
-  void UnpackMsg(const multi_map_server::VerticalOccupancyGridList &msg)
+  void UnpackMsg(const multi_map_server::msg::VerticalOccupancyGridList &msg)
   {
     x = msg.x;
     y = msg.y;
@@ -314,6 +315,29 @@ public:
     logOddFreeThr = log(1.0/(1.0-PROB_FREE_THRESHOLD) - 1.0) * LOG_ODD_SCALE_FACTOR;
     logOddFreeFixedThr = log(1.0/(1.0-PROB_FREE_FIXED_THRESHOLD) - 1.0) * LOG_ODD_SCALE_FACTOR;
   }
+
+  Map3D(rclcpp::Node::SharedPtr node) : node_(node)
+  {
+    resolution = 0.1;
+    decayInterval = -1;
+    originX = -5;
+    originY = -5;
+    originZ =  0;
+    mapX = 200;
+    mapY = 200;
+    expandStep = 200;
+    updated = false;
+    updateCounter = 1;
+    updateList.clear();
+    mapBase.clear();
+    mapBase.resize(mapX*mapY, NULL);
+    logOddOccupied = log(PROB_OCCUPIED/(1.0-PROB_OCCUPIED)) * LOG_ODD_SCALE_FACTOR;
+    logOddFree = log(PROB_FREE/(1.0-PROB_FREE)) * LOG_ODD_SCALE_FACTOR;
+    logOddOccupiedThr = log(1.0/(1.0-PROB_OCCUPIED_THRESHOLD) - 1.0) * LOG_ODD_SCALE_FACTOR;
+    logOddOccupiedFixedThr = log(1.0/(1.0-PROB_OCCUPIED_FIXED_THRESHOLD) - 1.0) * LOG_ODD_SCALE_FACTOR;
+    logOddFreeThr = log(1.0/(1.0-PROB_FREE_THRESHOLD) - 1.0) * LOG_ODD_SCALE_FACTOR;
+    logOddFreeFixedThr = log(1.0/(1.0-PROB_FREE_FIXED_THRESHOLD) - 1.0) * LOG_ODD_SCALE_FACTOR;
+  }
   
   Map3D(const Map3D& _map3d)
   {
@@ -357,24 +381,32 @@ public:
     }
   }
 
-  void PackMsg(multi_map_server::SparseMap3D &msg)
+  void PackMsg(multi_map_server::msg::SparseMap3D &msg)
   {
     // Basic map info
-    msg.header.stamp            = node_->now();
+    if (node_) {
+      msg.header.stamp            = node_->now();
+      msg.info.map_load_time      = node_->now();
+    } else {
+      msg.header.stamp            = rclcpp::Clock().now();
+      msg.info.map_load_time      = rclcpp::Clock().now();
+    }
     msg.header.frame_id         = string("/map");
-    msg.info.map_load_time      = node_->now();
     msg.info.resolution         = resolution;
     msg.info.origin.position.x  = originX;
     msg.info.origin.position.y  = originY;
     msg.info.origin.position.z  = originZ;
     msg.info.width              = mapX;
     msg.info.height             = mapY;
-    msg.info.origin.orientation = tf::createQuaternionMsgFromYaw(0.0);  
+    // ROS2中使用tf2创建四元数
+    tf2::Quaternion q;
+    q.setRPY(0, 0, 0.0);
+    msg.info.origin.orientation = tf2::toMsg(q);
     // Pack columns into message
     msg.lists.clear();
     for (unsigned int k = 0; k < updateList.size(); k++)
     {
-      multi_map_server::VerticalOccupancyGridList c;
+      multi_map_server::msg::VerticalOccupancyGridList c;
       updateList[k]->PackMsg(c);
       msg.lists.push_back(c);
     }
@@ -382,7 +414,7 @@ public:
     updateCounter++;
   }
 
-  void UnpackMsg(const multi_map_server::SparseMap3D &msg)
+  void UnpackMsg(const multi_map_server::msg::SparseMap3D &msg)
   {
     // Unpack column msgs, Replace the whole column
     for (unsigned int k = 0; k < msg.lists.size(); k++)
@@ -569,8 +601,8 @@ private:
     if (decayInterval < 0)
       return;
     // Check whether to decay
-    static rclcpp::Time prevDecayT = node_->now();
-    rclcpp::Time t = node_->now();
+    static rclcpp::Time prevDecayT = node_ ? node_->now() : rclcpp::Clock().now();
+    rclcpp::Time t = node_ ? node_->now() : rclcpp::Clock().now();
     double dt = (t - prevDecayT).seconds();
     if (dt > decayInterval)
     {
@@ -603,6 +635,9 @@ private:
   vector<OccupancyGridList*> mapBase;
 
   vector<arma::colvec> pts;
+  
+  rclcpp::Node::SharedPtr node_;
 
 };
 #endif
+

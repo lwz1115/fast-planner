@@ -1,4 +1,0 @@
-/root/colcon_ws/build/multi_map_server/rosidl_adapter/multi_map_server:msg/MultiOccupancyGrid.idl
-/root/colcon_ws/build/multi_map_server/rosidl_adapter/multi_map_server:msg/MultiSparseMap3D.idl
-/root/colcon_ws/build/multi_map_server/rosidl_adapter/multi_map_server:msg/SparseMap3D.idl
-/root/colcon_ws/build/multi_map_server/rosidl_adapter/multi_map_server:msg/VerticalOccupancyGridList.idl

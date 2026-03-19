@@ -212,7 +212,9 @@ double NonUniformBspline::checkRatio() {
     }
   }
   double ratio = max(max_vel / limit_vel_, sqrt(fabs(max_acc) / limit_acc_));
-  ROS_ERROR_COND(ratio > 2.0, "max vel: %lf, max acc: %lf.", max_vel, max_acc);
+  if (ratio > 2.0) {
+    RCLCPP_ERROR(rclcpp::get_logger("bspline"), "max vel: %lf, max acc: %lf.", max_vel, max_acc);
+  }
 
   return ratio;
 }
@@ -482,3 +484,4 @@ void NonUniformBspline::getMeanAndMaxAcc(double& mean_a, double& max_a) {
   max_a    = max_acc;
 }
 }  // namespace fast_planner
+

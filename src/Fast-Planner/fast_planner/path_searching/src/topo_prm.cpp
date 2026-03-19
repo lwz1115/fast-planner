@@ -31,7 +31,7 @@ TopologyPRM::TopologyPRM(/* args */) {}
 
 TopologyPRM::~TopologyPRM() {}
 
-void TopologyPRM::init(rclcpp::Node& nh) {
+void TopologyPRM::init(rclcpp::Node::SharedPtr nh) {
   graph_.clear();
   eng_ = default_random_engine(rd_());
   rand_pos_ = uniform_real_distribution<double>(-1.0, 1.0);
@@ -58,52 +58,52 @@ void TopologyPRM::init(rclcpp::Node& nh) {
 }
 
 void TopologyPRM::findTopoPaths(Eigen::Vector3d start, Eigen::Vector3d end,
-                                vector<Eigen::Vector3d> start_pts, vector<Eigen::Vector3d> end_pts,
-                                list<GraphNode::SharedPtr>& graph, vector<vector<Eigen::Vector3d>>& raw_paths,
-                                vector<vector<Eigen::Vector3d>>& filtered_paths,
-                                vector<vector<Eigen::Vector3d>>& select_paths) {
+                                std::vector<Eigen::Vector3d> start_pts, std::vector<Eigen::Vector3d> end_pts,
+                                std::list<GraphNode::Ptr>& graph, std::vector<std::vector<Eigen::Vector3d>>& raw_paths,
+                                std::vector<std::vector<Eigen::Vector3d>>& filtered_paths,
+                                std::vector<std::vector<Eigen::Vector3d>>& select_paths) {
   rclcpp::Time t1, t2;
 
   double graph_time, search_time, short_time, prune_time, select_time;
   /* ---------- create the topo graph ---------- */
-  t1 = node_->now();
+  t1 = rclcpp::Clock().now();
 
   start_pts_ = start_pts;
   end_pts_ = end_pts;
 
   graph = createGraph(start, end);
 
-  graph_time = (node_->now() - t1).seconds();
+  graph_time = (rclcpp::Clock().now() - t1).seconds();
 
   /* ---------- search paths in the graph ---------- */
-  t1 = node_->now();
+  t1 = rclcpp::Clock().now();
 
   raw_paths = searchPaths();
 
-  search_time = (node_->now() - t1).seconds();
+  search_time = (rclcpp::Clock().now() - t1).seconds();
 
   /* ---------- path shortening ---------- */
   // for parallel, save result in short_paths_
-  t1 = node_->now();
+  t1 = rclcpp::Clock().now();
 
   shortcutPaths();
 
-  short_time = (node_->now() - t1).seconds();
+  short_time = (rclcpp::Clock().now() - t1).seconds();
 
   /* ---------- prune equivalent paths ---------- */
-  t1 = node_->now();
+  t1 = rclcpp::Clock().now();
 
   filtered_paths = pruneEquivalent(short_paths_);
 
-  prune_time = (node_->now() - t1).seconds();
+  prune_time = (rclcpp::Clock().now() - t1).seconds();
   // cout << "prune: " << (t2 - t1).seconds() << endl;
 
   /* ---------- select N shortest paths ---------- */
-  t1 = node_->now();
+  t1 = rclcpp::Clock().now();
 
   select_paths = selectShortPaths(filtered_paths, 1);
 
-  select_time = (node_->now() - t1).seconds();
+  select_time = (rclcpp::Clock().now() - t1).seconds();
 
   final_paths_ = select_paths;
 
@@ -114,15 +114,15 @@ void TopologyPRM::findTopoPaths(Eigen::Vector3d start, Eigen::Vector3d end,
             << ", select: " << select_time << std::endl;
 }
 
-list<GraphNode::SharedPtr> TopologyPRM::createGraph(Eigen::Vector3d start, Eigen::Vector3d end) {
+std::list<GraphNode::Ptr> TopologyPRM::createGraph(Eigen::Vector3d start, Eigen::Vector3d end) {
   // std::cout << "[Topo]: searching----------------------" << std::endl;
 
   /* init the start, end and sample region */
   graph_.clear();
   // collis_.clear();
 
-  GraphNode::SharedPtr start_node = GraphNode::SharedPtr(new GraphNode(start, GraphNode::Guard, 0));
-  GraphNode::SharedPtr end_node = GraphNode::SharedPtr(new GraphNode(end, GraphNode::Guard, 1));
+  GraphNode::Ptr start_node = GraphNode::Ptr(new GraphNode(start, GraphNode::Guard, 0));
+  GraphNode::Ptr end_node = GraphNode::Ptr(new GraphNode(end, GraphNode::Guard, 1));
 
   graph_.push_back(start_node);
   graph_.push_back(end_node);
@@ -152,7 +152,7 @@ list<GraphNode::SharedPtr> TopologyPRM::createGraph(Eigen::Vector3d start, Eigen
   Eigen::Vector3d pt;
   rclcpp::Time t1, t2;
   while (sample_time < max_sample_time_ && sample_num < max_sample_num_) {
-    t1 = node_->now();
+    t1 = rclcpp::Clock().now();
 
     pt = getSample();
     ++sample_num;
@@ -161,14 +161,14 @@ list<GraphNode::SharedPtr> TopologyPRM::createGraph(Eigen::Vector3d start, Eigen
     // edt_environment_->evaluateEDTWithGrad(pt, -1.0, dist, grad);
     dist = edt_environment_->evaluateCoarseEDT(pt, -1.0);
     if (dist <= clearance_) {
-      sample_time += (node_->now() - t1).seconds();
+      sample_time += (rclcpp::Clock().now() - t1).seconds();
       continue;
     }
 
     /* find visible guard */
-    vector<GraphNode::SharedPtr> visib_guards = findVisibGuard(pt);
+    std::vector<GraphNode::Ptr> visib_guards = findVisibGuard(pt);
     if (visib_guards.size() == 0) {
-      GraphNode::SharedPtr guard = GraphNode::SharedPtr(new GraphNode(pt, GraphNode::Guard, ++node_id));
+      GraphNode::Ptr guard = GraphNode::Ptr(new GraphNode(pt, GraphNode::Guard, ++node_id));
       graph_.push_back(guard);
     } else if (visib_guards.size() == 2) {
       /* try adding new connection between two guard */
@@ -176,11 +176,11 @@ list<GraphNode::SharedPtr> TopologyPRM::createGraph(Eigen::Vector3d start, Eigen
       // sortVisibGuard(visib_guards);
       bool need_connect = needConnection(visib_guards[0], visib_guards[1], pt);
       if (!need_connect) {
-        sample_time += (node_->now() - t1).seconds();
+        sample_time += (rclcpp::Clock().now() - t1).seconds();
         continue;
       }
       // new useful connection needed, add new connector
-      GraphNode::SharedPtr connector = GraphNode::SharedPtr(new GraphNode(pt, GraphNode::Connector, ++node_id));
+      GraphNode::Ptr connector = GraphNode::Ptr(new GraphNode(pt, GraphNode::Connector, ++node_id));
       graph_.push_back(connector);
 
       // connect guards
@@ -191,7 +191,7 @@ list<GraphNode::SharedPtr> TopologyPRM::createGraph(Eigen::Vector3d start, Eigen
       connector->neighbors_.push_back(visib_guards[1]);
     }
 
-    sample_time += (node_->now() - t1).seconds();
+    sample_time += (rclcpp::Clock().now() - t1).seconds();
   }
 
   /* print record */
@@ -204,14 +204,14 @@ list<GraphNode::SharedPtr> TopologyPRM::createGraph(Eigen::Vector3d start, Eigen
   // return searchPaths(start_node, end_node);
 }
 
-vector<GraphNode::SharedPtr> TopologyPRM::findVisibGuard(Eigen::Vector3d pt) {
-  vector<GraphNode::SharedPtr> visib_guards;
+std::vector<GraphNode::Ptr> TopologyPRM::findVisibGuard(Eigen::Vector3d pt) {
+  std::vector<GraphNode::Ptr> visib_guards;
   Eigen::Vector3d pc;
 
   int visib_num = 0;
 
   /* find visible GUARD from pt */
-  for (list<GraphNode::SharedPtr>::iterator iter = graph_.begin(); iter != graph_.end(); ++iter) {
+  for (std::list<GraphNode::Ptr>::iterator iter = graph_.begin(); iter != graph_.end(); ++iter) {
     if ((*iter)->type_ == GraphNode::Connector) continue;
 
     if (lineVisib(pt, (*iter)->pos_, resolution_, pc)) {
@@ -224,8 +224,8 @@ vector<GraphNode::SharedPtr> TopologyPRM::findVisibGuard(Eigen::Vector3d pt) {
   return visib_guards;
 }
 
-bool TopologyPRM::needConnection(GraphNode::SharedPtr g1, GraphNode::SharedPtr g2, Eigen::Vector3d pt) {
-  vector<Eigen::Vector3d> path1(3), path2(3);
+bool TopologyPRM::needConnection(GraphNode::Ptr g1, GraphNode::Ptr g2, Eigen::Vector3d pt) {
+  std::vector<Eigen::Vector3d> path1(3), path2(3);
   path1[0] = g1->pos_;
   path1[1] = pt;
   path1[2] = g2->pos_;
@@ -233,7 +233,7 @@ bool TopologyPRM::needConnection(GraphNode::SharedPtr g1, GraphNode::SharedPtr g
   path2[0] = g1->pos_;
   path2[2] = g2->pos_;
 
-  vector<Eigen::Vector3d> connect_pts;
+  std::vector<Eigen::Vector3d> connect_pts;
   bool has_connect = false;
   for (int i = 0; i < g1->neighbors_.size(); ++i) {
     for (int j = 0; j < g2->neighbors_.size(); ++j) {
@@ -289,7 +289,7 @@ bool TopologyPRM::lineVisib(const Eigen::Vector3d& p1, const Eigen::Vector3d& p2
 void TopologyPRM::pruneGraph() {
   /* prune useless node */
   if (graph_.size() > 2) {
-    for (list<GraphNode::SharedPtr>::iterator iter1 = graph_.begin();
+    for (std::list<GraphNode::Ptr>::iterator iter1 = graph_.begin();
          iter1 != graph_.end() && graph_.size() > 2; ++iter1) {
       if ((*iter1)->id_ <= 1) continue;
 
@@ -297,8 +297,8 @@ void TopologyPRM::pruneGraph() {
       // std::cout << "id: " << (*iter1)->id_ << std::endl;
       if ((*iter1)->neighbors_.size() <= 1) {
         // delete this node from others' neighbor
-        for (list<GraphNode::SharedPtr>::iterator iter2 = graph_.begin(); iter2 != graph_.end(); ++iter2) {
-          for (vector<GraphNode::SharedPtr>::iterator it_nb = (*iter2)->neighbors_.begin();
+        for (std::list<GraphNode::Ptr>::iterator iter2 = graph_.begin(); iter2 != graph_.end(); ++iter2) {
+          for (std::vector<GraphNode::Ptr>::iterator it_nb = (*iter2)->neighbors_.begin();
                it_nb != (*iter2)->neighbors_.end(); ++it_nb) {
             if ((*it_nb)->id_ == (*iter1)->id_) {
               (*iter2)->neighbors_.erase(it_nb);
@@ -315,13 +315,13 @@ void TopologyPRM::pruneGraph() {
   }
 }
 
-vector<vector<Eigen::Vector3d>> TopologyPRM::pruneEquivalent(vector<vector<Eigen::Vector3d>>& paths) {
-  vector<vector<Eigen::Vector3d>> pruned_paths;
+std::vector<std::vector<Eigen::Vector3d>> TopologyPRM::pruneEquivalent(std::vector<std::vector<Eigen::Vector3d>>& paths) {
+  std::vector<std::vector<Eigen::Vector3d>> pruned_paths;
   if (paths.size() < 1) return pruned_paths;
 
   /* ---------- prune topo equivalent path ---------- */
   // output: pruned_paths
-  vector<int> exist_paths_id;
+  std::vector<int> exist_paths_id;
   exist_paths_id.push_back(0);
 
   for (int i = 1; i < paths.size(); ++i) {
@@ -353,11 +353,11 @@ vector<vector<Eigen::Vector3d>> TopologyPRM::pruneEquivalent(vector<vector<Eigen
   return pruned_paths;
 }
 
-vector<vector<Eigen::Vector3d>> TopologyPRM::selectShortPaths(vector<vector<Eigen::Vector3d>>& paths,
+std::vector<std::vector<Eigen::Vector3d>> TopologyPRM::selectShortPaths(std::vector<std::vector<Eigen::Vector3d>>& paths,
                                                               int step) {
   /* ---------- only reserve top short path ---------- */
-  vector<vector<Eigen::Vector3d>> short_paths;
-  vector<Eigen::Vector3d> short_path;
+  std::vector<std::vector<Eigen::Vector3d>> short_paths;
+  std::vector<Eigen::Vector3d> short_path;
   double min_len;
 
   for (int i = 0; i < reserve_num_ && paths.size() > 0; ++i) {
@@ -393,8 +393,8 @@ vector<vector<Eigen::Vector3d>> TopologyPRM::selectShortPaths(vector<vector<Eige
   return short_paths;
 }
 
-bool TopologyPRM::sameTopoPath(const vector<Eigen::Vector3d>& path1,
-                               const vector<Eigen::Vector3d>& path2, double thresh) {
+bool TopologyPRM::sameTopoPath(const std::vector<Eigen::Vector3d>& path1,
+                               const std::vector<Eigen::Vector3d>& path2, double thresh) {
   // calc the length
   double len1 = pathLength(path1);
   double len2 = pathLength(path2);
@@ -405,8 +405,8 @@ bool TopologyPRM::sameTopoPath(const vector<Eigen::Vector3d>& path1,
 
   // std::cout << "pt num: " << pt_num << std::endl;
 
-  vector<Eigen::Vector3d> pts1 = discretizePath(path1, pt_num);
-  vector<Eigen::Vector3d> pts2 = discretizePath(path2, pt_num);
+  std::vector<Eigen::Vector3d> pts1 = discretizePath(path1, pt_num);
+  std::vector<Eigen::Vector3d> pts2 = discretizePath(path2, pt_num);
 
   Eigen::Vector3d pc;
   for (int i = 0; i < pt_num; ++i) {
@@ -418,7 +418,7 @@ bool TopologyPRM::sameTopoPath(const vector<Eigen::Vector3d>& path1,
   return true;
 }
 
-int TopologyPRM::shortestPath(vector<vector<Eigen::Vector3d>>& paths) {
+int TopologyPRM::shortestPath(std::vector<std::vector<Eigen::Vector3d>>& paths) {
   int short_id = -1;
   double min_len = 100000000;
   for (int i = 0; i < paths.size(); ++i) {
@@ -430,7 +430,7 @@ int TopologyPRM::shortestPath(vector<vector<Eigen::Vector3d>>& paths) {
   }
   return short_id;
 }
-double TopologyPRM::pathLength(const vector<Eigen::Vector3d>& path) {
+double TopologyPRM::pathLength(const std::vector<Eigen::Vector3d>& path) {
   double length = 0.0;
   if (path.size() < 2) return length;
 
@@ -440,8 +440,8 @@ double TopologyPRM::pathLength(const vector<Eigen::Vector3d>& path) {
   return length;
 }
 
-vector<Eigen::Vector3d> TopologyPRM::discretizePath(const vector<Eigen::Vector3d>& path, int pt_num) {
-  vector<double> len_list;
+std::vector<Eigen::Vector3d> TopologyPRM::discretizePath(const std::vector<Eigen::Vector3d>& path, int pt_num) {
+  std::vector<double> len_list;
   len_list.push_back(0.0);
 
   for (int i = 0; i < path.size() - 1; ++i) {
@@ -454,7 +454,7 @@ vector<Eigen::Vector3d> TopologyPRM::discretizePath(const vector<Eigen::Vector3d
   double dl = len_total / double(pt_num - 1);
   double cur_l;
 
-  vector<Eigen::Vector3d> dis_path;
+  std::vector<Eigen::Vector3d> dis_path;
   for (int i = 0; i < pt_num; ++i) {
     cur_l = double(i) * dl;
 
@@ -476,18 +476,18 @@ vector<Eigen::Vector3d> TopologyPRM::discretizePath(const vector<Eigen::Vector3d
   return dis_path;
 }
 
-vector<Eigen::Vector3d> TopologyPRM::pathToGuidePts(vector<Eigen::Vector3d>& path, int pt_num) {
+std::vector<Eigen::Vector3d> TopologyPRM::pathToGuidePts(std::vector<Eigen::Vector3d>& path, int pt_num) {
   return discretizePath(path, pt_num);
 }
 
-void TopologyPRM::shortcutPath(vector<Eigen::Vector3d> path, int path_id, int iter_num) {
-  vector<Eigen::Vector3d> short_path = path;
-  vector<Eigen::Vector3d> last_path;
+void TopologyPRM::shortcutPath(std::vector<Eigen::Vector3d> path, int path_id, int iter_num) {
+  std::vector<Eigen::Vector3d> short_path = path;
+  std::vector<Eigen::Vector3d> last_path;
 
   for (int k = 0; k < iter_num; ++k) {
     last_path = short_path;
 
-    vector<Eigen::Vector3d> dis_path = discretizePath(short_path);
+    std::vector<Eigen::Vector3d> dis_path = discretizePath(short_path);
 
     if (dis_path.size() < 2) {
       short_paths_[path_id] = dis_path;
@@ -532,9 +532,9 @@ void TopologyPRM::shortcutPaths() {
   short_paths_.resize(raw_paths_.size());
 
   if (parallel_shortcut_) {
-    vector<thread> short_threads;
+    std::vector<std::thread> short_threads;
     for (int i = 0; i < raw_paths_.size(); ++i) {
-      short_threads.push_back(thread(&TopologyPRM::shortcutPath, this, raw_paths_[i], i, 1));
+      short_threads.push_back(std::thread(&TopologyPRM::shortcutPath, this, raw_paths_[i], i, 1));
     }
     for (int i = 0; i < raw_paths_.size(); ++i) {
       short_threads[i].join();
@@ -544,12 +544,12 @@ void TopologyPRM::shortcutPaths() {
   }
 }
 
-vector<Eigen::Vector3d> TopologyPRM::discretizeLine(Eigen::Vector3d p1, Eigen::Vector3d p2) {
+std::vector<Eigen::Vector3d> TopologyPRM::discretizeLine(Eigen::Vector3d p1, Eigen::Vector3d p2) {
   Eigen::Vector3d dir = p2 - p1;
   double len = dir.norm();
   int seg_num = ceil(len / resolution_);
 
-  vector<Eigen::Vector3d> line_pts;
+  std::vector<Eigen::Vector3d> line_pts;
   if (seg_num <= 0) {
     return line_pts;
   }
@@ -559,11 +559,11 @@ vector<Eigen::Vector3d> TopologyPRM::discretizeLine(Eigen::Vector3d p1, Eigen::V
   return line_pts;
 }
 
-vector<Eigen::Vector3d> TopologyPRM::discretizePath(vector<Eigen::Vector3d> path) {
+std::vector<Eigen::Vector3d> TopologyPRM::discretizePath(std::vector<Eigen::Vector3d> path) {
   vector<Eigen::Vector3d> dis_path, segment;
 
   if (path.size() < 2) {
-    RCLCPP_ERROR(node_->get_logger(), this->get_logger(), "what path? ");
+    std::cout << "[Topo]: what path? " << std::endl;
     return dis_path;
   }
 
@@ -578,9 +578,9 @@ vector<Eigen::Vector3d> TopologyPRM::discretizePath(vector<Eigen::Vector3d> path
   return dis_path;
 }
 
-vector<vector<Eigen::Vector3d>> TopologyPRM::discretizePaths(vector<vector<Eigen::Vector3d>>& path) {
-  vector<vector<Eigen::Vector3d>> dis_paths;
-  vector<Eigen::Vector3d> dis_path;
+std::vector<std::vector<Eigen::Vector3d>> TopologyPRM::discretizePaths(std::vector<std::vector<Eigen::Vector3d>>& path) {
+  std::vector<std::vector<Eigen::Vector3d>> dis_paths;
+  std::vector<Eigen::Vector3d> dis_path;
 
   for (int i = 0; i < path.size(); ++i) {
     dis_path = discretizePath(path[i]);
@@ -591,7 +591,7 @@ vector<vector<Eigen::Vector3d>> TopologyPRM::discretizePaths(vector<vector<Eigen
   return dis_paths;
 }
 
-Eigen::Vector3d TopologyPRM::getOrthoPoint(const vector<Eigen::Vector3d>& path) {
+Eigen::Vector3d TopologyPRM::getOrthoPoint(const std::vector<Eigen::Vector3d>& path) {
   Eigen::Vector3d x1 = path.front();
   Eigen::Vector3d x2 = path.back();
 
@@ -619,7 +619,7 @@ Eigen::Vector3d TopologyPRM::getOrthoPoint(const vector<Eigen::Vector3d>& path) 
 vector<vector<Eigen::Vector3d>> TopologyPRM::searchPaths() {
   raw_paths_.clear();
 
-  vector<GraphNode::SharedPtr> visited;
+  vector<GraphNode::Ptr> visited;
   visited.push_back(graph_.front());
 
   depthFirstSearch(visited);
@@ -653,8 +653,8 @@ vector<vector<Eigen::Vector3d>> TopologyPRM::searchPaths() {
   return raw_paths_;
 }
 
-void TopologyPRM::depthFirstSearch(vector<GraphNode::SharedPtr>& vis) {
-  GraphNode::SharedPtr cur = vis.back();
+void TopologyPRM::depthFirstSearch(vector<GraphNode::Ptr>& vis) {
+  GraphNode::Ptr cur = vis.back();
 
   for (int i = 0; i < cur->neighbors_.size(); ++i) {
     // check reach goal
@@ -696,11 +696,11 @@ void TopologyPRM::depthFirstSearch(vector<GraphNode::SharedPtr>& vis) {
   }
 }
 
-void TopologyPRM::setEnvironment(const EDTEnvironment::SharedPtr& env) { this->edt_environment_ = env; }
+void TopologyPRM::setEnvironment(const EDTEnvironment::Ptr& env) { this->edt_environment_ = env; }
 
 bool TopologyPRM::triangleVisib(Eigen::Vector3d pt, Eigen::Vector3d p1, Eigen::Vector3d p2) {
   // get the traversing points along p1-p2
-  vector<Eigen::Vector3d> pts;
+  std::vector<Eigen::Vector3d> pts;
 
   Eigen::Vector3d dir = p2 - p1;
   double length = dir.norm();

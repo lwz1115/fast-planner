@@ -57,8 +57,8 @@ public:
     odom_sub_ = this->create_subscription<nav_msgs::msg::Odometry>(
       "odometry", 50, std::bind(&PointCloudRenderNode::rcvOdometryCallbck, this, std::placeholders::_1));
     
-    // Publisher
-    pub_cloud_ = this->create_publisher<sensor_msgs::msg::PointCloud2>("/pcl_render_node/cloud", 10);
+    // Publisher - 使用相对topic名，支持remapping
+    pub_cloud_ = this->create_publisher<sensor_msgs::msg::PointCloud2>("rendered_pcl", 10);
     
     // Timer
     double sensing_duration = 1.0 / sensing_rate_ * 2.5;
@@ -190,13 +190,13 @@ private:
     local_map_.is_dense = true;
     
     pcl::toROSMsg(local_map_, local_map_pcd_);
-    local_map_pcd_.header.frame_id = "map";
+    local_map_pcd_.header.frame_id = "world";
     local_map_pcd_.header.stamp = this->now();
     
     pub_cloud_->publish(local_map_pcd_);
   }
   
-  void rcvLocalPointCloudCallBack(const sensor_msgs::msg::PointCloud2::SharedPtr pointcloud_map) {
+  void rcvLocalPointCloudCallBack(const sensor_msgs::msg::PointCloud2::SharedPtr /*pointcloud_map*/) {
     // do nothing, fix later
   }
 };
@@ -208,4 +208,3 @@ int main(int argc, char** argv) {
   rclcpp::shutdown();
   return 0;
 }
-

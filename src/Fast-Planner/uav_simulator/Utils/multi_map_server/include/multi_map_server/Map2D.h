@@ -3,7 +3,8 @@
 
 #include <iostream>
 #include <rclcpp/rclcpp.hpp>
-#include <tf2/tf.h>
+#include <tf2/utils.h>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
 #include <nav_msgs/msg/occupancy_grid.hpp>
 
 using namespace std;
@@ -17,12 +18,16 @@ private:
   int  binning;  
   bool isBinningSet;
   bool updated;
+  rclcpp::Node::SharedPtr node_;
 
 public:
   Map2D() 
   {
     map.data.resize(0); 
-    map.info.origin.orientation = tf::createQuaternionMsgFromYaw(0.0);  
+    // ROS2中使用tf2创建四元数
+    tf2::Quaternion q;
+    q.setRPY(0, 0, 0.0);
+    map.info.origin.orientation = tf2::toMsg(q);
     expandStep   = 200; 
     binning      = 1; 
     isBinningSet = false; 
@@ -32,7 +37,23 @@ public:
   Map2D(int _binning)
   {
     map.data.resize(0); 
-    map.info.origin.orientation = tf::createQuaternionMsgFromYaw(0.0);  
+    // ROS2中使用tf2创建四元数
+    tf2::Quaternion q;
+    q.setRPY(0, 0, 0.0);
+    map.info.origin.orientation = tf2::toMsg(q);
+    expandStep   = 200; 
+    binning      = _binning; 
+    isBinningSet = true; 
+    updated      = false; 
+  }
+
+  Map2D(int _binning, rclcpp::Node::SharedPtr node) : node_(node)
+  {
+    map.data.resize(0); 
+    // ROS2中使用tf2创建四元数
+    tf2::Quaternion q;
+    q.setRPY(0, 0, 0.0);
+    map.info.origin.orientation = tf2::toMsg(q);
     expandStep   = 200; 
     binning      = _binning; 
     isBinningSet = true; 
@@ -144,7 +165,10 @@ public:
     // Get Info
     double ox   = m.info.origin.position.x;
     double oy   = m.info.origin.position.y;
-    double oyaw = tf::getYaw(m.info.origin.orientation);
+    // ROS2中使用tf2获取yaw角
+    tf2::Quaternion q;
+    tf2::fromMsg(m.info.origin.orientation, q);
+    double oyaw = tf2::getYaw(q);
     double syaw = sin(oyaw);
     double cyaw = cos(oyaw);
     int mx      = m.info.width;
@@ -231,8 +255,13 @@ public:
 
   const nav_msgs::msg::OccupancyGrid& GetMap()
   {
-    map.header.stamp       = node_->now();
-    map.info.map_load_time = node_->now();
+    if (node_) {
+      map.header.stamp       = node_->now();
+      map.info.map_load_time = node_->now();
+    } else {
+      map.header.stamp       = rclcpp::Clock().now();
+      map.info.map_load_time = rclcpp::Clock().now();
+    }
     map.header.frame_id    = string("/map");
     updated = false;
     return map;
@@ -240,3 +269,4 @@ public:
 };
 
 #endif
+

@@ -1,0 +1,3 @@
+[console_scripts]
+fastapi-planner = fastapi_planner.main:main
+

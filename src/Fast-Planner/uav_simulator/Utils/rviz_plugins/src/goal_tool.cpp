@@ -27,55 +27,70 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <tf2/transform_listener.h>
-
+#include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
 #include <geometry_msgs/msg/pose_stamped.hpp>
-
-#include "rviz/display_context.h"
-#include "rviz/properties/string_property.h"
+#include <rviz_common/display_context.hpp>
+#include <rviz_common/properties/string_property.hpp>
 
 #include "goal_tool.h"
 
-namespace rviz
+namespace rviz_plugins
 {
 
 Goal3DTool::Goal3DTool()
 {
   shortcut_key_ = 'g';
 
-  topic_property_ = new StringProperty( "Topic", "goal",
-                                        "The topic on which to publish navigation goals.",
-                                        getPropertyContainer(), SLOT( updateTopic() ), this );
+  topic_property_ = new rviz_common::properties::StringProperty( 
+    "Topic", "goal",
+    "The topic on which to publish navigation goals.",
+    getPropertyContainer());
+  
+  connect(topic_property_, &rviz_common::properties::StringProperty::changed,
+          this, &Goal3DTool::updateTopic);
 }
 
 void Goal3DTool::onInitialize()
 {
   Pose3DTool::onInitialize();
   setName( "3D Nav Goal" );
+  auto node_abstraction = context_->getRosNodeAbstraction().lock();
+  node_ = node_abstraction->get_raw_node();
   updateTopic();
 }
 
 void Goal3DTool::updateTopic()
 {
-  pub_ = /* TODO: 转换发布 */ nh_->create_publisher<geometry_msgs::msg::PoseStamped>( topic_property_->getStdString(), 1 );
+  pub_ = node_->create_publisher<geometry_msgs::msg::PoseStamped>( 
+    topic_property_->getStdString(), 1 );
 }
 
 void Goal3DTool::onPoseSet(double x, double y, double z, double theta)
 {
-  RCLCPP_WARN(node_->get_logger(), this->get_logger(), "3D Goal Set");
+  RCLCPP_WARN(node_->get_logger(), "3D Goal Set");
   std::string fixed_frame = context_->getFixedFrame().toStdString();
-  tf::Quaternion quat;
-  quat.setRPY(0.0, 0.0, theta);
-  tf::Stamped<tf::Pose> p = tf::Stamped<tf::Pose>(tf::Pose(quat, tf::Point(x, y, z)), node_->now(), fixed_frame);
+  
   geometry_msgs::msg::PoseStamped goal;
-  tf::poseStampedTFToMsg(p, goal);
-  RCLCPP_INFO(node_->get_logger(), this->get_logger(), "Setting goal: Frame:%s, Position(%.3f, %.3f, %.3f), Orientation(%.3f, %.3f, %.3f, %.3f) = Angle: %.3f\n", fixed_frame.c_str(),
-      goal.pose.position.x, goal.pose.position.y, goal.pose.position.z,
-      goal.pose.orientation.x, goal.pose.orientation.y, goal.pose.orientation.z, goal.pose.orientation.w, theta);
-  pub_.publish(goal);
+  goal.header.frame_id = fixed_frame;
+  goal.header.stamp = node_->now();
+  goal.pose.position.x = x;
+  goal.pose.position.y = y;
+  goal.pose.position.z = z;
+  
+  tf2::Quaternion quat;
+  quat.setRPY(0.0, 0.0, theta);
+  goal.pose.orientation = tf2::toMsg(quat);
+  
+  RCLCPP_INFO(node_->get_logger(), 
+    "Setting goal: Frame:%s, Position(%.3f, %.3f, %.3f), Orientation(%.3f, %.3f, %.3f, %.3f) = Angle: %.3f", 
+    fixed_frame.c_str(),
+    goal.pose.position.x, goal.pose.position.y, goal.pose.position.z,
+    goal.pose.orientation.x, goal.pose.orientation.y, goal.pose.orientation.z, goal.pose.orientation.w, theta);
+  
+  pub_->publish(goal);
 }
 
-} // end namespace rviz
+} // end namespace rviz_plugins
 
-#include <pluginlib/class_list_macros.h>
-PLUGINLIB_EXPORT_CLASS( rviz::Goal3DTool, rviz::Tool )
+#include <pluginlib/class_list_macros.hpp>
+PLUGINLIB_EXPORT_CLASS( rviz_plugins::Goal3DTool, rviz_common::Tool )

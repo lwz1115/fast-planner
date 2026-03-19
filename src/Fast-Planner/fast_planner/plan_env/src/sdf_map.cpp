@@ -24,12 +24,13 @@
 
 
 #include "plan_env/sdf_map.h"
+#include <sensor_msgs/image_encodings.hpp>
 
 // #define current_img_ md_.depth_image_[image_cnt_ & 1]
 // #define last_img_ md_.depth_image_[!(image_cnt_ & 1)]
 
 void SDFMap::initMap(rclcpp::Node& nh) {
-  node_ = nh;
+  node_ = &nh;
 
   /* get parameter */
   double x_size, y_size, z_size;
@@ -128,42 +129,42 @@ void SDFMap::initMap(rclcpp::Node& nh) {
 
   /* init callback */
 
-  depth_sub_.reset(new message_filters::Subscriber<sensor_msgs::msg::Image>(node_, "/sdf_map/depth", 50));
+  depth_sub_.reset(new message_filters::Subscriber<sensor_msgs::msg::Image>(node_, "/sdf_map/depth"));
 
   if (mp_.pose_type_ == POSE_STAMPED) {
     pose_sub_.reset(
-        new message_filters::Subscriber<geometry_msgs::msg::PoseStamped>(node_, "/sdf_map/pose", 25));
+        new message_filters::Subscriber<geometry_msgs::msg::PoseStamped>(node_, "/sdf_map/pose"));
 
     sync_image_pose_.reset(new message_filters::Synchronizer<SyncPolicyImagePose>(
         SyncPolicyImagePose(100), *depth_sub_, *pose_sub_));
-    sync_image_pose_->registerCallback(boost::bind(&SDFMap::depthPoseCallback, this, _1, _2));
+    sync_image_pose_->registerCallback(std::bind(&SDFMap::depthPoseCallback, this, std::placeholders::_1, std::placeholders::_2));
 
   } else if (mp_.pose_type_ == ODOMETRY) {
-    odom_sub_.reset(new message_filters::Subscriber<nav_msgs::msg::Odometry>(node_, "/sdf_map/odom", 100));
+    odom_sub_.reset(new message_filters::Subscriber<nav_msgs::msg::Odometry>(node_, "/visual_slam/odom"));
 
     sync_image_odom_.reset(new message_filters::Synchronizer<SyncPolicyImageOdom>(
         SyncPolicyImageOdom(100), *depth_sub_, *odom_sub_));
-    sync_image_odom_->registerCallback(boost::bind(&SDFMap::depthOdomCallback, this, _1, _2));
+    sync_image_odom_->registerCallback(std::bind(&SDFMap::depthOdomCallback, this, std::placeholders::_1, std::placeholders::_2));
   }
 
   // use odometry and point cloud
 
-  indep_cloud_sub_ =
-      /* TODO: 转换订阅 */ node_->create_subscription<sensor_msgs::msg::PointCloud2>("/sdf_map/cloud", 10, &SDFMap::cloudCallback, this);
-  indep_odom_sub_ =
-      /* TODO: 转换订阅 */ node_->create_subscription<nav_msgs::msg::Odometry>("/sdf_map/odom", 10, &SDFMap::odomCallback, this);
+  indep_cloud_sub_ = node_->create_subscription<sensor_msgs::msg::PointCloud2>(
+      "/sdf_map/cloud", 10, std::bind(&SDFMap::cloudCallback, this, std::placeholders::_1));
+  indep_odom_sub_ = node_->create_subscription<nav_msgs::msg::Odometry>(
+      "/visual_slam/odom", 10, std::bind(&SDFMap::odomCallback, this, std::placeholders::_1));
 
-  occ_timer_ = node_->create_wall_timer(std::chrono::duration<double>(0.05), &SDFMap::updateOccupancyCallback, this);
-  esdf_timer_ = node_->create_wall_timer(std::chrono::duration<double>(0.05), &SDFMap::updateESDFCallback, this);
-  vis_timer_ = node_->create_wall_timer(std::chrono::duration<double>(0.05), &SDFMap::visCallback, this);
+  occ_timer_ = node_->create_wall_timer(std::chrono::milliseconds(50), std::bind(&SDFMap::updateOccupancyCallback, this));
+  esdf_timer_ = node_->create_wall_timer(std::chrono::milliseconds(50), std::bind(&SDFMap::updateESDFCallback, this));
+  vis_timer_ = node_->create_wall_timer(std::chrono::milliseconds(50), std::bind(&SDFMap::visCallback, this));
 
-  map_pub_ = /* TODO: 转换发布 */ node_->create_publisher<sensor_msgs::msg::PointCloud2>("/sdf_map/occupancy", 10);
-  map_inf_pub_ = /* TODO: 转换发布 */ node_->create_publisher<sensor_msgs::msg::PointCloud2>("/sdf_map/occupancy_inflate", 10);
-  esdf_pub_ = /* TODO: 转换发布 */ node_->create_publisher<sensor_msgs::msg::PointCloud2>("/sdf_map/esdf", 10);
-  update_range_pub_ = /* TODO: 转换发布 */ node_->create_publisher<visualization_msgs::msg::Marker>("/sdf_map/update_range", 10);
+  map_pub_ = node_->create_publisher<sensor_msgs::msg::PointCloud2>("/sdf_map/occupancy", 10);
+  map_inf_pub_ = node_->create_publisher<sensor_msgs::msg::PointCloud2>("/sdf_map/occupancy_inflate", 10);
+  esdf_pub_ = node_->create_publisher<sensor_msgs::msg::PointCloud2>("/sdf_map/esdf", 10);
+  update_range_pub_ = node_->create_publisher<visualization_msgs::msg::Marker>("/sdf_map/update_range", 10);
 
-  unknown_pub_ = /* TODO: 转换发布 */ node_->create_publisher<sensor_msgs::msg::PointCloud2>("/sdf_map/unknown", 10);
-  depth_pub_ = /* TODO: 转换发布 */ node_->create_publisher<sensor_msgs::msg::PointCloud2>("/sdf_map/depth_cloud", 10);
+  unknown_pub_ = node_->create_publisher<sensor_msgs::msg::PointCloud2>("/sdf_map/unknown", 10);
+  depth_pub_ = node_->create_publisher<sensor_msgs::msg::PointCloud2>("/sdf_map/depth_cloud", 10);
 
   md_.occ_need_update_ = false;
   md_.local_updated_ = false;
@@ -299,7 +300,7 @@ void SDFMap::updateESDF3d() {
         } else if (md_.occupancy_buffer_inflate_[idx] == 1) {
           md_.occupancy_buffer_neg[idx] = 0;
         } else {
-          RCLCPP_ERROR(node_->get_logger(), this->get_logger(), "what?");
+          RCLCPP_ERROR(node_->get_logger(), "what?");
         }
       }
 
@@ -762,7 +763,7 @@ void SDFMap::clearAndInflateLocalMap() {
   }
 }
 
-void SDFMap::visCallback(const rclcpp::TimerEvent& /*event*/) {
+void SDFMap::visCallback() {
   publishMap();
   publishMapInflate(false);
   // publishUpdateRange();
@@ -772,7 +773,7 @@ void SDFMap::visCallback(const rclcpp::TimerEvent& /*event*/) {
   // publishDepth();
 }
 
-void SDFMap::updateOccupancyCallback(const rclcpp::TimerEvent& /*event*/) {
+void SDFMap::updateOccupancyCallback() {
   if (!md_.occ_need_update_) return;
 
   /* update occupancy */
@@ -790,7 +791,7 @@ void SDFMap::updateOccupancyCallback(const rclcpp::TimerEvent& /*event*/) {
   md_.max_fuse_time_ = max(md_.max_fuse_time_, (t2 - t1).seconds());
 
   if (mp_.show_occ_time_)
-    RCLCPP_WARN(node_->get_logger(), this->get_logger(), "Fusion: cur t = %lf, avg t = %lf, max t = %lf", (t2 - t1).seconds(),
+    RCLCPP_WARN(node_->get_logger(), "Fusion: cur t = %lf, avg t = %lf, max t = %lf", (t2 - t1).seconds(),
              md_.fuse_time_ / md_.update_num_, md_.max_fuse_time_);
 
   md_.occ_need_update_ = false;
@@ -798,7 +799,7 @@ void SDFMap::updateOccupancyCallback(const rclcpp::TimerEvent& /*event*/) {
   md_.local_updated_ = false;
 }
 
-void SDFMap::updateESDFCallback(const rclcpp::TimerEvent& /*event*/) {
+void SDFMap::updateESDFCallback() {
   if (!md_.esdf_need_update_) return;
 
   /* esdf */
@@ -813,19 +814,19 @@ void SDFMap::updateESDFCallback(const rclcpp::TimerEvent& /*event*/) {
   md_.max_esdf_time_ = max(md_.max_esdf_time_, (t2 - t1).seconds());
 
   if (mp_.show_esdf_time_)
-    RCLCPP_WARN(node_->get_logger(), this->get_logger(), "ESDF: cur t = %lf, avg t = %lf, max t = %lf", (t2 - t1).seconds(),
+    RCLCPP_WARN(node_->get_logger(), "ESDF: cur t = %lf, avg t = %lf, max t = %lf", (t2 - t1).seconds(),
              md_.esdf_time_ / md_.update_num_, md_.max_esdf_time_);
 
   md_.esdf_need_update_ = false;
 }
 
-void SDFMap::depthPoseCallback(const sensor_msgs::msg::ImageSharedPtr& img,
-                               const geometry_msgs::msg::PoseStampedSharedPtr& pose) {
+void SDFMap::depthPoseCallback(const sensor_msgs::msg::Image::ConstSharedPtr& img,
+                               const geometry_msgs::msg::PoseStamped::ConstSharedPtr& pose) {
   /* get depth image */
   cv_bridge::CvImagePtr cv_ptr;
   cv_ptr = cv_bridge::toCvCopy(img, img->encoding);
 
-  if (img->encoding == sensor_msgs::msg::image_encodings::TYPE_32FC1) {
+  if (img->encoding == sensor_msgs::image_encodings::TYPE_32FC1) {
     (cv_ptr->image).convertTo(cv_ptr->image, CV_16UC1, mp_.k_depth_scaling_factor_);
   }
   cv_ptr->image.copyTo(md_.depth_image_);
@@ -847,7 +848,7 @@ void SDFMap::depthPoseCallback(const sensor_msgs::msg::ImageSharedPtr& img,
   }
 }
 
-void SDFMap::odomCallback(const nav_msgs::msg::OdometrySharedPtr& odom) {
+void SDFMap::odomCallback(const nav_msgs::msg::Odometry::ConstSharedPtr& odom) {
   if (md_.has_first_depth_) return;
 
   md_.camera_pos_(0) = odom->pose.pose.position.x;
@@ -857,7 +858,7 @@ void SDFMap::odomCallback(const nav_msgs::msg::OdometrySharedPtr& odom) {
   md_.has_odom_ = true;
 }
 
-void SDFMap::cloudCallback(const sensor_msgs::msg::PointCloud2SharedPtr& img) {
+void SDFMap::cloudCallback(const sensor_msgs::msg::PointCloud2::ConstSharedPtr& img) {
 
   pcl::PointCloud<pcl::PointXYZ> latest_cloud;
   pcl::fromROSMsg(*img, latest_cloud);
@@ -985,7 +986,7 @@ void SDFMap::publishMap() {
 
   // sensor_msgs::msg::PointCloud2 cloud_msg;
   // pcl::toROSMsg(cloud, cloud_msg);
-  // map_pub_.publish(cloud_msg);
+  // map_pub_->publish(cloud_msg);
 
   // RCLCPP_INFO(node_->get_logger(), this->get_logger(), "pub map");
 
@@ -1024,7 +1025,7 @@ void SDFMap::publishMap() {
   sensor_msgs::msg::PointCloud2 cloud_msg;
 
   pcl::toROSMsg(cloud, cloud_msg);
-  map_pub_.publish(cloud_msg);
+  map_pub_->publish(cloud_msg);
 }
 
 void SDFMap::publishMapInflate(bool all_info) {
@@ -1065,7 +1066,7 @@ void SDFMap::publishMapInflate(bool all_info) {
   sensor_msgs::msg::PointCloud2 cloud_msg;
 
   pcl::toROSMsg(cloud, cloud_msg);
-  map_inf_pub_.publish(cloud_msg);
+  map_inf_pub_->publish(cloud_msg);
 
   // RCLCPP_INFO(node_->get_logger(), this->get_logger(), "pub map");
 }
@@ -1107,7 +1108,7 @@ void SDFMap::publishUnknown() {
 
   sensor_msgs::msg::PointCloud2 cloud_msg;
   pcl::toROSMsg(cloud, cloud_msg);
-  unknown_pub_.publish(cloud_msg);
+  unknown_pub_->publish(cloud_msg);
 }
 
 void SDFMap::publishDepth() {
@@ -1128,7 +1129,7 @@ void SDFMap::publishDepth() {
 
   sensor_msgs::msg::PointCloud2 cloud_msg;
   pcl::toROSMsg(cloud, cloud_msg);
-  depth_pub_.publish(cloud_msg);
+  depth_pub_->publish(cloud_msg);
 }
 
 void SDFMap::publishUpdateRange() {
@@ -1163,7 +1164,7 @@ void SDFMap::publishUpdateRange() {
   mk.pose.orientation.y = 0.0;
   mk.pose.orientation.z = 0.0;
 
-  update_range_pub_.publish(mk);
+  update_range_pub_->publish(mk);
 }
 
 void SDFMap::publishESDF() {
@@ -1206,7 +1207,7 @@ void SDFMap::publishESDF() {
   sensor_msgs::msg::PointCloud2 cloud_msg;
   pcl::toROSMsg(cloud, cloud_msg);
 
-  esdf_pub_.publish(cloud_msg);
+  esdf_pub_->publish(cloud_msg);
 
   // RCLCPP_INFO(node_->get_logger(), this->get_logger(), "pub esdf");
 }
@@ -1282,8 +1283,8 @@ void SDFMap::getSurroundPts(const Eigen::Vector3d& pos, Eigen::Vector3d pts[2][2
   }
 }
 
-void SDFMap::depthOdomCallback(const sensor_msgs::msg::ImageSharedPtr& img,
-                               const nav_msgs::msg::OdometrySharedPtr& odom) {
+void SDFMap::depthOdomCallback(const sensor_msgs::msg::Image::ConstSharedPtr& img,
+                               const nav_msgs::msg::Odometry::ConstSharedPtr& odom) {
   /* get pose */
   md_.camera_pos_(0) = odom->pose.pose.position.x;
   md_.camera_pos_(1) = odom->pose.pose.position.y;
@@ -1294,7 +1295,7 @@ void SDFMap::depthOdomCallback(const sensor_msgs::msg::ImageSharedPtr& img,
   /* get depth image */
   cv_bridge::CvImagePtr cv_ptr;
   cv_ptr = cv_bridge::toCvCopy(img, img->encoding);
-  if (img->encoding == sensor_msgs::msg::image_encodings::TYPE_32FC1) {
+  if (img->encoding == sensor_msgs::image_encodings::TYPE_32FC1) {
     (cv_ptr->image).convertTo(cv_ptr->image, CV_16UC1, mp_.k_depth_scaling_factor_);
   }
   cv_ptr->image.copyTo(md_.depth_image_);
@@ -1302,12 +1303,12 @@ void SDFMap::depthOdomCallback(const sensor_msgs::msg::ImageSharedPtr& img,
   md_.occ_need_update_ = true;
 }
 
-void SDFMap::depthCallback(const sensor_msgs::msg::ImageSharedPtr& img) {
-  std::cout << "depth: " << img->header.stamp << std::endl;
+void SDFMap::depthCallback(const sensor_msgs::msg::Image::ConstSharedPtr& img) {
+  // std::cout << "depth: " << img->header.stamp << std::endl;
 }
 
-void SDFMap::poseCallback(const geometry_msgs::msg::PoseStampedSharedPtr& pose) {
-  std::cout << "pose: " << pose->header.stamp << std::endl;
+void SDFMap::poseCallback(const geometry_msgs::msg::PoseStamped::ConstSharedPtr& pose) {
+  // std::cout << "pose: " << pose->header.stamp << std::endl;
 
   md_.camera_pos_(0) = pose->pose.position.x;
   md_.camera_pos_(1) = pose->pose.position.y;
@@ -1315,3 +1316,5 @@ void SDFMap::poseCallback(const geometry_msgs::msg::PoseStampedSharedPtr& pose) 
 }
 
 // SDFMap
+
+

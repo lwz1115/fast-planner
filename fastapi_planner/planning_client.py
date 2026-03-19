@@ -73,7 +73,7 @@ class PlanningClient:
         self._success_count = 0
         
         # Register trajectory callback with ROS Bridge
-        self.ros_bridge.register_trajectory_callback(self._on_trajectory_received)
+        self.ros_bridge.set_trajectory_callback(self._on_trajectory_received)
         
         logger.info("PlanningClient initialized")
 
@@ -142,7 +142,7 @@ class PlanningClient:
             # Determine start position (use current odometry if requested)
             start_position = request.start
             if request.use_current_odom:
-                odometry = self.ros_bridge.get_latest_odometry()
+                odometry = self.ros_bridge.get_odometry()
                 if odometry is None:
                     logger.error("Cannot use current odometry: data unavailable")
                     raise OdometryUnavailableException(
@@ -432,3 +432,4 @@ class PlanningClient:
                 "last_success_timestamp": self._last_planning_success
             }
         )
+

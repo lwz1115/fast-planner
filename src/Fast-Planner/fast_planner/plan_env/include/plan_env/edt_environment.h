@@ -59,10 +59,10 @@ public:
   ~EDTEnvironment() {
   }
 
-  SDFMap::SharedPtr sdf_map_;
+  SDFMap::Ptr sdf_map_;
 
   void init();
-  void setMap(SDFMap::SharedPtr map);
+  void setMap(SDFMap::Ptr map);
   void setObjPrediction(ObjPrediction prediction);
   void setObjScale(ObjScale scale);
   void getSurroundDistance(Eigen::Vector3d pts[2][2][2], double dists[2][2][2]);
@@ -75,9 +75,11 @@ public:
     sdf_map_->getRegion(ori, size);
   }
 
-  typedef shared_ptr<EDTEnvironment> Ptr;
+  typedef std::shared_ptr<EDTEnvironment> Ptr;
+  typedef std::shared_ptr<EDTEnvironment> SharedPtr;
 };
 
 }  // namespace fast_planner
 
 #endif
+

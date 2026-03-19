@@ -41,33 +41,12 @@
 #include <plan_env/obj_predictor.h>
 #include <plan_env/sdf_map.h>
 #include <plan_manage/msg/bspline.hpp>
-#include <plan_manage/msg/planner_manager.hpp>
+#include <plan_manage/planner_manager.h>
 #include <traj_utils/planning_visualization.h>
 
 using std::vector;
 
 namespace fast_planner {
-
-class Test {
-private:
-  /* data */
-  int test_;
-  std::vector<int> test_vec_;
-  rclcpp::Node nh_;
-
-public:
-  Test(const int& v) {
-    test_ = v;
-  }
-  Test(rclcpp::Node& node) {
-    nh_ = node;
-  }
-  ~Test() {
-  }
-  void print() {
-    std::cout << "test: " << test_ << std::endl;
-  }
-};
 
 class KinoReplanFSM {
 
@@ -98,10 +77,12 @@ private:
   int current_wp_;
 
   /* ROS utils */
-  rclcpp::Node node_;
-  rclcpp::Timer exec_timer_, safety_timer_, vis_timer_, test_something_timer_;
-  rclcpp::Subscription waypoint_sub_, odom_sub_;
-  rclcpp::Publisher replan_pub_, new_pub_, bspline_pub_;
+  rclcpp::Node::SharedPtr node_;
+  rclcpp::TimerBase::SharedPtr exec_timer_, safety_timer_, vis_timer_, test_something_timer_;
+  rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr waypoint_sub_;
+  rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr odom_sub_;
+  rclcpp::Publisher<std_msgs::msg::Empty>::SharedPtr replan_pub_, new_pub_;
+  rclcpp::Publisher<plan_manage::msg::Bspline>::SharedPtr bspline_pub_;
 
   /* helper functions */
   bool callKinodynamicReplan();        // front-end and back-end method
@@ -111,10 +92,10 @@ private:
   void printFSMExecState();
 
   /* ROS functions */
-  void execFSMCallback(const rclcpp::TimerEvent& e);
-  void checkCollisionCallback(const rclcpp::TimerEvent& e);
-  void waypointCallback(const nav_msgs::msg::PathSharedPtr& msg);
-  void odometryCallback(const nav_msgs::msg::OdometrySharedPtr& msg);
+  void execFSMCallback();
+  void checkCollisionCallback();
+  void waypointCallback(const geometry_msgs::msg::PoseStamped::SharedPtr msg);
+  void odometryCallback(const nav_msgs::msg::Odometry::SharedPtr msg);
 
 public:
   KinoReplanFSM(/* args */) {
@@ -122,7 +103,7 @@ public:
   ~KinoReplanFSM() {
   }
 
-  void init(rclcpp::Node& nh);
+  void init(rclcpp::Node::SharedPtr nh);
 
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 };

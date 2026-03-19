@@ -27,8 +27,9 @@ public:
         is_odom_ready_ = false;
         trigged_time_ = rclcpp::Time(0);
         
-        // Publishers
-        pub_waypoints_ = this->create_publisher<nav_msgs::msg::Path>("waypoints", 50);
+        // Publishers - 使用 TRANSIENT_LOCAL 确保晚订阅的节点也能收到最后一条 waypoint
+        auto waypoint_qos = rclcpp::QoS(rclcpp::KeepLast(10)).transient_local().reliable();
+        pub_waypoints_ = this->create_publisher<geometry_msgs::msg::PoseStamped>("/waypoint_generator/waypoints", waypoint_qos);
         pub_waypoints_vis_ = this->create_publisher<geometry_msgs::msg::PoseArray>("waypoints_vis", 10);
         
         // Subscribers
@@ -150,9 +151,14 @@ private:
     }
 
     void publish_waypoints() {
-        waypoints_.header.frame_id = std::string("world");
-        waypoints_.header.stamp = this->now();
-        pub_waypoints_->publish(waypoints_);
+        if (waypoints_.poses.empty()) return;
+        
+        // 发布第一个waypoint作为PoseStamped
+        geometry_msgs::msg::PoseStamped waypoint_msg;
+        waypoint_msg.header.frame_id = std::string("world");
+        waypoint_msg.header.stamp = this->now();
+        waypoint_msg.pose = waypoints_.poses[0].pose;
+        pub_waypoints_->publish(waypoint_msg);
         
         geometry_msgs::msg::PoseStamped init_pose;
         init_pose.header = odom_.header;
@@ -229,15 +235,16 @@ private:
         } else if (waypoint_type_ == string("series")) {
             load_waypoints(trigged_time_);
         } else if (waypoint_type_ == string("manual-lonely-waypoint")) {
-            if (msg->pose.position.z > -0.1) {
-                geometry_msgs::msg::PoseStamped pt = *msg;
-                waypoints_.poses.clear();
-                waypoints_.poses.push_back(pt);
-                publish_waypoints_vis();
-                publish_waypoints();
-            } else {
-                RCLCPP_WARN(this->get_logger(), "Invalid goal in manual-lonely-waypoint mode.");
+            // 接受2D Goal Pose (z=0) 并设置为默认高度1.0米
+            geometry_msgs::msg::PoseStamped pt = *msg;
+            if (pt.pose.position.z < 0.1) {
+                pt.pose.position.z = 1.0;  // 设置默认飞行高度
+                RCLCPP_INFO(this->get_logger(), "Goal z adjusted to 1.0m for 2D goal");
             }
+            waypoints_.poses.clear();
+            waypoints_.poses.push_back(pt);
+            publish_waypoints_vis();
+            publish_waypoints();
         } else {
             if (msg->pose.position.z > 0) {
                 geometry_msgs::msg::PoseStamped pt = *msg;
@@ -295,7 +302,7 @@ private:
     }
 
     // Member variables
-    rclcpp::Publisher<nav_msgs::msg::Path>::SharedPtr pub_waypoints_;
+    rclcpp::Publisher<geometry_msgs::msg::PoseStamped>::SharedPtr pub_waypoints_;
     rclcpp::Publisher<geometry_msgs::msg::PoseArray>::SharedPtr pub_waypoints_vis_;
     rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr sub_odom_;
     rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr sub_goal_;
@@ -316,4 +323,5 @@ int main(int argc, char** argv) {
     rclcpp::shutdown();
     return 0;
 }
+
 

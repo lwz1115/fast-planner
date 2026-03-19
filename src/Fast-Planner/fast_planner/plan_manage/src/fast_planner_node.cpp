@@ -26,8 +26,8 @@
 #include <rclcpp/rclcpp.hpp>
 #include <visualization_msgs/msg/marker.hpp>
 
-#include <plan_manage/msg/kino_replan_fsm.hpp>
-#include <plan_manage/msg/topo_replan_fsm.hpp>
+#include <plan_manage/kino_replan_fsm.h>
+#include <plan_manage/topo_replan_fsm.h>
 
 #include <plan_manage/backward.hpp>
 namespace backward {
@@ -37,8 +37,8 @@ backward::SignalHandling sh;
 using namespace fast_planner;
 
 int main(int argc, char** argv) {
-  rclcpp::init(argc, argv, "fast_planner_node");
-  rclcpp::Node nh("~");
+  rclcpp::init(argc, argv);
+  auto nh = rclcpp::Node::make_shared("fast_planner_node");
 
   int planner;
   planner = nh->declare_parameter("planner_node/planner", -1);
@@ -52,8 +52,15 @@ int main(int argc, char** argv) {
     topo_replan.init(nh);
   }
 
-  rclcpp::sleep_for(std::chrono::duration<double>(1.0));
-  rclcpp::spin(node);
+  rclcpp::sleep_for(std::chrono::nanoseconds(1000000000));
 
+  // ROS2: 使用 MultiThreadedExecutor 处理多个定时器
+  rclcpp::executors::MultiThreadedExecutor executor;
+  executor.add_node(nh);
+  executor.spin();
+
+  rclcpp::shutdown();
   return 0;
 }
+
+

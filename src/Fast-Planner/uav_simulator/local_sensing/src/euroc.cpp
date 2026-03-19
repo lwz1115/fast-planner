@@ -255,7 +255,7 @@ void render_currentpose()
   out_msg.header.stamp = receive_stamp;
   out_msg.encoding = sensor_msgs::msg::image_encodings::TYPE_32FC1;
   out_msg.image = depth_mat.clone();
-  pub_depth.publish(out_msg.toImageMsg());
+  pub_depth->publish(out_msg.toImageMsg());
 
   cv::Mat adjMap;
   depth_mat.convertTo(adjMap,CV_8UC1, 255 / (max-min), -min);
@@ -268,7 +268,7 @@ void render_currentpose()
   cv_image_colored.header.frame_id = "depthmap";
   cv_image_colored.encoding = sensor_msgs::msg::image_encodings::BGR8;
   cv_image_colored.image = falseColorsMap;
-  pub_color.publish(cv_image_colored.toImageMsg());
+  pub_color->publish(cv_image_colored.toImageMsg());
 
   cv::imshow("bluefox_image", bgr_image);
   cv::imshow("depth_image", adjMap);
@@ -276,29 +276,29 @@ void render_currentpose()
 
 int main(int argc, char **argv)
 {
-  rclcpp::init(argc, argv, "cloud_banchmark");
-  rclcpp::Node nh("~");
+  rclcpp::init(argc, argv);
+  auto nh = rclcpp::Node::make_shared("euroc_node");
 
-  nh.getParam("cam_width", width);
-  nh.getParam("cam_height", height);
-  nh.getParam("cam_fx", fx);
-  nh.getParam("cam_fy", fy);
-  nh.getParam("cam_cx", cx);
-  nh.getParam("cam_cy", cy);
+  width = nh->declare_parameter("cam_width", width);
+  height = nh->declare_parameter("cam_height", height);
+  fx = nh->declare_parameter("cam_fx", fx);
+  fy = nh->declare_parameter("cam_fy", fy);
+  cx = nh->declare_parameter("cam_cx", cx);
+  cy = nh->declare_parameter("cam_cy", cy);
 
   depthrender.set_para(fx, fy, cx, cy, width, height);
 
   cv_K = (cv::Mat_<float>(3, 3) << fx, 0.0f, cx, 0.0f, fy, cy, 0.0f, 0.0f, 1.0f);
-  if(nh.hasParam("cam_k1") &&
-     nh.hasParam("cam_k2") &&
-     nh.hasParam("cam_r1") &&
-     nh.hasParam("cam_r2") )
+  if(nh->has_parameter("cam_k1") &&
+     nh->has_parameter("cam_k2") &&
+     nh->has_parameter("cam_r1") &&
+     nh->has_parameter("cam_r2") )
   {
     float k1, k2, r1, r2;
-    nh.getParam("cam_k1", k1);
-    nh.getParam("cam_k2", k2);
-    nh.getParam("cam_r1", r1);
-    nh.getParam("cam_r2", r2);
+    k1 = nh->declare_parameter("cam_k1", 0.0f);
+    k2 = nh->declare_parameter("cam_k2", 0.0f);
+    r1 = nh->declare_parameter("cam_r1", 0.0f);
+    r2 = nh->declare_parameter("cam_r2", 0.0f);
     cv_D = (cv::Mat_<float>(1, 4) << k1, k2, r1, r2);
     cv::initUndistortRectifyMap(
         cv_K,
@@ -326,7 +326,7 @@ int main(int argc, char **argv)
   cam2world = Matrix4d::Identity();
 
   string cloud_path;
-  nh.getParam("cloud_path", cloud_path);
+  cloud_path = nh->declare_parameter("cloud_path", std::string(""));
   printf("cloud file %s\n", cloud_path.c_str());
   std::fstream data_file;
   data_file.open(cloud_path.c_str(), ios::in);
@@ -358,9 +358,9 @@ int main(int argc, char **argv)
   sync2.registerCallback(boost::bind(image_pose_callback, _1, _2));
 
   //publisher depth image and color image
-  pub_depth = /* TODO: 转换发布 */ nh->create_publisher<sensor_msgs::msg::Image>("depth",1000);
-  pub_color = /* TODO: 转换发布 */ nh->create_publisher<sensor_msgs::msg::Image>("colordepth",1000);
-  // pub_posedimage = /* TODO: 转换发布 */ nh->create_publisher<sensor_msgs::msg::Image>("posedimage",1000);
+  pub_depth = nh->create_publisher<sensor_msgs::msg::Image>("depth",1000);
+  pub_color = nh->create_publisher<sensor_msgs::msg::Image>("colordepth",1000);
+  // pub_posedimage = nh->create_publisher<sensor_msgs::msg::Image>("posedimage",1000);
 
   undistorted_image.create(height, width, CV_8UC1);
 

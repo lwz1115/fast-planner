@@ -1,54 +1,54 @@
 Panels:
-  - Class: rviz/Displays
+  - Class: rviz_common/Displays
     Help Height: 0
     Name: Displays
     Property Tree Widget:
       Expanded:
         - /LocalMap1
+        - /LocalMap1/local_map1/Autocompute Value Bounds1
         - /Planning1
         - /Mapping1
         - /Mapping1/simulation_map1/Autocompute Value Bounds1
+        - /Mapping1/real_map1/Autocompute Value Bounds1
+        - /Marker1
       Splitter Ratio: 0.5
-    Tree Height: 363
-  - Class: rviz/Selection
+    Tree Height: 347
+  - Class: rviz_common/Selection
     Name: Selection
-  - Class: rviz/Tool Properties
+  - Class: rviz_common/Tool Properties
     Expanded:
       - /2D Pose Estimate1
-      - /2D Nav Goal1
       - /Publish Point1
     Name: Tool Properties
-    Splitter Ratio: 0.588679016
-  - Class: rviz/Views
+    Splitter Ratio: 0.5886790156364441
+  - Class: rviz_common/Views
     Expanded:
       - /Current View1
       - /ThirdPersonFollower1
     Name: Views
     Splitter Ratio: 0.5
-  - Class: rviz/Time
+  - Class: rviz_common/Time
     Experimental: false
     Name: Time
     SyncMode: 0
     SyncSource: local_map
-Toolbars:
-  toolButtonStyle: 2
 Visualization Manager:
   Class: ""
   Displays:
-    - Class: rviz/Axes
-      Enabled: true
+    - Class: rviz_default_plugins/Axes
+      Enabled: false
       Length: 10
       Name: Axes
-      Radius: 0.100000001
+      Radius: 0.10000000149011612
       Reference Frame: <Fixed Frame>
-      Value: true
+      Value: false
     - Alpha: 0.5
       Cell Size: 1
-      Class: rviz/Grid
+      Class: rviz_default_plugins/Grid
       Color: 160; 160; 164
       Enabled: true
       Line Style:
-        Line Width: 0.0299999993
+        Line Width: 0.029999999329447746
         Value: Lines
       Name: Grid
       Normal Cell Count: 0
@@ -60,17 +60,17 @@ Visualization Manager:
       Plane Cell Count: 40
       Reference Frame: <Fixed Frame>
       Value: true
-    - Class: rviz/Group
+    - Class: rviz_common/Group
       Displays:
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
-            Max Value: 1.89999998
-            Min Value: -0.899999976
+            Max Value: 1.899999976158142
+            Min Value: -0.8999999761581421
             Value: false
           Axis: Z
           Channel Name: intensity
-          Class: rviz/PointCloud2
+          Class: rviz_default_plugins/PointCloud2
           Color: 0; 0; 0
           Color Transformer: AxisColor
           Decay Time: 0
@@ -82,17 +82,21 @@ Visualization Manager:
           Min Intensity: 0
           Name: local_map
           Position Transformer: XYZ
-          Queue Size: 10
           Selectable: true
           Size (Pixels): 3
-          Size (m): 0.100000001
+          Size (m): 0.10000000149011612
           Style: Flat Squares
-          Topic: /sdf_map/occupancy_inflate
-          Unreliable: false
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /sdf_map/occupancy_inflate
           Use Fixed Frame: true
           Use rainbow: true
           Value: true
-        - Alpha: 0.699999988
+        - Alpha: 0.699999988079071
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
             Max Value: 10
@@ -100,7 +104,7 @@ Visualization Manager:
             Value: true
           Axis: Z
           Channel Name: intensity
-          Class: rviz/PointCloud2
+          Class: rviz_default_plugins/PointCloud2
           Color: 0; 0; 0
           Color Transformer: Intensity
           Decay Time: 0
@@ -112,23 +116,32 @@ Visualization Manager:
           Min Intensity: 0
           Name: local_esdf
           Position Transformer: XYZ
-          Queue Size: 10
           Selectable: true
           Size (Pixels): 3
-          Size (m): 0.100000001
+          Size (m): 0.10000000149011612
           Style: Flat Squares
-          Topic: /sdf_map/esdf
-          Unreliable: false
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /sdf_map/esdf
           Use Fixed Frame: true
           Use rainbow: true
           Value: false
-        - Class: rviz/Marker
+        - Class: rviz_default_plugins/Marker
           Enabled: false
-          Marker Topic: /sdf_map/update_range
           Name: local_range
           Namespaces:
             {}
-          Queue Size: 100
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: ""
           Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
@@ -138,7 +151,7 @@ Visualization Manager:
             Value: true
           Axis: Z
           Channel Name: intensity
-          Class: rviz/PointCloud2
+          Class: rviz_default_plugins/PointCloud2
           Color: 255; 255; 255
           Color Transformer: Intensity
           Decay Time: 0
@@ -150,49 +163,102 @@ Visualization Manager:
           Min Intensity: 0
           Name: depth_cloud
           Position Transformer: XYZ
-          Queue Size: 10
           Selectable: true
           Size (Pixels): 3
-          Size (m): 0.100000001
+          Size (m): 0.10000000149011612
           Style: Boxes
-          Topic: /sdf_map/depth_cloud
-          Unreliable: false
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /sdf_map/depth_cloud
           Use Fixed Frame: true
           Use rainbow: true
           Value: false
+        - Alpha: 1
+          Autocompute Intensity Bounds: true
+          Autocompute Value Bounds:
+            Max Value: 5
+            Min Value: 0
+            Value: true
+          Axis: Z
+          Channel Name: intensity
+          Class: rviz_default_plugins/PointCloud2
+          Color: 0; 255; 100
+          Color Transformer: AxisColor
+          Decay Time: 0
+          Enabled: true
+          Invert Rainbow: false
+          Max Color: 0; 255; 100
+          Max Intensity: 4096
+          Min Color: 0; 0; 0
+          Min Intensity: 0
+          Name: sensor_cloud
+          Position Transformer: XYZ
+          Selectable: true
+          Size (Pixels): 2
+          Size (m): 0.05000000074505806
+          Style: Points
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /sdf_map/cloud
+          Use Fixed Frame: true
+          Use rainbow: true
+          Value: true
       Enabled: true
       Name: LocalMap
-    - Class: rviz/Group
+    - Class: rviz_common/Group
       Displays:
-        - Class: rviz/Marker
+        - Class: rviz_default_plugins/Marker
           Enabled: true
-          Marker Topic: /planning_vis/trajectory
           Name: bspline_traj
           Namespaces:
-            "": true
-          Queue Size: 100
+            {}
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /planning_vis/trajectory
           Value: true
-        - Class: rviz/Marker
+        - Class: rviz_default_plugins/Marker
           Enabled: true
-          Marker Topic: /planning/travel_traj
           Name: executed_traj
           Namespaces:
             "": true
-          Queue Size: 100
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /planning/travel_traj
           Value: true
-        - Class: rviz/Marker
+        - Class: rviz_default_plugins/Marker
           Enabled: true
-          Marker Topic: /planning/position_cmd_vis
           Name: position_cmd
           Namespaces:
-            "": true
-          Queue Size: 100
+            {}
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /planning/position_cmd_vis
           Value: true
       Enabled: true
       Name: Planning
-    - Class: rviz/Group
+    - Class: rviz_common/Group
       Displays:
-        - Alpha: 0.100000001
+        - Alpha: 0.10000000149011612
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
             Max Value: 2
@@ -200,7 +266,7 @@ Visualization Manager:
             Value: false
           Axis: Z
           Channel Name: intensity
-          Class: rviz/PointCloud2
+          Class: rviz_default_plugins/PointCloud2
           Color: 161; 161; 161
           Color Transformer: FlatColor
           Decay Time: 0
@@ -212,25 +278,29 @@ Visualization Manager:
           Min Intensity: 0
           Name: simulation_map
           Position Transformer: XYZ
-          Queue Size: 10
           Selectable: true
           Size (Pixels): 3
-          Size (m): 0.100000001
+          Size (m): 0.10000000149011612
           Style: Flat Squares
-          Topic: /map_generator/global_cloud
-          Unreliable: false
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /map_generator/global_cloud
           Use Fixed Frame: true
           Use rainbow: true
           Value: true
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
-            Max Value: 2.75925088
-            Min Value: -0.922850013
+            Max Value: 2.7592508792877197
+            Min Value: -0.9228500127792358
             Value: false
           Axis: Z
           Channel Name: intensity
-          Class: rviz/PointCloud2
+          Class: rviz_default_plugins/PointCloud2
           Color: 187; 187; 187
           Color Transformer: AxisColor
           Decay Time: 0
@@ -239,60 +309,78 @@ Visualization Manager:
           Max Color: 255; 255; 255
           Max Intensity: 1
           Min Color: 0; 0; 0
-          Min Intensity: 0.30000037
+          Min Intensity: 0.3000003695487976
           Name: real_map
           Position Transformer: XYZ
-          Queue Size: 10
           Selectable: true
           Size (Pixels): 3
-          Size (m): 0.200000003
+          Size (m): 0.20000000298023224
           Style: Boxes
-          Topic: /laser_cloud_surround
-          Unreliable: false
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /laser_cloud_surround
           Use Fixed Frame: true
           Use rainbow: true
           Value: true
       Enabled: true
       Name: Mapping
-    - Class: rviz/Group
+    - Class: rviz_common/Group
       Displays:
-        - Class: rviz/Marker
+        - Class: rviz_default_plugins/Marker
           Enabled: true
-          Marker Topic: /odom_visualization/robot
           Name: robot
           Namespaces:
-            mesh: true
-          Queue Size: 100
+            {}
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: ""
           Value: true
       Enabled: true
       Name: Simulation
-    - Class: rviz/Group
+    - Class: rviz_common/Group
       Displays:
-        - Class: rviz/MarkerArray
+        - Class: rviz_default_plugins/MarkerArray
           Enabled: true
-          Marker Topic: /vins_estimator/camera_pose_visual
           Name: vins-camera
           Namespaces:
             {}
-          Queue Size: 100
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: visualization_marker_array
           Value: true
         - Alpha: 1
           Axes Length: 0.5
-          Axes Radius: 0.0199999996
-          Class: rviz/Pose
+          Axes Radius: 0.019999999552965164
+          Class: rviz_default_plugins/Pose
           Color: 255; 25; 0
           Enabled: true
-          Head Length: 0.300000012
-          Head Radius: 0.100000001
+          Head Length: 0.30000001192092896
+          Head Radius: 0.10000000149011612
           Name: camera
           Shaft Length: 1
-          Shaft Radius: 0.0500000007
+          Shaft Radius: 0.05000000074505806
           Shape: Axes
-          Topic: /pcl_render_node/camera_pose
-          Unreliable: false
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /sdf_map/pose
           Value: true
-        - Angle Tolerance: 0.00999999978
-          Class: rviz/Odometry
+        - Angle Tolerance: 0.009999999776482582
+          Class: rviz_default_plugins/Odometry
           Covariance:
             Orientation:
               Alpha: 0.5
@@ -303,7 +391,7 @@ Visualization Manager:
               Scale: 1
               Value: true
             Position:
-              Alpha: 0.300000012
+              Alpha: 0.30000001192092896
               Color: 204; 51; 204
               Scale: 1
               Value: true
@@ -314,287 +402,393 @@ Visualization Manager:
           Position Tolerance: 0
           Shape:
             Alpha: 1
-            Axes Length: 0.300000012
-            Axes Radius: 0.0500000007
+            Axes Length: 0.30000001192092896
+            Axes Radius: 0.05000000074505806
             Color: 0; 255; 0
-            Head Length: 0.300000012
-            Head Radius: 0.100000001
+            Head Length: 0.30000001192092896
+            Head Radius: 0.10000000149011612
             Shaft Length: 1
-            Shaft Radius: 0.0500000007
+            Shaft Radius: 0.05000000074505806
             Value: Axes
-          Topic: /uart_odom/out_odom
-          Unreliable: false
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /uart_odom/out_odom
           Value: true
         - Alpha: 1
           Axes Length: 1
-          Axes Radius: 0.100000001
-          Class: rviz/Pose
+          Axes Radius: 0.10000000149011612
+          Class: rviz_default_plugins/Pose
           Color: 255; 25; 0
           Enabled: true
-          Head Length: 0.300000012
-          Head Radius: 0.100000001
+          Head Length: 0.30000001192092896
+          Head Radius: 0.10000000149011612
           Name: opti_track
           Shaft Length: 1
-          Shaft Radius: 0.0500000007
+          Shaft Radius: 0.05000000074505806
           Shape: Arrow
-          Topic: /Robot_1/pose
-          Unreliable: false
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /Robot_1/pose
           Value: true
       Enabled: false
       Name: Estimation
-    - Class: rviz/Group
+    - Class: rviz_common/Group
       Displays:
-        - Class: rviz/Marker
+        - Class: rviz_default_plugins/Marker
           Enabled: false
-          Marker Topic: /dynamic/obj
           Name: dynamic_obj
           Namespaces:
             {}
-          Queue Size: 100
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: ""
           Value: false
         - Alpha: 1
           Axes Length: 1.5
-          Axes Radius: 0.200000003
-          Class: rviz/Pose
+          Axes Radius: 0.20000000298023224
+          Class: rviz_default_plugins/Pose
           Color: 255; 25; 0
           Enabled: false
-          Head Length: 0.300000012
-          Head Radius: 0.100000001
+          Head Length: 0.30000001192092896
+          Head Radius: 0.10000000149011612
           Name: obj_pose_0
           Shaft Length: 1
-          Shaft Radius: 0.0500000007
+          Shaft Radius: 0.05000000074505806
           Shape: Axes
-          Topic: /dynamic/pose_0
-          Unreliable: false
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /dynamic/pose_0
           Value: false
         - Alpha: 1
           Axes Length: 1.5
-          Axes Radius: 0.200000003
-          Class: rviz/Pose
+          Axes Radius: 0.20000000298023224
+          Class: rviz_default_plugins/Pose
           Color: 255; 25; 0
           Enabled: true
-          Head Length: 0.300000012
-          Head Radius: 0.100000001
+          Head Length: 0.30000001192092896
+          Head Radius: 0.10000000149011612
           Name: obj_pose_1
           Shaft Length: 1
-          Shaft Radius: 0.0500000007
+          Shaft Radius: 0.05000000074505806
           Shape: Axes
-          Topic: /dynamic/pose_1
-          Unreliable: false
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /dynamic/pose_1
           Value: true
         - Alpha: 1
           Axes Length: 1.5
-          Axes Radius: 0.200000003
-          Class: rviz/Pose
+          Axes Radius: 0.20000000298023224
+          Class: rviz_default_plugins/Pose
           Color: 255; 25; 0
           Enabled: true
-          Head Length: 0.300000012
-          Head Radius: 0.100000001
+          Head Length: 0.30000001192092896
+          Head Radius: 0.10000000149011612
           Name: obj_pose_2
           Shaft Length: 1
-          Shaft Radius: 0.0500000007
+          Shaft Radius: 0.05000000074505806
           Shape: Axes
-          Topic: /dynamic/pose_2
-          Unreliable: false
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /dynamic/pose_2
           Value: true
         - Alpha: 1
           Axes Length: 1.5
-          Axes Radius: 0.200000003
-          Class: rviz/Pose
+          Axes Radius: 0.20000000298023224
+          Class: rviz_default_plugins/Pose
           Color: 255; 25; 0
           Enabled: true
-          Head Length: 0.300000012
-          Head Radius: 0.100000001
+          Head Length: 0.30000001192092896
+          Head Radius: 0.10000000149011612
           Name: obj_pose_3
           Shaft Length: 1
-          Shaft Radius: 0.0500000007
+          Shaft Radius: 0.05000000074505806
           Shape: Axes
-          Topic: /dynamic/pose_3
-          Unreliable: false
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /dynamic/pose_3
           Value: true
         - Alpha: 1
           Axes Length: 1.5
-          Axes Radius: 0.200000003
-          Class: rviz/Pose
+          Axes Radius: 0.20000000298023224
+          Class: rviz_default_plugins/Pose
           Color: 255; 25; 0
           Enabled: true
-          Head Length: 0.300000012
-          Head Radius: 0.100000001
+          Head Length: 0.30000001192092896
+          Head Radius: 0.10000000149011612
           Name: obj_pose_4
           Shaft Length: 1
-          Shaft Radius: 0.0500000007
+          Shaft Radius: 0.05000000074505806
           Shape: Axes
-          Topic: /dynamic/pose_4
-          Unreliable: false
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /dynamic/pose_4
           Value: true
         - Alpha: 1
           Axes Length: 1.5
-          Axes Radius: 0.200000003
-          Class: rviz/Pose
+          Axes Radius: 0.20000000298023224
+          Class: rviz_default_plugins/Pose
           Color: 255; 25; 0
           Enabled: true
-          Head Length: 0.300000012
-          Head Radius: 0.100000001
+          Head Length: 0.30000001192092896
+          Head Radius: 0.10000000149011612
           Name: obj_pose_5
           Shaft Length: 1
-          Shaft Radius: 0.0500000007
+          Shaft Radius: 0.05000000074505806
           Shape: Axes
-          Topic: /dynamic/pose_5
-          Unreliable: false
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /dynamic/pose_5
           Value: true
         - Alpha: 1
           Axes Length: 1.5
-          Axes Radius: 0.200000003
-          Class: rviz/Pose
+          Axes Radius: 0.20000000298023224
+          Class: rviz_default_plugins/Pose
           Color: 255; 25; 0
           Enabled: true
-          Head Length: 0.300000012
-          Head Radius: 0.100000001
+          Head Length: 0.30000001192092896
+          Head Radius: 0.10000000149011612
           Name: obj_pose_6
           Shaft Length: 1
-          Shaft Radius: 0.0500000007
+          Shaft Radius: 0.05000000074505806
           Shape: Axes
-          Topic: /dynamic/pose_6
-          Unreliable: false
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /dynamic/pose_6
           Value: true
         - Alpha: 1
           Axes Length: 1.5
-          Axes Radius: 0.200000003
-          Class: rviz/Pose
+          Axes Radius: 0.20000000298023224
+          Class: rviz_default_plugins/Pose
           Color: 255; 25; 0
           Enabled: true
-          Head Length: 0.300000012
-          Head Radius: 0.100000001
+          Head Length: 0.30000001192092896
+          Head Radius: 0.10000000149011612
           Name: obj_pose_7
           Shaft Length: 1
-          Shaft Radius: 0.0500000007
+          Shaft Radius: 0.05000000074505806
           Shape: Axes
-          Topic: /dynamic/pose_7
-          Unreliable: false
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /dynamic/pose_7
           Value: true
         - Alpha: 1
           Axes Length: 1.5
-          Axes Radius: 0.200000003
-          Class: rviz/Pose
+          Axes Radius: 0.20000000298023224
+          Class: rviz_default_plugins/Pose
           Color: 255; 25; 0
           Enabled: true
-          Head Length: 0.300000012
-          Head Radius: 0.100000001
+          Head Length: 0.30000001192092896
+          Head Radius: 0.10000000149011612
           Name: obj_pose_8
           Shaft Length: 1
-          Shaft Radius: 0.0500000007
+          Shaft Radius: 0.05000000074505806
           Shape: Axes
-          Topic: /dynamic/pose_8
-          Unreliable: false
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /dynamic/pose_8
           Value: true
         - Alpha: 1
           Axes Length: 1.5
-          Axes Radius: 0.200000003
-          Class: rviz/Pose
+          Axes Radius: 0.20000000298023224
+          Class: rviz_default_plugins/Pose
           Color: 255; 25; 0
           Enabled: true
-          Head Length: 0.300000012
-          Head Radius: 0.100000001
+          Head Length: 0.30000001192092896
+          Head Radius: 0.10000000149011612
           Name: obj_pose_9
           Shaft Length: 1
-          Shaft Radius: 0.0500000007
+          Shaft Radius: 0.05000000074505806
           Shape: Axes
-          Topic: /dynamic/pose_9
-          Unreliable: false
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /dynamic/pose_9
           Value: true
-        - Class: rviz/Marker
+        - Class: rviz_default_plugins/Marker
           Enabled: true
-          Marker Topic: /planning_vis/prediction
           Name: prediction
           Namespaces:
             {}
-          Queue Size: 100
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: ""
           Value: true
       Enabled: false
       Name: Tracking
-    - Class: rviz/Image
+    - Class: rviz_default_plugins/Image
       Enabled: true
-      Image Topic: /pcl_render_node/depth
-      Max Value: 1
+      Max Value: 10
       Median window: 5
       Min Value: 0
       Name: depth
       Normalize Range: true
-      Queue Size: 2
-      Transport Hint: raw
-      Unreliable: false
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /sdf_map/colordepth
+      Value: true
+    - Class: rviz_default_plugins/Marker
+      Enabled: true
+      Name: Marker
+      Namespaces:
+        mesh: true
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /odom_visualization/robot
       Value: true
   Enabled: true
   Global Options:
     Background Color: 255; 253; 224
-    Default Light: true
     Fixed Frame: world
     Frame Rate: 30
   Name: root
   Tools:
-    - Class: rviz/Interact
+    - Class: rviz_default_plugins/Interact
       Hide Inactive Objects: true
-    - Class: rviz/Select
-    - Class: rviz/FocusCamera
-    - Class: rviz/Measure
-    - Class: rviz/SetInitialPose
-      Topic: /initialpose
-    - Class: rviz/SetGoal
-      Topic: /move_base_simple/goal
-    - Class: rviz/PublishPoint
+    - Class: rviz_default_plugins/Select
+    - Class: rviz_default_plugins/FocusCamera
+    - Class: rviz_default_plugins/Measure
+      Line color: 128; 128; 0
+    - Class: rviz_default_plugins/SetInitialPose
+      Covariance x: 0.25
+      Covariance y: 0.25
+      Covariance yaw: 0.06853891909122467
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /initialpose
+    - Class: rviz_default_plugins/SetGoal
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /move_base_simple/goal
+    - Class: rviz_default_plugins/PublishPoint
       Single click: true
-      Topic: /clicked_point
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /clicked_point
+  Transformation:
+    Current:
+      Class: rviz_default_plugins/TF
   Value: true
   Views:
     Current:
-      Class: rviz/ThirdPersonFollower
-      Distance: 41.1149254
+      Class: rviz_default_plugins/ThirdPersonFollower
+      Distance: 24.30137825012207
       Enable Stereo Rendering:
-        Stereo Eye Separation: 0.0599999987
+        Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -11.613965
-        Y: -0.140280247
-        Z: -1.94311287e-05
+        X: -7.676239967346191
+        Y: 3.0103297233581543
+        Z: -2.2071692001190968e-05
       Focal Shape Fixed Size: true
-      Focal Shape Size: 0.0500000007
+      Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
-      Near Clip Distance: 0.00999999978
-      Pitch: 1.22979665
+      Near Clip Distance: 0.009999999776482582
+      Pitch: 0.699796736240387
       Target Frame: <Fixed Frame>
-      Value: ThirdPersonFollower (rviz)
-      Yaw: 3.14949608
+      Value: ThirdPersonFollower (rviz_default_plugins)
+      Yaw: 2.7444963455200195
     Saved:
-      - Class: rviz/ThirdPersonFollower
-        Distance: 17.4853859
+      - Class: rviz_default_plugins/ThirdPersonFollower
+        Distance: 17.48538589477539
         Enable Stereo Rendering:
-          Stereo Eye Separation: 0.0599999987
+          Stereo Eye Separation: 0.05999999865889549
           Stereo Focal Distance: 1
           Swap Stereo Eyes: false
           Value: false
         Focal Point:
-          X: -16.3080025
-          Y: 0.44920516
-          Z: 8.5896736e-06
+          X: -16.308002471923828
+          Y: 0.4492051601409912
+          Z: 8.589673598180525e-06
         Focal Shape Fixed Size: true
-        Focal Shape Size: 0.0500000007
+        Focal Shape Size: 0.05000000074505806
         Invert Z Axis: false
         Name: ThirdPersonFollower
-        Near Clip Distance: 0.00999999978
-        Pitch: 1.03479683
+        Near Clip Distance: 0.009999999776482582
+        Pitch: 1.0347968339920044
         Target Frame: <Fixed Frame>
-        Value: ThirdPersonFollower (rviz)
-        Yaw: 3.15040731
+        Value: ThirdPersonFollower (rviz_default_plugins)
+        Yaw: 3.150407314300537
 Window Geometry:
   Displays:
     collapsed: false
-  Height: 1028
+  Height: 986
   Hide Left Dock: false
   Hide Right Dock: false
-  QMainWindow State: 000000ff00000000fd000000040000000000000171000003bcfc020000000ffb0000001200530065006c0065006300740069006f006e00000001e10000009b0000006200fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c0061007900730100000028000001af000000da00fffffffb0000000a0056006900650077007301000001dd00000134000000b200fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000000c00430061006d00650072006100000001d1000000b50000000000000000fb0000000a0049006d00610067006502000001a2000001e1000000f8000000b5fb0000000a006400650070007400680100000317000000cd0000001700fffffffb0000000a0049006d0061006700650100000415000000f80000000000000000fb0000000a0049006d00610067006501000003f4000001190000000000000000fb0000000a006400650070007400680100000459000000f50000000000000000000000010000010f00000385fc0200000002fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000006100000003bfc0100000002fb0000000800540069006d00650000000000000006100000035200fffffffb0000000800540069006d0065010000000000000450000000000000000000000499000003bc00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd00000004000000000000017100000384fc020000000ffb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000003b00000196000000c700fffffffb0000000a0056006900650077007301000001d700000121000000a000fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000000c00430061006d00650072006100000001d1000000b50000000000000000fb0000000a0049006d00610067006502000001a2000001e1000000f8000000b5fb0000000a0064006500700074006801000002fe000000c10000002800fffffffb0000000a0049006d0061006700650100000415000000f80000000000000000fb0000000a0049006d00610067006501000003f4000001190000000000000000fb0000000a006400650070007400680100000459000000f50000000000000000000000010000010f00000385fc0200000002fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000006100000003bfc0100000002fb0000000800540069006d00650000000000000006100000025300fffffffb0000000800540069006d00650100000000000004500000000000000000000004d30000038400000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Selection:
     collapsed: false
   Time:
@@ -603,8 +797,8 @@ Window Geometry:
     collapsed: false
   Views:
     collapsed: false
-  Width: 1552
-  X: 0
-  Y: 24
+  Width: 1610
+  X: 70
+  Y: 27
   depth:
     collapsed: false

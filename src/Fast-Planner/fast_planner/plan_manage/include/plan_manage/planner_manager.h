@@ -48,6 +48,8 @@ class FastPlannerManager {
   // SECTION stable
 public:
   FastPlannerManager();
+  
+  typedef std::shared_ptr<FastPlannerManager> SharedPtr;
   ~FastPlannerManager();
 
   /* main planning interface */
@@ -58,7 +60,7 @@ public:
 
   void planYaw(const Eigen::Vector3d& start_yaw);
 
-  void initPlanModules(rclcpp::Node& nh);
+  void initPlanModules(rclcpp::Node::SharedPtr nh);
   void setGlobalWaypoints(vector<Eigen::Vector3d>& waypoints);
 
   bool checkTrajCollision(double& distance);
@@ -72,10 +74,11 @@ public:
 private:
   /* main planning algorithms & modules */
   SDFMap::SharedPtr sdf_map_;
+  rclcpp::Node::SharedPtr node_;
 
-  unique_ptr<Astar> geo_path_finder_;
-  unique_ptr<KinodynamicAstar> kino_path_finder_;
-  unique_ptr<TopologyPRM> topo_prm_;
+  std::shared_ptr<Astar> geo_path_finder_;
+  std::shared_ptr<KinodynamicAstar> kino_path_finder_;
+  std::shared_ptr<TopologyPRM> topo_prm_;
   vector<BsplineOptimizer::SharedPtr> bspline_optimizers_;
 
   void updateTrajInfo();

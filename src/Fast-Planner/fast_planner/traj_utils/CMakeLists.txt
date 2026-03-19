@@ -12,12 +12,17 @@ find_package(visualization_msgs REQUIRED)
 find_package(pcl_conversions REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(PCL 1.7 REQUIRED)
+find_package(bspline REQUIRED)
+find_package(path_searching REQUIRED)
+find_package(plan_env REQUIRED)
+find_package(poly_traj REQUIRED)
 
 # 包含目录
 include_directories(
   include 
   ${EIGEN3_INCLUDE_DIR} 
   ${PCL_INCLUDE_DIRS}
+  /root/colcon_ws/install/poly_traj/include
 )
 
 link_directories(${PCL_LIBRARY_DIRS})
@@ -32,6 +37,10 @@ ament_target_dependencies(traj_utils
   std_msgs
   visualization_msgs
   pcl_conversions
+  bspline
+  path_searching
+  plan_env
+  poly_traj
 )
 
 # 安装
@@ -43,7 +52,22 @@ install(TARGETS
 )
 
 install(DIRECTORY include/
-  DESTINATION include/${PROJECT_NAME}
+  DESTINATION include/
+)
+
+# 导出依赖
+ament_export_include_directories(include)
+ament_export_libraries(traj_utils)
+ament_export_dependencies(
+  rclcpp
+  std_msgs
+  visualization_msgs
+  pcl_conversions
+  bspline
+  path_searching
+  plan_env
+  poly_traj
 )
 
 ament_package()  
+

@@ -1,9 +1,0 @@
-[35m[1mConsolidate compiler generated dependencies of target plan_env[0m
-[ 25%] [32mBuilding CXX object CMakeFiles/plan_env.dir/src/sdf_map.cpp.o[0m
-[ 50%] [32mBuilding CXX object CMakeFiles/plan_env.dir/src/edt_environment.cpp.o[0m
-gmake[2]: *** [CMakeFiles/plan_env.dir/build.make:90: CMakeFiles/plan_env.dir/src/edt_environment.cpp.o] Interrupt
-gmake[2]: *** wait: No child processes.  Stop.
-gmake[2]: *** Waiting for unfinished jobs....
-gmake[2]: *** wait: No child processes.  Stop.
-gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/plan_env.dir/all] Error 2
-gmake: *** [Makefile:146: all] Interrupt

@@ -4,7 +4,14 @@
 #include <iostream>
 #include "armadillo"
 
-#define PI 3.14159265359
+// 取消定义PI宏以避免冲突
+#ifdef PI
+#undef PI
+#endif
+
+// 使用常量定义，避免宏冲突
+const double PI_VALUE = 3.14159265358979323846;
+#define PI PI_VALUE
 #define NUM_INF 999999.9
 
 using namespace arma;
@@ -51,3 +58,4 @@ colvec state_measure(const colvec& X);
 mat jacobianH();
 
 #endif
+

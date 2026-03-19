@@ -1,8 +1,0 @@
-source;share/so3_disturbance_generator/hook/cmake_prefix_path.ps1
-source;share/so3_disturbance_generator/hook/cmake_prefix_path.dsv
-source;share/so3_disturbance_generator/hook/cmake_prefix_path.sh
-source;share/so3_disturbance_generator/local_setup.bash
-source;share/so3_disturbance_generator/local_setup.dsv
-source;share/so3_disturbance_generator/local_setup.ps1
-source;share/so3_disturbance_generator/local_setup.sh
-source;share/so3_disturbance_generator/local_setup.zsh

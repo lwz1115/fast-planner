@@ -309,12 +309,11 @@ void odom_callback(const nav_msgs::msg::Odometry::SharedPtr msg) {
     heightROS.range = H;
     heightPub->publish(heightROS);
 
-    // Mesh model
+    // Mesh model - 如果mesh_resource为空或加载失败，使用立方体
     meshROS.header.frame_id = string("world");
     meshROS.header.stamp = msg->header.stamp;
     meshROS.ns = "mesh";
     meshROS.id = 0;
-    meshROS.type = visualization_msgs::msg::Marker::MESH_RESOURCE;
     meshROS.action = visualization_msgs::msg::Marker::ADD;
     meshROS.pose.position.x = msg->pose.pose.position.x;
     meshROS.pose.position.y = msg->pose.pose.position.y;
@@ -332,15 +331,44 @@ void odom_callback(const nav_msgs::msg::Odometry::SharedPtr msg) {
     meshROS.pose.orientation.x = q(1);
     meshROS.pose.orientation.y = q(2);
     meshROS.pose.orientation.z = q(3);
-    meshROS.scale.x = 1.5;
-    meshROS.scale.y = 1.5;
-    meshROS.scale.z = 1.5;
     meshROS.color.a = color_a;
     meshROS.color.r = color_r;
     meshROS.color.g = color_g;
     meshROS.color.b = color_b;
-    meshROS.mesh_resource = mesh_resource;
+    
+    // 如果没有指定mesh_resource，使用立方体
+    if (mesh_resource.empty()) {
+        meshROS.type = visualization_msgs::msg::Marker::CUBE;
+        meshROS.scale.x = 0.6;
+        meshROS.scale.y = 0.6;
+        meshROS.scale.z = 0.2;
+    } else {
+        // 使用mesh - ROS2支持package://路径
+        meshROS.type = visualization_msgs::msg::Marker::MESH_RESOURCE;
+        meshROS.scale.x = 1.5;
+        meshROS.scale.y = 1.5;
+        meshROS.scale.z = 1.5;
+        meshROS.mesh_resource = mesh_resource;
+        meshROS.mesh_use_embedded_materials = false;
+    }
+    
     meshPub->publish(meshROS);
+
+    // 始终发布 world->base_link tf，供RViz使用
+    {
+        geometry_msgs::msg::TransformStamped tf_base;
+        tf_base.header.stamp = msg->header.stamp;
+        tf_base.header.frame_id = "world";
+        tf_base.child_frame_id = "base_link";
+        tf_base.transform.translation.x = msg->pose.pose.position.x;
+        tf_base.transform.translation.y = msg->pose.pose.position.y;
+        tf_base.transform.translation.z = msg->pose.pose.position.z;
+        tf_base.transform.rotation.w = msg->pose.pose.orientation.w;
+        tf_base.transform.rotation.x = msg->pose.pose.orientation.x;
+        tf_base.transform.rotation.y = msg->pose.pose.orientation.y;
+        tf_base.transform.rotation.z = msg->pose.pose.orientation.z;
+        broadcaster->sendTransform(tf_base);
+    }
 
     // TF for raw sensor visualization
     if (tf45) {
@@ -356,7 +384,6 @@ void odom_callback(const nav_msgs::msg::Odometry::SharedPtr msg) {
         transform.transform.rotation.y = q(2);
         transform.transform.rotation.z = q(3);
         broadcaster->sendTransform(transform);
-
         geometry_msgs::msg::TransformStamped transform45;
         transform45.header.stamp = msg->header.stamp;
         transform45.header.frame_id = "base";
@@ -408,7 +435,7 @@ int main(int argc, char** argv) {
     rclcpp::init(argc, argv);
     node_ = rclcpp::Node::make_shared("odom_visualization");
 
-    node_->declare_parameter("mesh_resource", "package://odom_visualization/meshes/hummingbird.mesh");
+    node_->declare_parameter("mesh_resource", "package://odom_visualization/meshes/hummingbird.dae");
     node_->declare_parameter("color.r", 1.0);
     node_->declare_parameter("color.g", 0.0);
     node_->declare_parameter("color.b", 0.0);
@@ -442,7 +469,7 @@ int main(int argc, char** argv) {
     covVelPub = node_->create_publisher<visualization_msgs::msg::Marker>("covariance_velocity", 100);
     trajPub = node_->create_publisher<visualization_msgs::msg::Marker>("trajectory", 100);
     sensorPub = node_->create_publisher<visualization_msgs::msg::Marker>("sensor", 100);
-    meshPub = node_->create_publisher<visualization_msgs::msg::Marker>("robot", 100);
+    meshPub = node_->create_publisher<visualization_msgs::msg::Marker>("/odom_visualization/robot", 100);
     heightPub = node_->create_publisher<sensor_msgs::msg::Range>("height", 100);
     broadcaster = std::make_shared<tf2_ros::TransformBroadcaster>(node_);
 
@@ -451,4 +478,6 @@ int main(int argc, char** argv) {
 
     return 0;
 }
+
+
 

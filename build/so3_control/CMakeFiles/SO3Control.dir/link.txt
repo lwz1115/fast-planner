@@ -1,2 +1,0 @@
-/usr/bin/ar qc libSO3Control.a CMakeFiles/SO3Control.dir/src/SO3Control.cpp.o
-/usr/bin/ranlib libSO3Control.a

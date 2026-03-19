@@ -50,7 +50,10 @@ public:
     double odom_rate = this->get_parameter("rate.odom").as_double();
     quad_name_ = this->get_parameter("quadrotor_name").as_string();
     
-    RCLCPP_ASSERT(this->get_logger(), simulation_rate_ > 0, "Simulation rate must be positive");
+    if (simulation_rate_ <= 0) {
+      RCLCPP_ERROR(this->get_logger(), "Simulation rate must be positive");
+      throw std::runtime_error("Simulation rate must be positive");
+    }
     
     // Initialize quadrotor
     Eigen::Vector3d position(init_x, init_y, init_z);
@@ -94,10 +97,10 @@ public:
     m_sub_ = this->create_subscription<geometry_msgs::msg::Vector3>(
       "moment_disturbance", 100, std::bind(&QuadrotorSimulatorSO3::moment_disturbance_callback, this, std::placeholders::_1));
     
-    // Initialize messages
-    odom_msg_.header.frame_id = "/simulator";
-    odom_msg_.child_frame_id = "/" + quad_name_;
-    imu_msg_.header.frame_id = "/simulator";
+    // Initialize messages - 统一使用world作为全局坐标系
+    odom_msg_.header.frame_id = "world";
+    odom_msg_.child_frame_id = quad_name_;
+    imu_msg_.header.frame_id = "world";
     
     // Timer for simulation
     dt_ = 1.0 / simulation_rate_;
@@ -240,11 +243,12 @@ private:
     quad_.step(dt_);
     
     rclcpp::Time tnow = this->now();
-    if (tnow >= next_odom_pub_time_) {
-      next_odom_pub_time_ = rclcpp::Time(next_odom_pub_time_.nanoseconds() + 
+    if ((tnow - next_odom_pub_time_).seconds() >= 0) {
+      next_odom_pub_time_ = next_odom_pub_time_ + rclcpp::Duration::from_nanoseconds(
         std::chrono::duration_cast<std::chrono::nanoseconds>(odom_pub_duration_).count());
       
       odom_msg_.header.stamp = tnow;
+      imu_msg_.header.stamp = tnow;  // 添加IMU时间戳
       QuadrotorSimulator::Quadrotor::State state = quad_.getState();
       stateToOdomMsg(state, odom_msg_);
       quadToImuMsg(quad_, imu_msg_);
@@ -311,6 +315,13 @@ void quadToImuMsg(const QuadrotorSimulator::Quadrotor& quad, sensor_msgs::msg::I
   imu.linear_acceleration.x = quad.getAcc()[0];
   imu.linear_acceleration.y = quad.getAcc()[1];
   imu.linear_acceleration.z = quad.getAcc()[2];
+  
+  // 初始化协方差
+  for (int i = 0; i < 9; i++) {
+    imu.orientation_covariance[i] = 0.0;
+    imu.angular_velocity_covariance[i] = 0.0;
+    imu.linear_acceleration_covariance[i] = 0.0;
+  }
 }
 
 int main(int argc, char** argv) {

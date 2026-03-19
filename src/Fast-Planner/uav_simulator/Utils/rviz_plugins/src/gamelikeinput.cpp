@@ -46,12 +46,12 @@ void
 GameLikeInput::updateTopic()
 {
   pub_pointlist =
-    /* TODO: 转换发布 */ nh_->create_publisher<nav_msgs::msg::Path>(topic_property_wp_->getStdString(), 1);
+    nh_->create_publisher<nav_msgs::msg::Path>(topic_property_wp_->getStdString(), 1);
 
-  pub_selection = /* TODO: 转换发布 */ nh_->create_publisher<std_msgs::msg::Int32MultiArray>(
+  pub_selection = nh_->create_publisher<std_msgs::msg::Int32MultiArray>(
     topic_property_drone_->getStdString(), 1);
 
-  pub_swarm = /* TODO: 转换发布 */ nh_->create_publisher<quadrotor_msgs::SwarmCommand>(
+  pub_swarm = nh_->create_publisher<quadrotor_msgs::SwarmCommand>(
     topic_property_swarm_->getStdString(), 1);
 
   z_max = property_z_max->getFloat();
@@ -219,9 +219,9 @@ GameLikeInput::sendMessage()
   swarm.plan      = path;
   swarm.selection = array.data;
 
-  pub_selection.publish(array);
-  pub_pointlist.publish(path);
-  pub_swarm.publish(swarm);
+  pub_selection->publish(array);
+  pub_pointlist->publish(path);
+  pub_swarm->publish(swarm);
 }
 
 void

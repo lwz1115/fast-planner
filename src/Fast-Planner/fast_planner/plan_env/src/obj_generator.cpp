@@ -64,8 +64,8 @@ void updateCallback(const rclcpp::TimerEvent& e);
 void visualizeObj(int id);
 
 int main(int argc, char** argv) {
-  rclcpp::init(argc, argv, "dynamic_obj");
-  rclcpp::Node node("~");
+  rclcpp::init(argc, argv);
+  auto node = rclcpp::Node::make_shared("dynamic_obj");
 
   /* ---------- initialize ---------- */
   obj_num = node->declare_parameter("obj_generator/obj_num", 10);
@@ -80,10 +80,10 @@ int main(int argc, char** argv) {
   _scale2 = node->declare_parameter("obj_generator/scale2", 2.5);
   _interval = node->declare_parameter("obj_generator/interval", 2.5);
 
-  obj_pub = /* TODO: 转换发布 */ node->create_publisher<visualization_msgs::msg::Marker>("/dynamic/obj", 10);
+  obj_pub = node->create_publisher<visualization_msgs::msg::Marker>("/dynamic/obj", 10);
   for (int i = 0; i < obj_num; ++i) {
     rclcpp::Publisher pose_pub =
-        /* TODO: 转换发布 */ node->create_publisher<geometry_msgs::msg::PoseStamped>("/dynamic/pose_" + to_string(i), 10);
+        node->create_publisher<geometry_msgs::msg::PoseStamped>("/dynamic/pose_" + to_string(i), 10);
     pose_pubs.push_back(pose_pub);
   }
 
@@ -213,7 +213,7 @@ void visualizeObj(int id) {
 
   mk.pose.position.x = pos(0), mk.pose.position.y = pos(1), mk.pose.position.z = pos(2);
 
-  obj_pub.publish(mk);
+  obj_pub->publish(mk);
 
   /* ---------- pose ---------- */
   geometry_msgs::msg::PoseStamped pose;
@@ -221,5 +221,6 @@ void visualizeObj(int id) {
   pose.header.seq = id;
   pose.pose.position.x = pos(0), pose.pose.position.y = pos(1), pose.pose.position.z = pos(2);
   pose.pose.orientation.w = 1.0;
-  pose_pubs[id].publish(pose);
+  pose_pubs[id]->publish(pose);
 }
+

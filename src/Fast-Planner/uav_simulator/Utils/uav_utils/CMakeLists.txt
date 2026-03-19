@@ -15,11 +15,14 @@ include_directories(
   ${EIGEN3_INCLUDE_DIRS}
 )
 
-install(DIRECTORY include/${PROJECT_NAME}/
-  DESTINATION include/${PROJECT_NAME}
+install(DIRECTORY include/
+  DESTINATION include/
   FILES_MATCHING PATTERN "*.h"
   PATTERN ".svn" EXCLUDE
 )
+
+ament_export_include_directories(include)
+ament_export_dependencies(rclcpp Eigen3)
 
 ament_package()
 

@@ -48,7 +48,7 @@ void displayPathWithColor(vector<Eigen::Vector3d> path, double resolution, Eigen
   mk.action = visualization_msgs::msg::Marker::DELETE;
   mk.id = id;
 
-  traj_pub.publish(mk);
+  traj_pub->publish(mk);
 
   mk.action = visualization_msgs::msg::Marker::ADD;
   mk.pose.orientation.x = 0.0;
@@ -72,7 +72,7 @@ void displayPathWithColor(vector<Eigen::Vector3d> path, double resolution, Eigen
     pt.z = path[i](2);
     mk.points.push_back(pt);
   }
-  traj_pub.publish(mk);
+  traj_pub->publish(mk);
   rclcpp::sleep_for(std::chrono::duration<double>(0.001));
 }
 
@@ -100,7 +100,7 @@ void drawState(Eigen::Vector3d pos, Eigen::Vector3d vec, int id, Eigen::Vector4d
   mk_state.color.g = color(1);
   mk_state.color.b = color(2);
   mk_state.color.a = color(3);
-  state_pub.publish(mk_state);
+  state_pub->publish(mk_state);
 }
 
 void odomCallbck(const nav_msgs::msg::Odometry& msg) {
@@ -112,20 +112,20 @@ void odomCallbck(const nav_msgs::msg::Odometry& msg) {
 
 int main(int argc, char** argv) {
   /* ---------- initialize ---------- */
-  rclcpp::init(argc, argv, "traj_generator");
-  rclcpp::Node node;
+  rclcpp::init(argc, argv);
+  auto node = rclcpp::Node::make_shared("traj_generator");
 
-  rclcpp::Subscription odom_sub = node.subscribe("/uwb_vicon_odom", 50, odomCallbck);
+  auto odom_sub = node->create_subscription<nav_msgs::msg::Odometry>("/uwb_vicon_odom", 50, odomCallbck);
 
-  traj_pub = /* TODO: 转换发布 */ node->create_publisher<visualization_msgs::msg::Marker>("/traj_generator/traj_vis", 10);
-  state_pub = /* TODO: 转换发布 */ node->create_publisher<visualization_msgs::msg::Marker>("/traj_generator/cmd_vis", 10);
+  traj_pub = node->create_publisher<visualization_msgs::msg::Marker>("/traj_generator/traj_vis", 10);
+  state_pub = node->create_publisher<visualization_msgs::msg::Marker>("/traj_generator/cmd_vis", 10);
 
   // pos_cmd_pub =
-  // /* TODO: 转换发布 */ node->create_publisher<quadrotor_msgs::PositionCommand>("/traj_generator/position_cmd",
+  // node->create_publisher<quadrotor_msgs::PositionCommand>("/traj_generator/position_cmd",
   // 50);
 
   pos_cmd_pub =
-      /* TODO: 转换发布 */ node->create_publisher<swarmtal_msgs::drone_onboard_command>("/drone_commander/onboard_command", 10);
+      node->create_publisher<swarmtal_msgs::drone_onboard_command>("/drone_commander/onboard_command", 10);
 
   rclcpp::sleep_for(std::chrono::duration<double>(1.0));
 
@@ -227,7 +227,7 @@ int main(int argc, char** argv) {
     cmd.param8 = int(acc(0) * 10000);
     cmd.param9 = int(acc(1) * 10000);
 
-    pos_cmd_pub.publish(cmd);
+    pos_cmd_pub->publish(cmd);
 
     drawState(pt, vel, 0, Eigen::Vector4d(0, 1, 0, 1));
     drawState(pt, acc, 1, Eigen::Vector4d(0, 0, 1, 1));
@@ -237,3 +237,4 @@ int main(int argc, char** argv) {
   rclcpp::spin(node);
   return 0;
 }
+

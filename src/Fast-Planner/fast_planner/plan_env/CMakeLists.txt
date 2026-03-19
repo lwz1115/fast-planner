@@ -33,6 +33,7 @@ link_directories(${PCL_LIBRARY_DIRS})
 add_library(plan_env
   src/sdf_map.cpp
   src/edt_environment.cpp
+  src/obj_predictor.cpp
   src/raycast.cpp
 )
 
@@ -62,7 +63,22 @@ install(TARGETS
 )
 
 install(DIRECTORY include/
-  DESTINATION include/${PROJECT_NAME}
+  DESTINATION include/
+)
+
+# 导出依赖
+ament_export_include_directories(include)
+ament_export_libraries(plan_env)
+ament_export_dependencies(
+  rclcpp
+  std_msgs
+  geometry_msgs
+  nav_msgs
+  sensor_msgs
+  visualization_msgs
+  cv_bridge
+  message_filters
+  pcl_conversions
 )
 
 ament_package()

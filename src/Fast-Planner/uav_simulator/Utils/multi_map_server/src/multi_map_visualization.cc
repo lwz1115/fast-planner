@@ -9,6 +9,11 @@
 #include "Map3D.h"
 
 class MultiMapVisualization : public rclcpp::Node {
+private:
+  std::shared_ptr<MultiMapVisualization> get_shared_ptr() {
+    return std::static_pointer_cast<MultiMapVisualization>(shared_from_this());
+  }
+
 public:
   MultiMapVisualization() : Node("multi_map_visualization") {
     // Subscribers
@@ -28,7 +33,11 @@ public:
 private:
   void maps2d_callback(const multi_map_server::msg::MultiOccupancyGrid::SharedPtr msg) {
     // Merge map
-    maps2d_.resize(msg->maps.size(), Map2D(4));
+    if (maps2d_.size() != msg->maps.size()) {
+      maps2d_.clear();
+      for (unsigned int k = 0; k < msg->maps.size(); k++)
+        maps2d_.push_back(Map2D(4, std::static_pointer_cast<rclcpp::Node>(get_shared_ptr())));
+    }
     for (unsigned int k = 0; k < msg->maps.size(); k++)
       maps2d_[k].Replace(msg->maps[k]);
     origins2d_ = msg->origins;
@@ -46,7 +55,11 @@ private:
   
   void maps3d_callback(const multi_map_server::msg::MultiSparseMap3D::SharedPtr msg) {
     // Update incremental map
-    maps3d_.resize(msg->maps.size());
+    if (maps3d_.size() != msg->maps.size()) {
+      maps3d_.clear();
+      for (unsigned int k = 0; k < msg->maps.size(); k++)
+        maps3d_.push_back(Map3D(std::static_pointer_cast<rclcpp::Node>(get_shared_ptr())));
+    }
     for (unsigned int k = 0; k < msg->maps.size(); k++)
       maps3d_[k].UnpackMsg(msg->maps[k]);
     origins3d_ = msg->origins;
@@ -101,4 +114,5 @@ int main(int argc, char** argv) {
   rclcpp::shutdown();
   return 0;
 }
+
 

@@ -16,6 +16,8 @@ find_package(visualization_msgs REQUIRED)
 find_package(pcl_conversions REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(PCL 1.7 REQUIRED)
+find_package(plan_env REQUIRED)
+find_package(bspline REQUIRED)
 
 # 包含目录
 include_directories(
@@ -35,6 +37,8 @@ ament_target_dependencies(bspline_opt
   std_msgs
   visualization_msgs
   pcl_conversions
+  plan_env
+  bspline
 )
 
 target_link_libraries(bspline_opt
@@ -50,7 +54,19 @@ install(TARGETS
 )
 
 install(DIRECTORY include/
-  DESTINATION include/${PROJECT_NAME}
+  DESTINATION include/
+)
+
+# 导出依赖
+ament_export_include_directories(include)
+ament_export_libraries(bspline_opt)
+ament_export_dependencies(
+  rclcpp
+  std_msgs
+  visualization_msgs
+  pcl_conversions
+  plan_env
+  bspline
 )
 
 ament_package()

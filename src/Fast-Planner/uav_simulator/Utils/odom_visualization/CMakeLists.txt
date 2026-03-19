@@ -52,5 +52,17 @@ install(TARGETS
   DESTINATION lib/${PROJECT_NAME}
 )
 
+# Install mesh files - 安装.mesh和.dae文件
+install(DIRECTORY meshes/
+  DESTINATION share/${PROJECT_NAME}/meshes
+  FILES_MATCHING
+  PATTERN "*.mesh"
+  PATTERN "*.dae"
+  PATTERN "*.stl"
+  PATTERN "build" EXCLUDE
+  PATTERN "install" EXCLUDE
+  PATTERN "log" EXCLUDE
+)
+
 ament_package()
 

@@ -31,40 +31,43 @@
 #include <visualization_msgs/msg/marker.hpp>
 #include <rclcpp/rclcpp.hpp>
 
-rclcpp::Publisher cmd_vis_pub, pos_cmd_pub, traj_pub;
+// Global node pointer
+rclcpp::Node::SharedPtr g_node;
+
+// Global publishers
+rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr cmd_vis_pub, traj_pub;
+rclcpp::Publisher<quadrotor_msgs::msg::PositionCommand>::SharedPtr pos_cmd_pub;
 
 nav_msgs::msg::Odometry odom;
 
-quadrotor_msgs::PositionCommand cmd;
-// double pos_gain[3] = {5.7, 5.7, 6.2};
-// double vel_gain[3] = {3.4, 3.4, 4.0};
+quadrotor_msgs::msg::PositionCommand cmd;
 double pos_gain[3] = { 5.7, 5.7, 6.2 };
 double vel_gain[3] = { 3.4, 3.4, 4.0 };
 
 using fast_planner::NonUniformBspline;
 
 bool receive_traj_ = false;
-vector<NonUniformBspline> traj_;
+std::vector<NonUniformBspline> traj_;
 double traj_duration_;
-rclcpp::Time start_time_;
+rclcpp::Time start_time_(0, 0, RCL_ROS_TIME);
 int traj_id_;
 
 // yaw control
 double last_yaw_;
 double time_forward_;
 
-vector<Eigen::Vector3d> traj_cmd_, traj_real_;
+std::vector<Eigen::Vector3d> traj_cmd_, traj_real_;
 
-void displayTrajWithColor(vector<Eigen::Vector3d> path, double resolution, Eigen::Vector4d color,
+void displayTrajWithColor(std::vector<Eigen::Vector3d> path, double resolution, Eigen::Vector4d color,
                           int id) {
   visualization_msgs::msg::Marker mk;
   mk.header.frame_id = "world";
-  mk.header.stamp = node_->now();
+  mk.header.stamp = g_node->now();
   mk.type = visualization_msgs::msg::Marker::SPHERE_LIST;
   mk.action = visualization_msgs::msg::Marker::DELETE;
   mk.id = id;
 
-  traj_pub.publish(mk);
+  traj_pub->publish(mk);
 
   mk.action = visualization_msgs::msg::Marker::ADD;
   mk.pose.orientation.x = 0.0;
@@ -88,15 +91,14 @@ void displayTrajWithColor(vector<Eigen::Vector3d> path, double resolution, Eigen
     pt.z = path[i](2);
     mk.points.push_back(pt);
   }
-  traj_pub.publish(mk);
-  rclcpp::sleep_for(std::chrono::duration<double>(0.001));
+  traj_pub->publish(mk);
 }
 
 void drawCmd(const Eigen::Vector3d& pos, const Eigen::Vector3d& vec, const int& id,
              const Eigen::Vector4d& color) {
   visualization_msgs::msg::Marker mk_state;
   mk_state.header.frame_id = "world";
-  mk_state.header.stamp = node_->now();
+  mk_state.header.stamp = g_node->now();
   mk_state.id = id;
   mk_state.type = visualization_msgs::msg::Marker::ARROW;
   mk_state.action = visualization_msgs::msg::Marker::ADD;
@@ -122,20 +124,20 @@ void drawCmd(const Eigen::Vector3d& pos, const Eigen::Vector3d& vec, const int& 
   mk_state.color.b = color(2);
   mk_state.color.a = color(3);
 
-  cmd_vis_pub.publish(mk_state);
+  cmd_vis_pub->publish(mk_state);
 }
 
-void bsplineCallback(plan_manage::BsplineSharedPtr msg) {
+void bsplineCallback(const plan_manage::msg::Bspline::SharedPtr msg) {
   // parse pos traj
 
   Eigen::MatrixXd pos_pts(msg->pos_pts.size(), 3);
 
   Eigen::VectorXd knots(msg->knots.size());
-  for (int i = 0; i < msg->knots.size(); ++i) {
+  for (size_t i = 0; i < msg->knots.size(); ++i) {
     knots(i) = msg->knots[i];
   }
 
-  for (int i = 0; i < msg->pos_pts.size(); ++i) {
+  for (size_t i = 0; i < msg->pos_pts.size(); ++i) {
     pos_pts(i, 0) = msg->pos_pts[i].x;
     pos_pts(i, 1) = msg->pos_pts[i].y;
     pos_pts(i, 2) = msg->pos_pts[i].z;
@@ -147,7 +149,7 @@ void bsplineCallback(plan_manage::BsplineSharedPtr msg) {
   // parse yaw traj
 
   Eigen::MatrixXd yaw_pts(msg->yaw_pts.size(), 1);
-  for (int i = 0; i < msg->yaw_pts.size(); ++i) {
+  for (size_t i = 0; i < msg->yaw_pts.size(); ++i) {
     yaw_pts(i, 0) = msg->yaw_pts[i];
   }
 
@@ -168,23 +170,23 @@ void bsplineCallback(plan_manage::BsplineSharedPtr msg) {
   receive_traj_ = true;
 }
 
-void replanCallback(std_msgs::msg::Empty msg) {
+void replanCallback(const std_msgs::msg::Empty::SharedPtr msg) {
   /* reset duration */
   const double time_out = 0.01;
-  rclcpp::Time time_now = node_->now();
+  rclcpp::Time time_now = g_node->now();
   double t_stop = (time_now - start_time_).seconds() + time_out;
-  traj_duration_ = min(t_stop, traj_duration_);
+  traj_duration_ = std::min(t_stop, traj_duration_);
 }
 
-void newCallback(std_msgs::msg::Empty msg) {
+void newCallback(const std_msgs::msg::Empty::SharedPtr msg) {
   traj_cmd_.clear();
   traj_real_.clear();
 }
 
-void odomCallbck(const nav_msgs::msg::Odometry& msg) {
-  if (msg.child_frame_id == "X" || msg.child_frame_id == "O") return;
+void odomCallbck(const nav_msgs::msg::Odometry::SharedPtr msg) {
+  if (msg->child_frame_id == "X" || msg->child_frame_id == "O") return;
 
-  odom = msg;
+  odom = *msg;
 
   traj_real_.push_back(
       Eigen::Vector3d(odom.pose.pose.position.x, odom.pose.pose.position.y, odom.pose.pose.position.z));
@@ -192,23 +194,19 @@ void odomCallbck(const nav_msgs::msg::Odometry& msg) {
   if (traj_real_.size() > 10000) traj_real_.erase(traj_real_.begin(), traj_real_.begin() + 1000);
 }
 
-void visCallback(const rclcpp::TimerEvent& e) {
-  // displayTrajWithColor(traj_real_, 0.03, Eigen::Vector4d(0.925, 0.054, 0.964,
-  // 1),
-  //                      1);
-
+void visCallback() {
   displayTrajWithColor(traj_cmd_, 0.05, Eigen::Vector4d(0, 1, 0, 1), 2);
 }
 
-void cmdCallback(const rclcpp::TimerEvent& e) {
+void cmdCallback() {
   /* no publishing before receive traj_ */
   if (!receive_traj_) return;
 
-  rclcpp::Time time_now = node_->now();
+  rclcpp::Time time_now = g_node->now();
   double t_cur = (time_now - start_time_).seconds();
 
   Eigen::Vector3d pos, vel, acc, pos_f;
-  double yaw, yawdot;
+  double yaw = 0.0, yawdot = 0.0;
 
   if (t_cur < traj_duration_ && t_cur >= 0.0) {
     pos = traj_[0].evaluateDeBoorT(t_cur);
@@ -217,7 +215,7 @@ void cmdCallback(const rclcpp::TimerEvent& e) {
     yaw = traj_[3].evaluateDeBoorT(t_cur)[0];
     yawdot = traj_[4].evaluateDeBoorT(t_cur)[0];
 
-    double tf = min(traj_duration_, t_cur + 2.0);
+    double tf = std::min(traj_duration_, t_cur + 2.0);
     pos_f = traj_[0].evaluateDeBoorT(tf);
 
   } else if (t_cur >= traj_duration_) {
@@ -231,12 +229,12 @@ void cmdCallback(const rclcpp::TimerEvent& e) {
     pos_f = pos;
 
   } else {
-    cout << "[Traj server]: invalid time." << endl;
+    std::cout << "[Traj server]: invalid time." << std::endl;
   }
 
   cmd.header.stamp = time_now;
   cmd.header.frame_id = "world";
-  cmd.trajectory_flag = quadrotor_msgs::PositionCommand::TRAJECTORY_STATUS_READY;
+  cmd.trajectory_flag = quadrotor_msgs::msg::PositionCommand::TRAJECTORY_STATUS_READY;
   cmd.trajectory_id = traj_id_;
 
   cmd.position.x = pos(0);
@@ -254,47 +252,35 @@ void cmdCallback(const rclcpp::TimerEvent& e) {
   cmd.yaw = yaw;
   cmd.yaw_dot = yawdot;
 
-  auto pos_err = pos_f - pos;
-  // if (pos_err.norm() > 1e-3) {
-  //   cmd.yaw = atan2(pos_err(1), pos_err(0));
-  // } else {
-  //   cmd.yaw = last_yaw_;
-  // }
-  // cmd.yaw_dot = 1.0;
-
   last_yaw_ = cmd.yaw;
 
-  pos_cmd_pub.publish(cmd);
+  pos_cmd_pub->publish(cmd);
 
-  // draw cmd
-
-  // drawCmd(pos, vel, 0, Eigen::Vector4d(0, 1, 0, 1));
-  // drawCmd(pos, acc, 1, Eigen::Vector4d(0, 0, 1, 1));
-
-  Eigen::Vector3d dir(cos(yaw), sin(yaw), 0.0);
+  Eigen::Vector3d dir(std::cos(yaw), std::sin(yaw), 0.0);
   drawCmd(pos, 2 * dir, 2, Eigen::Vector4d(1, 1, 0, 0.7));
-  // drawCmd(pos, pos_err, 3, Eigen::Vector4d(1, 1, 0, 0.7));
 
   traj_cmd_.push_back(pos);
   if (traj_cmd_.size() > 10000) traj_cmd_.erase(traj_cmd_.begin(), traj_cmd_.begin() + 1000);
 }
 
 int main(int argc, char** argv) {
-  rclcpp::init(argc, argv, "traj_server");
-  rclcpp::Node node;
-  rclcpp::Node nh("~");
+  rclcpp::init(argc, argv);
+  g_node = rclcpp::Node::make_shared("traj_server");
+  // 使用同一个节点，不需要第二个节点
+  time_forward_ = g_node->declare_parameter("traj_server/time_forward", 1.5);
+  last_yaw_ = 0.0;
 
-  rclcpp::Subscription bspline_sub = node.subscribe("planning/bspline", 10, bsplineCallback);
-  rclcpp::Subscription replan_sub = node.subscribe("planning/replan", 10, replanCallback);
-  rclcpp::Subscription new_sub = node.subscribe("planning/new", 10, newCallback);
-  rclcpp::Subscription odom_sub = node.subscribe("/odom_world", 50, odomCallbck);
+  auto bspline_sub = g_node->create_subscription<plan_manage::msg::Bspline>("/planning/bspline", 10, bsplineCallback);
+  auto replan_sub = g_node->create_subscription<std_msgs::msg::Empty>("/planning/replan", 10, replanCallback);
+  auto new_sub = g_node->create_subscription<std_msgs::msg::Empty>("/planning/new", 10, newCallback);
+  auto odom_sub = g_node->create_subscription<nav_msgs::msg::Odometry>("/visual_slam/odom", 50, odomCallbck);
 
-  cmd_vis_pub = /* TODO: 转换发布 */ node->create_publisher<visualization_msgs::msg::Marker>("planning/position_cmd_vis", 10);
-  pos_cmd_pub = /* TODO: 转换发布 */ node->create_publisher<quadrotor_msgs::PositionCommand>("/position_cmd", 50);
-  traj_pub = /* TODO: 转换发布 */ node->create_publisher<visualization_msgs::msg::Marker>("planning/travel_traj", 10);
+  cmd_vis_pub = g_node->create_publisher<visualization_msgs::msg::Marker>("/planning/position_cmd_vis", 10);
+  pos_cmd_pub = g_node->create_publisher<quadrotor_msgs::msg::PositionCommand>("/planning/pos_cmd", 50);
+  traj_pub = g_node->create_publisher<visualization_msgs::msg::Marker>("/planning/travel_traj", 10);
 
-  rclcpp::Timer cmd_timer = node->create_wall_timer(std::chrono::duration<double>(0.01), cmdCallback);
-  rclcpp::Timer vis_timer = node->create_wall_timer(std::chrono::duration<double>(0.25), visCallback);
+  auto cmd_timer = g_node->create_wall_timer(std::chrono::milliseconds(10), cmdCallback);
+  auto vis_timer = g_node->create_wall_timer(std::chrono::milliseconds(250), visCallback);
 
   /* control parameter */
   cmd.kx[0] = pos_gain[0];
@@ -304,15 +290,18 @@ int main(int argc, char** argv) {
   cmd.kv[0] = vel_gain[0];
   cmd.kv[1] = vel_gain[1];
   cmd.kv[2] = vel_gain[2];
+  cmd.kv[2] = vel_gain[2];
 
-  time_forward_ = nh->declare_parameter("traj_server/time_forward", -1.0);
-  last_yaw_ = 0.0;
+  try {
+    rclcpp::sleep_for(std::chrono::seconds(1));
+  } catch (...) {}
 
-  rclcpp::sleep_for(std::chrono::duration<double>(1.0));
+  RCLCPP_WARN(g_node->get_logger(), "[Traj server]: ready.");
 
-  RCLCPP_WARN(node_->get_logger(), this->get_logger(), "[Traj server]: ready.");
+  rclcpp::spin(g_node);
 
-  rclcpp::spin(node);
-
+  rclcpp::shutdown();
   return 0;
 }
+
+

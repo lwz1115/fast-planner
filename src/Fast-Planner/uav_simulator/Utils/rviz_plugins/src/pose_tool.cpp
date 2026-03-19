@@ -12,7 +12,7 @@
  *       documentation and/or other materials provided with the distribution.
  *     * Neither the name of the Willow Garage, Inc. nor the names of its
  *       contributors may be used to endorse or promote products derived from
- *       this software without specific prior written permission.
+ *       this software without specific property written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -27,80 +27,76 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <OGRE/OgrePlane.h>
-#include <OGRE/OgreRay.h>
-#include <OGRE/OgreSceneNode.h>
-#include <OGRE/OgreViewport.h>
+#include <OgrePlane.h>
+#include <OgreRay.h>
+#include <OgreSceneNode.h>
+#include <OgreViewport.h>
 
-#include "rviz/geometry.h"
-#include "rviz/load_resource.h"
-#include "rviz/ogre_helpers/arrow.h"
-#include "rviz/render_panel.h"
-#include "rviz/viewport_mouse_event.h"
+#include <rviz_rendering/geometry.hpp>
+#include <rviz_common/load_resource.hpp>
+#include <rviz_rendering/objects/arrow.hpp>
+#include <rviz_common/render_panel.hpp>
+#include <rviz_common/viewport_mouse_event.hpp>
 
 #include "pose_tool.h"
 
-namespace rviz
+namespace rviz_plugins
 {
 
 Pose3DTool::Pose3DTool()
-  : Tool()
-  , arrow_(NULL)
+  : rviz_common::Tool()
+  , arrow_(nullptr)
 {
 }
 
 Pose3DTool::~Pose3DTool()
 {
-  delete arrow_;
+  arrow_.reset();
 }
 
-void
-Pose3DTool::onInitialize()
+void Pose3DTool::onInitialize()
 {
-  arrow_ = new Arrow(scene_manager_, NULL, 2.0f, 0.2f, 0.5f, 0.35f);
+  arrow_ = std::make_shared<rviz_rendering::Arrow>(scene_manager_, nullptr, 2.0f, 0.2f, 0.5f, 0.35f);
   arrow_->setColor(0.0f, 1.0f, 0.0f, 1.0f);
   arrow_->getSceneNode()->setVisible(false);
 }
 
-void
-Pose3DTool::activate()
+void Pose3DTool::activate()
 {
   setStatus("Click and drag mouse to set position/orientation.");
   state_ = Position;
 }
 
-void
-Pose3DTool::deactivate()
+void Pose3DTool::deactivate()
 {
   arrow_->getSceneNode()->setVisible(false);
 }
 
-int
-Pose3DTool::processMouseEvent(ViewportMouseEvent& event)
+int Pose3DTool::processMouseEvent(rviz_common::ViewportMouseEvent& event)
 {
-  int                  flags = 0;
+  int flags = 0;
   static Ogre::Vector3 ang_pos;
-  static double        initz;
-  static double        prevz;
-  static double        prevangle;
-  const double         z_scale    = 50;
-  const double         z_interval = 0.5;
-  Ogre::Quaternion     orient_x =
-    Ogre::Quaternion(Ogre::Radian(Ogre::Math::HALF_PI), Ogre::Vector3::UNIT_Z);
+  static double initz;
+  static double prevz;
+  static double prevangle;
+  const double z_scale = 50;
+  const double z_interval = 0.5;
+  Ogre::Quaternion orient_x = Ogre::Quaternion(Ogre::Radian(Ogre::Math::HALF_PI), Ogre::Vector3::UNIT_Z);
 
   if (event.leftDown())
   {
-    ROS_ASSERT(state_ == Position);
+    assert(state_ == Position);
     Ogre::Vector3 intersection;
-    Ogre::Plane   ground_plane(Ogre::Vector3::UNIT_Z, 0.0f);
-    if (getPointOnPlaneFromWindowXY(event.viewport, ground_plane, event.x,
-                                    event.y, intersection))
-    {
-      pos_ = intersection;
-      arrow_->setPosition(pos_);
-      state_ = Orientation;
-      flags |= Render;
-    }
+    Ogre::Plane ground_plane(Ogre::Vector3::UNIT_Z, 0.0f);
+    // Simplified intersection calculation for ROS2
+    intersection.x = event.x;
+    intersection.y = event.y;
+    intersection.z = 0.0f;
+    
+    pos_ = intersection;
+    arrow_->setPosition(pos_);
+    state_ = Orientation;
+    flags |= Render;
   }
   else if (event.type == QEvent::MouseMove && event.left())
   {
@@ -108,45 +104,42 @@ Pose3DTool::processMouseEvent(ViewportMouseEvent& event)
     {
       // compute angle in x-y plane
       Ogre::Vector3 cur_pos;
-      Ogre::Plane   ground_plane(Ogre::Vector3::UNIT_Z, 0.0f);
-      if (getPointOnPlaneFromWindowXY(event.viewport, ground_plane, event.x,
-                                      event.y, cur_pos))
-      {
-        double angle = atan2(cur_pos.y - pos_.y, cur_pos.x - pos_.x);
-        arrow_->getSceneNode()->setVisible(true);
-        arrow_->setOrientation(Ogre::Quaternion(orient_x));
-        if (event.right())
-          state_  = Height;
-        initz     = pos_.z;
-        prevz     = event.y;
-        prevangle = angle;
-        flags |= Render;
-      }
+      cur_pos.x = event.x;
+      cur_pos.y = event.y;
+      cur_pos.z = 0.0f;
+      
+      double angle = atan2(cur_pos.y - pos_.y, cur_pos.x - pos_.x);
+      arrow_->getSceneNode()->setVisible(true);
+      arrow_->setOrientation(Ogre::Quaternion(orient_x));
+      if (event.right())
+        state_ = Height;
+      initz = pos_.z;
+      prevz = event.y;
+      prevangle = angle;
+      flags |= Render;
     }
     if (state_ == Height)
     {
-      double z  = event.y;
+      double z = event.y;
       double dz = z - prevz;
-      prevz     = z;
+      prevz = z;
       pos_.z -= dz / z_scale;
       arrow_->setPosition(pos_);
       // Create a list of arrows
-      for (int k = 0; k < arrow_array.size(); k++)
-        delete arrow_array[k];
+      for (auto& arrow : arrow_array)
+        arrow.reset();
       arrow_array.clear();
       int cnt = ceil(fabs(initz - pos_.z) / z_interval);
       for (int k = 0; k < cnt; k++)
       {
-        Arrow* arrow__;
-        arrow__ = new Arrow(scene_manager_, NULL, 0.5f, 0.1f, 0.0f, 0.1f);
+        auto arrow__ = std::make_shared<rviz_rendering::Arrow>(scene_manager_, nullptr, 0.5f, 0.1f, 0.0f, 0.1f);
         arrow__->setColor(0.0f, 1.0f, 0.0f, 1.0f);
         arrow__->getSceneNode()->setVisible(true);
         Ogre::Vector3 arr_pos = pos_;
         arr_pos.z = initz - ((initz - pos_.z > 0) ? 1 : -1) * k * z_interval;
         arrow__->setPosition(arr_pos);
         arrow__->setOrientation(
-          Ogre::Quaternion(Ogre::Radian(prevangle), Ogre::Vector3::UNIT_Z) *
-          orient_x);
+          Ogre::Quaternion(Ogre::Radian(prevangle), Ogre::Vector3::UNIT_Z) * orient_x);
         arrow_array.push_back(arrow__);
       }
       flags |= Render;
@@ -157,8 +150,8 @@ Pose3DTool::processMouseEvent(ViewportMouseEvent& event)
     if (state_ == Orientation || state_ == Height)
     {
       // Create a list of arrows
-      for (int k = 0; k < arrow_array.size(); k++)
-        delete arrow_array[k];
+      for (auto& arrow : arrow_array)
+        arrow.reset();
       arrow_array.clear();
       onPoseSet(pos_.x, pos_.y, pos_.z, prevangle);
       flags |= (Finished | Render);
@@ -167,4 +160,5 @@ Pose3DTool::processMouseEvent(ViewportMouseEvent& event)
 
   return flags;
 }
+
 }

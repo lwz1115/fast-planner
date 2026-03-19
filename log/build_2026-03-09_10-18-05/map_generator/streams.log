@@ -1,6 +1,0 @@
-[0.061s] Invoking command in '/root/colcon_ws/build/map_generator': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /root/colcon_ws/build/map_generator -- -j8 -l8
-[0.169s] [35m[1mConsolidate compiler generated dependencies of target random_forest[0m
-[0.242s] [ 50%] [32mBuilding CXX object CMakeFiles/random_forest.dir/src/random_forest_sensing.cpp.o[0m
-[5.786s] gmake[2]: *** [CMakeFiles/random_forest.dir/build.make:76: CMakeFiles/random_forest.dir/src/random_forest_sensing.cpp.o] Interrupt
-[5.795s] gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/random_forest.dir/all] Interrupt
-[5.795s] gmake: *** [Makefile:146: all] Interrupt

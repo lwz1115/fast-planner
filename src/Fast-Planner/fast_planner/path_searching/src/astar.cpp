@@ -26,9 +26,6 @@
 #include <path_searching/astar.h>
 #include <sstream>
 
-using namespace std;
-using namespace Eigen;
-
 namespace fast_planner {
 Astar::~Astar() {
   for (int i = 0; i < allocate_num_; i++) {
@@ -44,7 +41,7 @@ int Astar::search(Eigen::Vector3d start_pt, Eigen::Vector3d end_pt, bool dynamic
   cur_node->index = posToIndex(start_pt);
   cur_node->g_score = 0.0;
 
-  Eigen::Vector3d end_state(6);
+  Eigen::VectorXd end_state(6);
   Eigen::Vector3i end_index;
   double time_to_goal;
 
@@ -64,7 +61,7 @@ int Astar::search(Eigen::Vector3d start_pt, Eigen::Vector3d end_pt, bool dynamic
   } else
     expanded_nodes_.insert(cur_node->index, cur_node);
 
-  NodePtr neighbor = NULL;
+  NodePtr neighbor = nullptr;
   NodePtr terminate_node = NULL;
 
   /* ---------- search loop ---------- */
@@ -105,7 +102,7 @@ int Astar::search(Eigen::Vector3d start_pt, Eigen::Vector3d end_pt, bool dynamic
     Eigen::Vector3d pro_pos;
     double pro_t;
 
-    vector<Eigen::Vector3d> inputs;
+    std::vector<Eigen::Vector3d> inputs;
     Eigen::Vector3d d_pos;
 
     /* ---------- expansion loop ---------- */
@@ -202,7 +199,7 @@ int Astar::search(Eigen::Vector3d start_pt, Eigen::Vector3d end_pt, bool dynamic
   return NO_PATH;
 }
 
-void Astar::setParam(rclcpp::Node& nh) {
+void Astar::setParam(rclcpp::Node::SharedPtr nh) {
   resolution_ = nh->declare_parameter("astar/resolution_astar", -1.0);
   time_resolution_ = nh->declare_parameter("astar/time_resolution", -1.0);
   lambda_heu_ = nh->declare_parameter("astar/lambda_heu", -1.0);
@@ -226,7 +223,7 @@ void Astar::retrievePath(NodePtr end_node) {
 }
 
 std::vector<Eigen::Vector3d> Astar::getPath() {
-  vector<Eigen::Vector3d> path;
+  std::vector<Eigen::Vector3d> path;
   for (int i = 0; i < path_nodes_.size(); ++i) {
     path.push_back(path_nodes_[i]->position);
   }
@@ -287,7 +284,7 @@ void Astar::init() {
   iter_num_ = 0;
 }
 
-void Astar::setEnvironment(const EDTEnvironment::SharedPtr& env) {
+void Astar::setEnvironment(const EDTEnvironment::Ptr& env) {
   this->edt_environment_ = env;
 }
 
@@ -309,13 +306,13 @@ void Astar::reset() {
 }
 
 std::vector<NodePtr> Astar::getVisitedNodes() {
-  vector<NodePtr> visited;
+  std::vector<NodePtr> visited;
   visited.assign(path_node_pool_.begin(), path_node_pool_.begin() + use_node_num_ - 1);
   return visited;
 }
 
 Eigen::Vector3i Astar::posToIndex(Eigen::Vector3d pt) {
-  Vector3i idx = ((pt - origin_) * inv_resolution_).array().floor().cast<int>();
+  Eigen::Vector3i idx = ((pt - origin_) * inv_resolution_).array().floor().cast<int>();
 
   // idx << floor((pt(0) - origin_(0)) * inv_resolution_), floor((pt(1) -
   // origin_(1)) * inv_resolution_),
@@ -326,6 +323,8 @@ Eigen::Vector3i Astar::posToIndex(Eigen::Vector3d pt) {
 
 int Astar::timeToIndex(double time) {
   int idx = floor((time - time_origin_) * inv_time_resolution_);
+  return idx;
 }
 
 }  // namespace fast_planner
+

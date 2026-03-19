@@ -37,7 +37,7 @@ install(TARGETS
 )
 
 install(DIRECTORY include/
-  DESTINATION include/${PROJECT_NAME}
+  DESTINATION include
 )
 
 install(EXPORT poly_trajTargets
@@ -51,4 +51,5 @@ ament_export_dependencies(rclcpp std_msgs Eigen3)
 ament_export_include_directories(include)
 
 ament_package()  
+
 

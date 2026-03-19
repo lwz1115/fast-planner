@@ -1,6 +1,0 @@
-gmake[2]: *** [CMakeFiles/plan_env.dir/build.make:90: CMakeFiles/plan_env.dir/src/edt_environment.cpp.o] Interrupt
-gmake[2]: *** wait: No child processes.  Stop.
-gmake[2]: *** Waiting for unfinished jobs....
-gmake[2]: *** wait: No child processes.  Stop.
-gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/plan_env.dir/all] Error 2
-gmake: *** [Makefile:146: all] Interrupt
