@@ -223,6 +223,28 @@ def generate_launch_description():
                     ('rendered_pcl', '/sdf_map/cloud'),
                 ]
             ),
+            # 深度图节点：订阅点云，投影生成深度图供RViz显示
+            Node(
+                package='local_sensing_node',
+                executable='depth_camera_node',
+                name='depth_camera_node',
+                output='screen',
+                parameters=[{
+                    'cam_width': 640,
+                    'cam_height': 480,
+                    'cam_fx': 387.229248046875,
+                    'cam_fy': 387.229248046875,
+                    'cam_cx': 321.04638671875,
+                    'cam_cy': 243.44969177246094,
+                    'max_depth': 10.0,
+                }],
+                remappings=[
+                    ('point_cloud', '/sdf_map/cloud'),
+                    ('odometry', odom_topic),
+                    ('color_depth', '/sdf_map/colordepth'),
+                    ('depth', '/sdf_map/depth'),
+                ]
+            ),
         ]
     
     return LaunchDescription([

@@ -190,6 +190,7 @@ class PlanningClient:
                 # Clean up request tracking
                 with self._request_lock:
                     self._pending_requests.pop(request_id, None)
+                    self._request_responses.pop(request_id, None)
             
             # Get the trajectory response
             with self._request_lock:

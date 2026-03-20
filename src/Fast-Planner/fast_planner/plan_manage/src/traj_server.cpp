@@ -268,6 +268,12 @@ int main(int argc, char** argv) {
   g_node = rclcpp::Node::make_shared("traj_server");
   // 使用同一个节点，不需要第二个节点
   time_forward_ = g_node->declare_parameter("traj_server/time_forward", 1.5);
+  pos_gain[0] = g_node->declare_parameter("traj_server/pos_gain_x", 5.7);
+  pos_gain[1] = g_node->declare_parameter("traj_server/pos_gain_y", 5.7);
+  pos_gain[2] = g_node->declare_parameter("traj_server/pos_gain_z", 6.2);
+  vel_gain[0] = g_node->declare_parameter("traj_server/vel_gain_x", 3.4);
+  vel_gain[1] = g_node->declare_parameter("traj_server/vel_gain_y", 3.4);
+  vel_gain[2] = g_node->declare_parameter("traj_server/vel_gain_z", 4.0);
   last_yaw_ = 0.0;
 
   auto bspline_sub = g_node->create_subscription<plan_manage::msg::Bspline>("/planning/bspline", 10, bsplineCallback);
@@ -289,7 +295,6 @@ int main(int argc, char** argv) {
 
   cmd.kv[0] = vel_gain[0];
   cmd.kv[1] = vel_gain[1];
-  cmd.kv[2] = vel_gain[2];
   cmd.kv[2] = vel_gain[2];
 
   try {

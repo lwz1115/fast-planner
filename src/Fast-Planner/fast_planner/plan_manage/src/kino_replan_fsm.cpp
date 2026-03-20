@@ -75,7 +75,7 @@ void KinoReplanFSM::waypointCallback(const geometry_msgs::msg::PoseStamped::Shar
   trigger_ = true;
 
   if (target_type_ == TARGET_TYPE::MANUAL_TARGET) {
-    end_pt_ << msg->pose.position.x, msg->pose.position.y, 1.0;
+    end_pt_ << msg->pose.position.x, msg->pose.position.y, msg->pose.position.z;
 
   } else if (target_type_ == TARGET_TYPE::PRESET_TARGET) {
     end_pt_(0)  = waypoints_[current_wp_][0];

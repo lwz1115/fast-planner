@@ -73,6 +73,9 @@ if(ENABLE_CUDA)
     ${PCL_LIBRARIES}
   )
 else()
+  find_package(OpenCV REQUIRED)
+  find_package(cv_bridge REQUIRED)
+
   add_executable(pcl_render_node
     src/pointcloud_render_node.cpp
   )
@@ -90,10 +93,30 @@ else()
   target_link_libraries(pcl_render_node
     ${PCL_LIBRARIES}
   )
+
+  # 深度图节点（独立节点，订阅点云发布深度图）
+  add_executable(depth_camera_node
+    src/depth_camera_node.cpp
+  )
+
+  ament_target_dependencies(depth_camera_node
+    rclcpp
+    std_msgs
+    nav_msgs
+    sensor_msgs
+    pcl_conversions
+    cv_bridge
+  )
+
+  target_link_libraries(depth_camera_node
+    ${PCL_LIBRARIES}
+    ${OpenCV_LIBS}
+  )
 endif()
 
 install(TARGETS
   pcl_render_node
+  depth_camera_node
   DESTINATION lib/${PROJECT_NAME}
 )
 
