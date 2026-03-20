@@ -15,7 +15,6 @@ import logging
 import threading
 import time
 from typing import Optional, Callable, Dict, TYPE_CHECKING, Any
-from datetime import datetime
 
 # 使用 TYPE_CHECKING 避免运行时导入错误
 if TYPE_CHECKING:
@@ -284,7 +283,7 @@ class ROSBridge:
         self._executor: Optional[MultiThreadedExecutor] = None
         self._spin_thread: Optional[threading.Thread] = None
         self._ros_connected = False
-        self._max_odometry_age = 1.0  # seconds
+        self._max_odometry_age = 5.0  # seconds
 
         logger.info(f"ROSBridge initialized with config: {config.dict()}")
 
@@ -376,6 +375,7 @@ class ROSBridge:
 
         # 转换为 OdometryResponse
         return OdometryResponse(
+            timestamp=time.time(),
             position=Position(
                 x=odom_msg.pose.pose.position.x,
                 y=odom_msg.pose.pose.position.y,
@@ -396,20 +396,23 @@ class ROSBridge:
                 x=odom_msg.twist.twist.angular.x,
                 y=odom_msg.twist.twist.angular.y,
                 z=odom_msg.twist.twist.angular.z
-            ),
-            timestamp=datetime.now()
+            )
         )
 
-    def publish_goal(self, position: Position, orientation: Quaternion,
-                    algorithm: str = "kinodynamic", frame_id: str = "world") -> bool:
+    def get_latest_odometry(self) -> Optional[OdometryResponse]:
+        """get_odometry的别名，兼容main.py的调用"""
+        return self.get_odometry()
+
+    def publish_goal(self, goal: Position, algorithm: str = "kinodynamic",
+                    frame_id: str = "world", start: Optional[Position] = None) -> bool:
         """
         Publish goal position to Fast-Planner.
 
         Args:
-            position: Goal position
-            orientation: Goal orientation
+            goal: Goal position
             algorithm: Planning algorithm ("kinodynamic" or "topological")
             frame_id: Reference frame
+            start: Start position (ignored, Fast-Planner uses its own odometry)
 
         Returns:
             True if published successfully, False otherwise
@@ -424,14 +427,15 @@ class ROSBridge:
             goal_msg.header.stamp = self._node.get_clock().now().to_msg()
             goal_msg.header.frame_id = frame_id
 
-            goal_msg.pose.position.x = position.x
-            goal_msg.pose.position.y = position.y
-            goal_msg.pose.position.z = position.z
+            goal_msg.pose.position.x = goal.x
+            goal_msg.pose.position.y = goal.y
+            goal_msg.pose.position.z = goal.z
 
-            goal_msg.pose.orientation.x = orientation.x
-            goal_msg.pose.orientation.y = orientation.y
-            goal_msg.pose.orientation.z = orientation.z
-            goal_msg.pose.orientation.w = orientation.w
+            # 默认朝向（yaw=0）
+            goal_msg.pose.orientation.x = 0.0
+            goal_msg.pose.orientation.y = 0.0
+            goal_msg.pose.orientation.z = 0.0
+            goal_msg.pose.orientation.w = 1.0
 
             # 发布
             return self._node.publish_goal(goal_msg, algorithm)

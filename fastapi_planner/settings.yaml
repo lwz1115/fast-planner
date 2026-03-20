@@ -11,7 +11,7 @@ ros:
   # ROS topic names
   topics:
     # Odometry topic (nav_msgs/Odometry)
-    odometry: "/state_ukf/odom"
+    odometry: "/visual_slam/odom"
     
     # Default goal topic for Fast-Planner (geometry_msgs/PoseStamped)
     goal: "/move_base_simple/goal"
@@ -106,7 +106,7 @@ service:
   # Health check configuration
   health_check:
     # Maximum age of odometry data in seconds before considered stale
-    max_odometry_age: 1.0
+    max_odometry_age: 5.0
     
     # Interval to check Fast-Planner node availability (seconds)
     planner_check_interval: 5.0

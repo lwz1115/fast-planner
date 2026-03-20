@@ -309,13 +309,13 @@ def load_config(config_path: Optional[str] = None) -> Config:
         
         # Use default path if not specified
         if config_path is None:
-            # Look for config.yaml in the fastapi_planner directory
-            default_path = Path(__file__).parent / 'config.yaml'
+            # Look for settings.yaml in the fastapi_planner directory
+            default_path = Path(__file__).parent / 'settings.yaml'
             if default_path.exists():
                 config_path = str(default_path)
             else:
-                # Fallback to workspace root
-                config_path = 'fastapi_planner/config.yaml'
+                # Fallback
+                config_path = 'fastapi_planner/settings.yaml'
     
     # Load YAML configuration
     try:
