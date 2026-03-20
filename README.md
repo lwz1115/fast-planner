@@ -7,6 +7,8 @@
 ![NVIDIA Jetson](https://img.shields.io/badge/NVIDIA-Jetson-76B900?logo=nvidia&logoColor=white)
 ![Ubuntu](https://img.shields.io/badge/Ubuntu-22.04-E95420?logo=ubuntu&logoColor=white)
 
+![Demo](demo.gif)
+
 基于 [Fast-Planner](https://github.com/HKUST-Aerial-Robotics/Fast-Planner) 的 ROS2 Humble 移植版本，针对 NVIDIA Jetson（aarch64）平台优化，并新增 FastAPI HTTP 接口。
 
 ## 主要改动
